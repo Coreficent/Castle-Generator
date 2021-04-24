@@ -20,7 +20,7 @@
             {
                 TileBase result = Instantiate(positions[i], transform);
                 result.transform.localScale = new Vector3(1.0f / positions.Count, 1.0f / positions.Count, 1.0f);
-                result.transform.localPosition = new Vector3(0.0f, 1.0f * i / positions.Count - 0.5f / positions.Count, 0.0f);
+                result.transform.localPosition = new Vector3(0.0f, 1.0f * i / positions.Count - (0.25f * (positions.Count - 1)), 0.0f);
                 children.Add(result);
             }
         }

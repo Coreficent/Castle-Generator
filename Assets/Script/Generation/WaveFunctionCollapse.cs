@@ -9,9 +9,12 @@
     {
         private World world;
 
-        public WaveFunctionCollapse(SuperPosition superPosition)
+        private Queue<SuperPosition> dequeue = new Queue<SuperPosition>();
+
+
+        public WaveFunctionCollapse(SuperPosition superPosition, SuperPosition emptyPosition)
         {
-            world = new World(superPosition);
+            world = new World(superPosition, emptyPosition);
         }
 
         public bool HasNext()

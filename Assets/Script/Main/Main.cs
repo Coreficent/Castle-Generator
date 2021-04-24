@@ -12,6 +12,9 @@
         [SerializeField]
         private SuperPosition superPosition;
 
+        [SerializeField]
+        private SuperPosition emptyPosition;
+
         private enum State
         {
             WaveFunctionCollapse,
@@ -28,7 +31,7 @@
 
         void Start()
         {
-            waveFunctionCollapse = new WaveFunctionCollapse(superPosition);
+            waveFunctionCollapse = new WaveFunctionCollapse(superPosition, emptyPosition);
 
             timeController.Reset();
             timeController.SetTime(1.0f);

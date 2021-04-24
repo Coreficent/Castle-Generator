@@ -10,16 +10,26 @@
     {
         Dictionary<string, SuperPosition> map = new Dictionary<string, SuperPosition>();
 
-        public World(SuperPosition superPosition)
+        public World(SuperPosition superPosition, SuperPosition emptyPosition)
         {
-            int size = 5;
+            int size = 7;
             for (int x = 0; x < size; ++x)
             {
                 for (int y = 0; y < size; ++y)
                 {
-                    SuperPosition position = UnityEngine.Object.Instantiate(superPosition);
-                    position.transform.position = new Vector3(x, y, 0.0f);
-                    map.Add("" + x + "::" + y, position);
+                    if (x == 0 || y == 0 || x == size - 1 || y == size - 1)
+                    {
+                        SuperPosition position = UnityEngine.Object.Instantiate(emptyPosition);
+                        position.transform.position = new Vector3(x, y, 0.0f);
+                        map.Add("" + x + "::" + y, position);
+                    }
+                    else
+                    {
+                        SuperPosition position = UnityEngine.Object.Instantiate(superPosition);
+                        position.transform.position = new Vector3(x, y, 0.0f);
+                        map.Add("" + x + "::" + y, position);
+                    }
+
                 }
             }
         }
