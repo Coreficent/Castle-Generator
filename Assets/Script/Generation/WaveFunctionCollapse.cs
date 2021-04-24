@@ -4,6 +4,7 @@
     using System.Collections;
     using System.Collections.Generic;
     using UnityEngine;
+    using static Coreficent.Tile.TileBase;
 
     public class WaveFunctionCollapse : IAnimatable
     {
@@ -24,8 +25,25 @@
 
         public void Next()
         {
-            SuperPosition superPosition = world.Next;
-            superPosition.Collapse(world);
+
+            if (dequeue.Count > 0)
+            {
+                SuperPosition superPosition = dequeue.Dequeue();
+
+                foreach (SuperPosition result in superPosition.Propagate(world, Direction.Up))
+                {
+                    dequeue.Enqueue(result);
+                }
+            }
+            else
+            {
+                SuperPosition superPosition = world.Next;
+
+                foreach (SuperPosition result in superPosition.Collapse(world))
+                {
+                    dequeue.Enqueue(result);
+                }
+            }
         }
 
         /*

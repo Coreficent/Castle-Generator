@@ -50,12 +50,11 @@
 
             List<SuperPosition> result = new List<SuperPosition>();
 
-            if (Propagate(world, Direction.Up))
-            {
-                result.Add(world.Find(X, Y + 1));
-            }
 
-            return null;
+
+            result.AddRange(Propagate(world, Direction.Up));
+
+            return result;
         }
 
         private void Render()
@@ -68,9 +67,9 @@
             }
         }
 
-        private bool Propagate(World world, Direction direction)
+        public List<SuperPosition> Propagate(World world, Direction direction)
         {
-            bool result = false;
+            List<SuperPosition> result = new List<SuperPosition>();
 
             if (direction == Direction.Up)
             {
@@ -78,7 +77,7 @@
 
                 if (superPosition.Collapsed)
                 {
-                    return false;
+                    return result;
                 }
 
                 HashSet<Socket> socketsUp = FindValidSockets(Direction.Up);
@@ -90,18 +89,11 @@
                         superPosition.children.Remove(tileBase);
                         Destroy(tileBase.gameObject);
 
-                        result = true;
+                        result.Add(superPosition);
 
-
+                        superPosition.Render();
                     }
                 }
-
-                if (result)
-                {
-                    superPosition.Render();
-                }
-
-
             }
 
             return result;
