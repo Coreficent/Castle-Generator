@@ -15,7 +15,7 @@
 
         public bool HasNext()
         {
-            return world.Collapsed;
+            return !world.Collapsed;
         }
 
         public void Next()

@@ -12,9 +12,19 @@
         [SerializeField]
         private SuperPosition superPosition;
 
+        private enum State
+        {
+            WaveFunctionCollapse,
+            Fin,
+        }
+
+        private State gameState = State.WaveFunctionCollapse;
+
         private readonly TimeController timeController = new TimeController();
 
         private WaveFunctionCollapse waveFunctionCollapse;
+
+
 
         void Start()
         {
@@ -29,15 +39,48 @@
         // Update is called once per frame
         void Update()
         {
+
+
             if (timeController.Reached)
             {
-                if (waveFunctionCollapse.HasNext())
-                {
-                    waveFunctionCollapse.Next();
-                }
+                Test.Log("on update");
 
+                switch (gameState)
+                {
+                    case State.WaveFunctionCollapse:
+
+                        if (waveFunctionCollapse.HasNext())
+                        {
+                            waveFunctionCollapse.Next();
+                        }
+                        else
+                        {
+                            Transition(State.Fin);
+                        }
+
+
+                        break;
+                    case State.Fin:
+
+                        Test.Log("finished");
+
+                        
+                        break;
+
+                    default:
+                        Test.Warn("unexpected game state");
+                        break;
+
+                }
                 timeController.Reset();
             }
+
+        }
+
+        private void Transition(State next)
+        {
+            timeController.Reset();
+            gameState = next;
         }
     }
 }
