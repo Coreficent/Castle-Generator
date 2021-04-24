@@ -39,10 +39,12 @@
             {
                 SuperPosition superPosition = world.Next;
 
-                foreach (SuperPosition result in superPosition.Collapse(world))
-                {
-                    dequeue.Enqueue(result);
-                }
+                superPosition.Collapse(world);
+
+
+                dequeue.Enqueue(world.Find(superPosition.X, superPosition.Y));
+
+
             }
         }
 

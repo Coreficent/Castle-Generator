@@ -34,7 +34,7 @@
             }
         }
 
-        public List<SuperPosition> Collapse(World world)
+        public void Collapse(World world)
         {
             TileBase selection = Instantiate(children[UnityEngine.Random.Range(0, children.Count)], transform);
 
@@ -47,14 +47,6 @@
             children.Add(selection);
 
             Render();
-
-            List<SuperPosition> result = new List<SuperPosition>();
-
-
-
-            result.AddRange(Propagate(world, Direction.Up));
-
-            return result;
         }
 
         private void Render()
@@ -147,7 +139,7 @@
 
 
 
-        private int X
+        public int X
         {
             get
             {
@@ -155,7 +147,7 @@
             }
         }
 
-        private int Y
+        public int Y
         {
             get
             {
