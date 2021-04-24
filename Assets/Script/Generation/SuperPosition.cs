@@ -114,6 +114,8 @@
                 superPosition.Render();
             }
 
+            Test.ToDo("others");
+
             return result;
         }
 
@@ -121,17 +123,41 @@
         {
             HashSet<Socket> result = new HashSet<Socket>();
 
-            if (direction == Direction.Up)
+            switch (direction)
             {
-                foreach (TileBase tileBase in children)
-                {
-                    result.UnionWith(tileBase.North);
-                }
+                case Direction.Up:
+                    foreach (TileBase tileBase in children)
+                    {
+                        result.UnionWith(tileBase.North);
+                    }
+                    break;
+
+                case Direction.Right:
+                    foreach (TileBase tileBase in children)
+                    {
+                        result.UnionWith(tileBase.East);
+                    }
+                    break;
+
+                case Direction.Down:
+                    foreach (TileBase tileBase in children)
+                    {
+                        result.UnionWith(tileBase.South);
+                    }
+                    break;
+
+                case Direction.Left:
+                    foreach (TileBase tileBase in children)
+                    {
+                        result.UnionWith(tileBase.West);
+                    }
+                    break;
+
+                default:
+                    Test.Log("unexpected direction");
+                    break;
+
             }
-
-            Test.ToDo("other directions");
-
-            Test.ToDo("use set in tile base instead of list");
 
             return result;
         }
