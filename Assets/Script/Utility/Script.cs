@@ -5,7 +5,7 @@
     using System.Reflection;
     using UnityEngine;
 
-    public class ReinforcedBehavior : MonoBehaviour
+    public class Script : MonoBehaviour
     {
         protected virtual void Awake()
         {
@@ -17,7 +17,7 @@
 
                     if (value == null || value.ToString() == "null" || value is false)
                     {
-                        DebugUtility.Warn(string.Format("{0} in {1} is {2}", field.Name, this, field.GetValue(this)));
+                        Test.Warn(string.Format("{0} in {1} is {2}", field.Name, this, field.GetValue(this)));
                     }
                 }
             }

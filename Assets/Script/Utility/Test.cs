@@ -6,7 +6,7 @@
     using System.Collections;
     using System.Collections.Generic;
     using UnityEngine;
-    public class DebugUtility
+    public class Test
     {
         private static readonly string _delimiter = "::";
         private static readonly string _ender = ".";
