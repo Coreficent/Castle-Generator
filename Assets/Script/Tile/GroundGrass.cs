@@ -6,6 +6,12 @@
 
     public class GroundGrass : TileBase
     {
-        
+        public GroundGrass()
+        {
+            north.Add(Socket.GrassToGrass);
+            east.Add(Socket.GrassToGrass);
+            south.Add(Socket.GrassToGrass);
+            west.Add(Socket.GrassToGrass);
+        }
     }
 }
