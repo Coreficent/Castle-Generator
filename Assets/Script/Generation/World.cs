@@ -10,6 +10,11 @@
     {
         Dictionary<string, SuperPosition> map = new Dictionary<string, SuperPosition>();
 
+        public World()
+        {
+            
+        }
+
         public bool Collapsed
         {
             get
