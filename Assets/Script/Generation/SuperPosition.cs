@@ -83,9 +83,9 @@
             }
         }
 
-        public List<SuperPosition> Propagate(World world, Direction direction)
+        public HashSet<SuperPosition> Propagate(World world, Direction direction)
         {
-            List<SuperPosition> result = new List<SuperPosition>();
+            HashSet<SuperPosition> result = new HashSet<SuperPosition>();
 
             if (direction == Direction.Up)
             {

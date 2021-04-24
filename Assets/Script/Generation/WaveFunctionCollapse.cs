@@ -30,7 +30,7 @@
             {
                 SuperPosition superPosition = dequeue.Dequeue();
 
-                List<SuperPosition> superPositions = superPosition.Propagate(world, Direction.Up);
+                HashSet<SuperPosition> superPositions = superPosition.Propagate(world, Direction.Up);
 
                 foreach (SuperPosition result in superPositions)
                 {
