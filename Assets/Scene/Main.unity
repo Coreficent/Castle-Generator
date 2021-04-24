@@ -327,6 +327,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   superPosition: {fileID: 4318848385235439122, guid: b37986e2ea6826449a8d8fb09495c9af,
     type: 3}
+  emptyPosition: {fileID: 4318848385235439122, guid: 9ff096784cf6f3e4491e9de67b887795,
+    type: 3}
 --- !u!4 &1422523519
 Transform:
   m_ObjectHideFlags: 0

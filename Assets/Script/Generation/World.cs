@@ -61,7 +61,9 @@
                 {
                     SuperPosition position = entry.Value;
 
-                    if (position.Entropy < entropy)
+                    
+
+                    if (!position.Collapsed && position.Entropy < entropy)
                     {
                         entropy = position.Entropy;
                         result = position;

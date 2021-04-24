@@ -38,7 +38,7 @@
         {
             TileBase selection = Instantiate(children[UnityEngine.Random.Range(0, children.Count)], transform);
             selection.transform.localScale = Vector3.one;
-            selection.transform.position = Vector3.zero;
+            selection.transform.localPosition = Vector3.zero;
 
             foreach (TileBase tileBase in children)
             {
