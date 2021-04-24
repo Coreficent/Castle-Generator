@@ -33,7 +33,7 @@
         }
         public static void ToDo(params object[] message)
         {
-            Output("Todo", message);
+            Warn("Todo", message);
         }
         public static void Start(params object[] message)
         {
