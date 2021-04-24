@@ -14,7 +14,7 @@
             GroundPathEnd,
         }
 
-        private enum Direction
+        public enum Direction
         {
             Up,
             Right,
@@ -23,12 +23,12 @@
             Invalid,
         }
 
-        protected List<Socket> north = new List<Socket>();
-        protected List<Socket> east = new List<Socket>();
-        protected List<Socket> south = new List<Socket>();
-        protected List<Socket> west = new List<Socket>();
+        protected HashSet<Socket> north = new HashSet<Socket>();
+        protected HashSet<Socket> east = new HashSet<Socket>();
+        protected HashSet<Socket> south = new HashSet<Socket>();
+        protected HashSet<Socket> west = new HashSet<Socket>();
 
-        public List<Socket> North
+        public HashSet<Socket> North
         {
             get
             {
@@ -51,7 +51,7 @@
             }
         }
 
-        public List<Socket> East
+        public HashSet<Socket> East
         {
             get
             {
@@ -74,7 +74,7 @@
             }
         }
 
-        public List<Socket> South
+        public HashSet<Socket> South
         {
             get
             {
@@ -97,7 +97,7 @@
             }
         }
 
-        public List<Socket> West
+        public HashSet<Socket> West
         {
             get
             {
