@@ -22,7 +22,7 @@
         public void Next()
         {
             SuperPosition superPosition = world.Next;
-            Test.Bug("next", superPosition.transform.position);
+            superPosition.Collapse();
         }
 
         /*

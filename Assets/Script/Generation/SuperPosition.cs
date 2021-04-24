@@ -12,14 +12,16 @@
         [SerializeField]
         List<TileBase> positions = new List<TileBase>();
 
+        List<TileBase> children = new List<TileBase>();
+
         protected virtual void Start()
         {
-
             for (int i = 0; i < positions.Count; ++i)
             {
                 TileBase result = Instantiate(positions[i], transform);
                 result.transform.localScale = new Vector3(1.0f / positions.Count, 1.0f / positions.Count, 1.0f);
                 result.transform.localPosition = new Vector3(0.0f, 1.0f * i / positions.Count - 0.5f / positions.Count, 0.0f);
+                children.Add(result);
             }
         }
 
@@ -28,13 +30,26 @@
         {
             get
             {
-                return positions.Count == 1;
+                return children.Count == 1;
             }
         }
 
         public List<SuperPosition> Collapse()
         {
-            throw new NotImplementedException();
+            TileBase selection = Instantiate(children[UnityEngine.Random.Range(0, children.Count)], transform);
+            selection.transform.localScale = Vector3.one;
+            selection.transform.position = Vector3.zero;
+
+            foreach (TileBase tileBase in children)
+            {
+                Destroy(tileBase.gameObject);
+            }
+
+            children.Clear();
+            children.Add(selection);
+
+            Test.ToDo("implement neightbors");
+            return null;
         }
 
         public int Compare(SuperPosition x, SuperPosition y)
