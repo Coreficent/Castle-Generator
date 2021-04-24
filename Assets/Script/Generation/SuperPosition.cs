@@ -37,8 +37,6 @@
         public List<SuperPosition> Collapse(World world)
         {
             TileBase selection = Instantiate(children[UnityEngine.Random.Range(0, children.Count)], transform);
-            selection.transform.localScale = Vector3.one;
-            selection.transform.localPosition = Vector3.zero;
 
             foreach (TileBase tileBase in children)
             {
@@ -47,6 +45,8 @@
 
             children.Clear();
             children.Add(selection);
+
+            Render();
 
             List<SuperPosition> result = new List<SuperPosition>();
 
@@ -59,11 +59,35 @@
 
         private void Render()
         {
+            int scale = 1;
+
+            while (scale < Mathf.Sqrt(children.Count))
+            {
+                scale <<= 2;
+            }
+
+
             for (int i = 0; i < children.Count; ++i)
             {
                 TileBase result = children[i];
-                result.transform.localScale = new Vector3(1.0f / children.Count, 1.0f / children.Count, 1.0f);
-                result.transform.localPosition = new Vector3(0.0f, 1.0f * i / children.Count - (0.25f * (children.Count - 1)), 0.0f);
+                result.transform.localScale = new Vector3(1.0f / scale, 1.0f / scale, 1.0f);
+                // result.transform.localPosition = new Vector3(0.0f, 1.0f * i / children.Count - (0.25f * (children.Count - 1)), 0.0f);
+                //result.transform.localPosition = new Vector3(0.0f, 0.0f, -0.5f * i);
+            }
+
+            int index = 0;
+
+            for (int x = 0; x < Mathf.Sqrt(children.Count); ++x)
+            {
+                for (int y = 0; y < Mathf.Sqrt(children.Count); ++y)
+                {
+                    if (index < children.Count)
+                    {
+                        children[index].transform.localPosition = new Vector3(1.0f * x / scale - 0.25f / scale * (children.Count - 1), 1.0f * y / scale - 0.25f / scale * (children.Count - 1), 0.0f);
+                    }
+
+                    ++index;
+                }
             }
         }
 
@@ -91,9 +115,11 @@
 
                         result.Add(superPosition);
 
-                        superPosition.Render();
+
                     }
                 }
+
+                superPosition.Render();
             }
 
             return result;
