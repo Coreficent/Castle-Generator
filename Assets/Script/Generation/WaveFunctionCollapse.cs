@@ -25,7 +25,7 @@
         public void Next()
         {
             SuperPosition superPosition = world.Next;
-            superPosition.Collapse();
+            superPosition.Collapse(world);
         }
 
         /*

@@ -8,7 +8,7 @@
 
     public class World
     {
-        Dictionary<string, SuperPosition> map = new Dictionary<string, SuperPosition>();
+        private Dictionary<string, SuperPosition> map = new Dictionary<string, SuperPosition>();
 
         public World(SuperPosition superPosition, SuperPosition emptyPosition)
         {
@@ -21,17 +21,27 @@
                     {
                         SuperPosition position = UnityEngine.Object.Instantiate(emptyPosition);
                         position.transform.position = new Vector3(x, y, 0.0f);
-                        map.Add("" + x + "::" + y, position);
+                        map.Add(Hash(x, y), position);
                     }
                     else
                     {
                         SuperPosition position = UnityEngine.Object.Instantiate(superPosition);
                         position.transform.position = new Vector3(x, y, 0.0f);
-                        map.Add("" + x + "::" + y, position);
+                        map.Add(Hash(x, y), position);
                     }
-
                 }
             }
+        }
+
+        public SuperPosition Find(int x, int y)
+        {
+            return map[Hash(x, y)];
+        }
+
+        private string Hash(int x, int y)
+        {
+            string result = "" + x + "::" + y;
+            return result;
         }
 
         public bool Collapsed
@@ -61,7 +71,7 @@
                 {
                     SuperPosition position = entry.Value;
 
-                    
+
 
                     if (!position.Collapsed && position.Entropy < entropy)
                     {

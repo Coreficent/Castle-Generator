@@ -34,7 +34,7 @@
             }
         }
 
-        public List<SuperPosition> Collapse()
+        public List<SuperPosition> Collapse(World world)
         {
             TileBase selection = Instantiate(children[UnityEngine.Random.Range(0, children.Count)], transform);
             selection.transform.localScale = Vector3.one;
