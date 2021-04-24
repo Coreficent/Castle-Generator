@@ -1,5 +1,6 @@
 ﻿namespace Coreficent.Generation
 {
+    using Coreficent.Utility;
     using System.Collections;
     using System.Collections.Generic;
     using UnityEngine;
@@ -21,6 +22,7 @@
         public void Next()
         {
             SuperPosition superPosition = world.Next;
+            Test.Bug("next", superPosition.transform.position);
         }
 
         /*

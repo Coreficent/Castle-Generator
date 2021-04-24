@@ -14,11 +14,12 @@
 
         protected virtual void Start()
         {
-            int index = 0;
-            foreach (TileBase tileBase in positions)
+
+            for (int i = 0; i < positions.Count; ++i)
             {
-                TileBase result = Instantiate(tileBase, transform);
-                result.transform.localPosition = new Vector3(0.0f, 0.0f, 0.1f * index++);
+                TileBase result = Instantiate(positions[i], transform);
+                result.transform.localScale = new Vector3(1.0f / positions.Count, 1.0f / positions.Count, 1.0f);
+                result.transform.localPosition = new Vector3(0.0f, 1.0f * i / positions.Count - 0.5f / positions.Count, 0.0f);
             }
         }
 

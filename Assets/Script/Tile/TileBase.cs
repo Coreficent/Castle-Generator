@@ -11,6 +11,7 @@
         public enum Socket
         {
             GrassToGrass,
+            GroundPathEnd,
         }
 
         private enum Direction

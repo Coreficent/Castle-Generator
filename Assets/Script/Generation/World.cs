@@ -12,7 +12,7 @@
 
         public World(SuperPosition superPosition)
         {
-            int size = 3;
+            int size = 5;
             for (int x = 0; x < size; ++x)
             {
                 for (int y = 0; y < size; ++y)
