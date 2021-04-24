@@ -6,16 +6,21 @@
 
     public class WaveFunctionCollapse : IAnimatable
     {
+        private World world;
 
+        public WaveFunctionCollapse(SuperPosition superPosition)
+        {
+            world = new World(superPosition);
+        }
 
         public bool HasNext()
         {
-            throw new System.NotImplementedException();
+            return world.Collapsed;
         }
 
         public void Next()
         {
-            throw new System.NotImplementedException();
+            SuperPosition superPosition = world.Next;
         }
 
         /*
