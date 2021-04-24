@@ -124,7 +124,7 @@
         {
             get
             {
-                float angle = transform.localEulerAngles.y % 360.0f;
+                float angle = transform.localEulerAngles.z % 360.0f;
 
                 if (Mathf.Approximately(angle, 0.0f) || Mathf.Approximately(angle, 360.0f) || Mathf.Approximately(angle, -0.0f) || Mathf.Approximately(angle, -360.0f))
                 {
