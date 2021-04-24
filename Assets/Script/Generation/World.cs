@@ -8,6 +8,8 @@
 
     public class World
     {
+        Dictionary<string, SuperPosition> map = new Dictionary<string, SuperPosition>();
+
         public bool Collapsed
         {
             get
