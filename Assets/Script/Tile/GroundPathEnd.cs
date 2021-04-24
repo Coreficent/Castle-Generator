@@ -8,6 +8,7 @@
     {
         public GroundPathEnd()
         {
+            north.Add(Socket.GrassToGrass);
             south.Add(Socket.GroundPathEnd);
         }
     }
