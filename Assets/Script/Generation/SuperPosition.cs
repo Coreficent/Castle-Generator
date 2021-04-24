@@ -18,13 +18,11 @@
 
         protected virtual void Start()
         {
-            for (int i = 0; i < positions.Count; ++i)
+            foreach (TileBase tileBase in positions)
             {
-                TileBase result = Instantiate(positions[i], transform);
-                result.transform.localScale = new Vector3(1.0f / positions.Count, 1.0f / positions.Count, 1.0f);
-                result.transform.localPosition = new Vector3(0.0f, 1.0f * i / positions.Count - (0.25f * (positions.Count - 1)), 0.0f);
-                children.Add(result);
+                children.Add(Instantiate(tileBase, transform));
             }
+            Render();
         }
 
 
@@ -60,6 +58,16 @@
             return null;
         }
 
+        private void Render()
+        {
+            for (int i = 0; i < children.Count; ++i)
+            {
+                TileBase result = children[i];
+                result.transform.localScale = new Vector3(1.0f / children.Count, 1.0f / children.Count, 1.0f);
+                result.transform.localPosition = new Vector3(0.0f, 1.0f * i / children.Count - (0.25f * (children.Count - 1)), 0.0f);
+            }
+        }
+
         private bool Propagate(World world, Direction direction)
         {
             bool result = false;
@@ -84,15 +92,15 @@
 
                         result = true;
 
-                        
-                    }
-                    else
-                    {
-                        Test.Log("here", socketsUp.Intersect(tileBase.South).ToList()); 
+
                     }
                 }
 
-                
+                if (result)
+                {
+                    superPosition.Render();
+                }
+
 
             }
 
@@ -147,7 +155,7 @@
         {
             get
             {
-                return positions.Count;
+                return children.Count;
             }
         }
     }
