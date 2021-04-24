@@ -30,9 +30,16 @@
             {
                 SuperPosition superPosition = dequeue.Dequeue();
 
-                foreach (SuperPosition result in superPosition.Propagate(world, Direction.Up))
+                List<SuperPosition> superPositions = superPosition.Propagate(world, Direction.Up);
+
+                foreach (SuperPosition result in superPositions)
                 {
                     dequeue.Enqueue(result);
+                }
+
+                if (superPositions.Count == 0)
+                {
+                    Next();
                 }
             }
             else
