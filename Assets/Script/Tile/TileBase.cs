@@ -10,6 +10,15 @@
         Path,
     }
 
+    public enum Direction
+    {
+        North,
+        East,
+        South,
+        West,
+        Invalid,
+    }
+
     public class TileBase : Script
     {
         public static Direction InverseDirection(Direction direction)
@@ -27,17 +36,6 @@
                 default:
                     return Direction.Invalid;
             }
-        }
-
-
-
-        public enum Direction
-        {
-            North,
-            East,
-            South,
-            West,
-            Invalid,
         }
 
         protected HashSet<Socket> north = new HashSet<Socket>();
