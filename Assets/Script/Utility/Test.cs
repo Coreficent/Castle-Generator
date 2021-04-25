@@ -80,7 +80,7 @@
 
                             foreach (var item in enumerable)
                             {
-                                message += item;
+                                message += item.ToString();
                                 message += ",";
                             }
                             //message += string.Join(",", enumerable);

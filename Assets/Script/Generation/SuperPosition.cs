@@ -16,6 +16,8 @@
 
         List<TileBase> children = new List<TileBase>();
 
+        public Direction PropogateOrigin = Direction.Invalid;
+
         protected virtual void Start()
         {
             foreach (TileBase tileBase in positions)
@@ -83,74 +85,21 @@
             }
         }
 
-        private void Constrain(World world, Direction direction)
-        {
-            SuperPosition superPosition;
-            HashSet<Socket> sockets;
 
-            switch (direction)
-            {
-                case Direction.Up:
-                    superPosition = world.Find(X, Y + 1);
-                    break;
-                case Direction.Right:
-                    superPosition = world.Find(X + 1, Y);
-                    break;
-                case Direction.Down:
-                    superPosition = world.Find(X, Y - 1);
-                    break;
-                case Direction.Left:
-                    superPosition = world.Find(X - 1, Y);
-                    break;
-                default:
-                    Test.Log("unexpected direction");
-                    return;
-            }
-
-            if (superPosition.positions.Count == 1 && superPosition.positions[0] is EmptyTile)
-            {
-                // Test.Bug("returned ");
-
-                return;
-            }
-
-            sockets = superPosition.FindValidSockets(direction);
-
-            foreach (TileBase tileBase in children.ToList())
-            {
-                if (sockets.Intersect(tileBase.South).ToList().Count == 0)
-                {
-                    children.Remove(tileBase);
-                    Destroy(tileBase.gameObject);
-                }
-            }
-
-        }
 
         public bool Propagate(World world)
         {
-            if (Collapsed)
+            if (IsEmptySuperPosition(this))
             {
                 return false;
             }
 
+
             int childrenCountStart = children.Count;
 
-            //Test.Bug("cc1", children.Count);
 
-            Constrain(world, Direction.Up);
+            Constrain(world, PropogateOrigin);
 
-            //Test.Bug("cc2", children.Count);
-
-            Constrain(world, Direction.Right);
-
-            //Test.Bug("cc3", children.Count);
-            Constrain(world, Direction.Down);
-
-            //Test.Bug("cc4", children.Count);
-            Constrain(world, Direction.Left);
-
-            //Test.Bug("cc5", children.Count);
 
             if (childrenCountStart == children.Count)
             {
@@ -162,34 +111,153 @@
             return true;
         }
 
+        private bool IsEmptySuperPosition(SuperPosition superPosition)
+        {
+            return superPosition.positions.Count == 1 && superPosition.positions[0] is EmptyTile;
+        }
+
+        private void Constrain(World world, Direction direction)
+        {
+            if (direction == Direction.Invalid)
+            {
+                Test.Warn("attempt to constrain from an invalid origin");
+            }
+
+
+
+            SuperPosition otherPosition;
+            HashSet<Socket> originSockets;
+
+            switch (direction)
+            {
+                case Direction.North:
+                    otherPosition = world.Find(X, Y + 1);
+                    break;
+                case Direction.West:
+                    otherPosition = world.Find(X - 1, Y);
+                    break;
+                case Direction.South:
+                    otherPosition = world.Find(X, Y - 1);
+                    break;
+                case Direction.East:
+                    otherPosition = world.Find(X + 1, Y);
+                    break;
+                default:
+                    Test.Log("unexpected direction");
+                    return;
+            }
+
+            if (IsEmptySuperPosition(otherPosition))
+            {
+                Test.Bug("empty tile returned ");
+
+                return;
+            }
+
+            originSockets = otherPosition.FindValidSockets(InverseDirection(direction));
+
+            string ob = "";
+
+            foreach (var i in originSockets)
+            {
+                ob += i;
+            }
+
+            Test.Bug("originSockets" + otherPosition.X + "::" + otherPosition.Y + "direction: " + InverseDirection(direction), ob);
+
+            foreach (TileBase tileBase in children.ToList())
+            {
+
+                HashSet<Socket> tileSockets;
+
+                switch (direction)
+                {
+                    case Direction.North:
+                        tileSockets = tileBase.North;
+                        break;
+                    case Direction.East:
+                        tileSockets = tileBase.East;
+                        break;
+                    case Direction.South:
+                        tileSockets = tileBase.South;
+                        break;
+                    case Direction.West:
+                        tileSockets = tileBase.West;
+                        break;
+                    default:
+                        Test.Log("unexpected direction");
+                        return;
+                }
+
+                Test.Bug("");
+                Test.Bug("");
+                Test.Bug("");
+
+
+
+                Test.Bug("");
+
+                foreach (var t in tileSockets)
+                {
+                    Test.Bug("this socket" + X + "::" + Y, t);
+                }
+
+                Test.Bug("");
+
+                if (originSockets.Intersect(tileSockets).ToList().Count == 0)
+                {
+                    Test.Bug("removing child start", tileBase);
+
+                    Test.Bug("orientation", tileBase.Orientation);
+
+                    Test.Bug("propagation origin", tileBase.Orientation);
+
+                    children.Remove(tileBase);
+                    Destroy(tileBase.gameObject);
+
+
+
+
+
+
+                    Test.Bug("removing child end");
+
+                }
+                else
+                {
+                    Test.Bug("not remove child");
+                }
+            }
+
+        }
         private HashSet<Socket> FindValidSockets(Direction direction)
         {
             HashSet<Socket> result = new HashSet<Socket>();
 
             switch (direction)
             {
-                case Direction.Up:
+                case Direction.North:
                     foreach (TileBase tileBase in children)
                     {
                         result.UnionWith(tileBase.North);
                     }
                     break;
 
-                case Direction.Right:
+                case Direction.East:
                     foreach (TileBase tileBase in children)
                     {
                         result.UnionWith(tileBase.East);
                     }
                     break;
 
-                case Direction.Down:
+                case Direction.South:
                     foreach (TileBase tileBase in children)
                     {
                         result.UnionWith(tileBase.South);
                     }
                     break;
 
-                case Direction.Left:
+                case Direction.West:
                     foreach (TileBase tileBase in children)
                     {
                         result.UnionWith(tileBase.West);

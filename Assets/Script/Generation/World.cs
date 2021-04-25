@@ -35,6 +35,12 @@
 
         public SuperPosition Find(int x, int y)
         {
+            if (!map.ContainsKey(Hash(x, y)))
+            {
+                Test.Warn("position not found", Hash(x, y));
+                return null;
+            }
+
             return map[Hash(x, y)];
         }
 

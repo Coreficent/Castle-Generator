@@ -8,6 +8,23 @@
 
     public class TileBase : Script
     {
+        public static Direction InverseDirection(Direction direction)
+        {
+            switch (direction)
+            {
+                case Direction.North:
+                    return Direction.South;
+                case Direction.East:
+                    return Direction.West;
+                case Direction.South:
+                    return Direction.North;
+                case Direction.West:
+                    return Direction.East;
+                default:
+                    return Direction.Invalid;
+            }
+        }
+
         public enum Socket
         {
             GrassToGrass,
@@ -16,10 +33,10 @@
 
         public enum Direction
         {
-            Up,
-            Right,
-            Down,
-            Left,
+            North,
+            East,
+            South,
+            West,
             Invalid,
         }
 
@@ -36,13 +53,13 @@
 
                 switch (direction)
                 {
-                    case Direction.Up:
+                    case Direction.North:
                         return north;
-                    case Direction.Right:
+                    case Direction.East:
                         return east;
-                    case Direction.Down:
+                    case Direction.South:
                         return south;
-                    case Direction.Left:
+                    case Direction.West:
                         return west;
                     default:
                         Test.Warn("unexpected direction");
@@ -59,13 +76,13 @@
 
                 switch (direction)
                 {
-                    case Direction.Up:
+                    case Direction.North:
                         return east;
-                    case Direction.Right:
+                    case Direction.East:
                         return south;
-                    case Direction.Down:
+                    case Direction.South:
                         return west;
-                    case Direction.Left:
+                    case Direction.West:
                         return north;
                     default:
                         Test.Warn("unexpected direction");
@@ -82,13 +99,13 @@
 
                 switch (direction)
                 {
-                    case Direction.Up:
+                    case Direction.North:
                         return south;
-                    case Direction.Right:
+                    case Direction.East:
                         return west;
-                    case Direction.Down:
+                    case Direction.South:
                         return north;
-                    case Direction.Left:
+                    case Direction.West:
                         return east;
                     default:
                         Test.Warn("unexpected direction");
@@ -105,13 +122,13 @@
 
                 switch (direction)
                 {
-                    case Direction.Up:
+                    case Direction.North:
                         return west;
-                    case Direction.Right:
+                    case Direction.East:
                         return north;
-                    case Direction.Down:
+                    case Direction.South:
                         return east;
-                    case Direction.Left:
+                    case Direction.West:
                         return south;
                     default:
                         Test.Warn("unexpected direction");
@@ -120,7 +137,7 @@
             }
         }
 
-        private Direction Orientation
+        public Direction Orientation
         {
             get
             {
@@ -128,19 +145,19 @@
 
                 if (Mathf.Approximately(angle, 0.0f) || Mathf.Approximately(angle, 360.0f) || Mathf.Approximately(angle, -0.0f) || Mathf.Approximately(angle, -360.0f))
                 {
-                    return Direction.Up;
+                    return Direction.North;
                 }
                 if (Mathf.Approximately(angle, 90.0f) || Mathf.Approximately(angle, -270.0f))
                 {
-                    return Direction.Right;
+                    return Direction.East;
                 }
                 if (Mathf.Approximately(angle, 180.0f) || Mathf.Approximately(angle, -180.0f))
                 {
-                    return Direction.Down;
+                    return Direction.South;
                 }
                 if (Mathf.Approximately(angle, 270.0f) || Mathf.Approximately(angle, -90.0f))
                 {
-                    return Direction.Left;
+                    return Direction.West;
                 }
 
                 Test.Warn("invalid direction found");
@@ -148,5 +165,10 @@
             }
         }
 
+        public override string ToString()
+        {
+            string delimiter = ", ";
+            return "name" + GetType().Name + delimiter + "orientation" + delimiter + Orientation;
+        }
     }
 }
