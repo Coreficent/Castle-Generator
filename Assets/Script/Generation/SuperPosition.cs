@@ -67,13 +67,17 @@
 
             int index = 0;
 
-            for (int x = 0; x < Mathf.Sqrt(children.Count); ++x)
+            int length = Mathf.RoundToInt(Mathf.Sqrt(children.Count));
+
+            for (int x = 0; x < length; ++x)
             {
-                for (int y = 0; y < Mathf.Sqrt(children.Count); ++y)
+                for (int y = 0; y < length; ++y)
                 {
                     if (index < children.Count)
                     {
-                        children[index].transform.localPosition = new Vector3(1.0f * x / scale - 0.25f / scale * (children.Count - 1), 1.0f * y / scale - 0.25f / scale * (children.Count - 1), 0.0f);
+                        float offset = length == 1 ? 0.0f : 1.0f * length / scale / 2;
+
+                        children[index].transform.localPosition = new Vector3(1.0f * x / scale - offset, 1.0f * y / scale - offset, 0.0f);
                     }
 
                     ++index;
