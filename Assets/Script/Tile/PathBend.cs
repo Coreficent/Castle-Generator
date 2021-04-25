@@ -1,14 +1,14 @@
 ﻿namespace Coreficent.Tile
 {
-    public class EmptyTile : TileBase
+    public class PathBend : TileBase
     {
-        public EmptyTile()
+        public PathBend()
         {
             north.Add(Socket.Grass);
 
-            east.Add(Socket.Grass);
+            east.Add(Socket.Path);
 
-            south.Add(Socket.Grass);
+            south.Add(Socket.Path);
 
             west.Add(Socket.Grass);
         }

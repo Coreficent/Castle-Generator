@@ -1,12 +1,8 @@
 ﻿namespace Coreficent.Tile
 {
-    using System.Collections;
-    using System.Collections.Generic;
-    using UnityEngine;
-
-    public class GroundPathEnd : TileBase
+    public class PathEnd : TileBase
     {
-        public GroundPathEnd()
+        public PathEnd()
         {
             north.Add(Socket.Grass);
 
