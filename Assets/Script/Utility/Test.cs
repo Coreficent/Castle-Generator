@@ -8,8 +8,8 @@
     using UnityEngine;
     public class Test
     {
-        private static readonly string _delimiter = "::";
-        private static readonly string _ender = ".";
+        private static readonly string delimiter = "::";
+        private static readonly string terminator = ".";
 
         public static void Draw(Vector3 start, Vector3 end, Color color)
         {
@@ -23,7 +23,7 @@
         {
             if (!condition)
             {
-                Warn("Assert" + _delimiter + "Failed" + _delimiter + name);
+                Warn("Assert" + delimiter + "Failed" + delimiter + name);
             }
         }
 
@@ -41,7 +41,7 @@
         }
         public static void Initialize(string name, params object[] message)
         {
-            Log("Initialized" + _delimiter + name, message);
+            Log("Initialized" + delimiter + name, message);
         }
         public static void Log(params object[] message)
         {
@@ -65,7 +65,7 @@
 
                 foreach (object i in variables)
                 {
-                    message += _delimiter;
+                    message += delimiter;
 
                     if (i == null)
                     {
@@ -99,19 +99,19 @@
                 switch (messageType)
                 {
                     case "Error":
-                        Debug.LogError(messageType + message + _ender);
+                        Debug.LogError(messageType + message + terminator);
                         break;
 
                     case "Warn":
-                        Debug.LogWarning(messageType + message + _ender);
+                        Debug.LogWarning(messageType + message + terminator);
                         break;
 
                     case "Todo":
-                        Debug.Log(messageType + message + _ender);
+                        Debug.Log(messageType + message + terminator);
                         break;
 
                     default:
-                        Debug.Log(messageType + message + _ender);
+                        Debug.Log(messageType + message + terminator);
                         break;
                 }
             }
