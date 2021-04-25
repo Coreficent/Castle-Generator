@@ -27,6 +27,36 @@
             Render();
         }
 
+        private void Render()
+        {
+            int scale = 1;
+
+            while (scale < Mathf.Sqrt(children.Count))
+            {
+                scale <<= 2;
+            }
+
+            for (int i = 0; i < children.Count; ++i)
+            {
+                TileBase result = children[i];
+                result.transform.localScale = new Vector3(1.0f / scale, 1.0f / scale, 1.0f);
+            }
+
+            int index = 0;
+
+            for (int x = 0; x < Mathf.Sqrt(children.Count); ++x)
+            {
+                for (int y = 0; y < Mathf.Sqrt(children.Count); ++y)
+                {
+                    if (index < children.Count)
+                    {
+                        children[index].transform.localPosition = new Vector3(1.0f * x / scale - 0.25f / scale * (children.Count - 1), 1.0f * y / scale - 0.25f / scale * (children.Count - 1), 0.0f);
+                    }
+
+                    ++index;
+                }
+            }
+        }
 
         public bool Collapsed
         {
@@ -51,42 +81,6 @@
             Render();
         }
 
-        private void Render()
-        {
-            int scale = 1;
-
-            while (scale < Mathf.Sqrt(children.Count))
-            {
-                scale <<= 2;
-            }
-
-
-            for (int i = 0; i < children.Count; ++i)
-            {
-                TileBase result = children[i];
-                result.transform.localScale = new Vector3(1.0f / scale, 1.0f / scale, 1.0f);
-                // result.transform.localPosition = new Vector3(0.0f, 1.0f * i / children.Count - (0.25f * (children.Count - 1)), 0.0f);
-                //result.transform.localPosition = new Vector3(0.0f, 0.0f, -0.5f * i);
-            }
-
-            int index = 0;
-
-            for (int x = 0; x < Mathf.Sqrt(children.Count); ++x)
-            {
-                for (int y = 0; y < Mathf.Sqrt(children.Count); ++y)
-                {
-                    if (index < children.Count)
-                    {
-                        children[index].transform.localPosition = new Vector3(1.0f * x / scale - 0.25f / scale * (children.Count - 1), 1.0f * y / scale - 0.25f / scale * (children.Count - 1), 0.0f);
-                    }
-
-                    ++index;
-                }
-            }
-        }
-
-
-
         public bool Propagate(World world)
         {
             if (IsEmptySuperPosition(this))
@@ -94,17 +88,12 @@
                 return false;
             }
 
-
-
-
             int childrenCountStart = children.Count;
-
 
             Constrain(world, Direction.North);
             Constrain(world, Direction.West);
             Constrain(world, Direction.South);
             Constrain(world, Direction.East);
-
 
             if (childrenCountStart == children.Count)
             {
@@ -152,29 +141,13 @@
                     return;
             }
 
-
             if (otherPosition.children.Count == 0)
             {
                 Test.Log("avoid cllapsing on uncollapsable tile");
                 return;
             }
 
-            //if (IsEmptySuperPosition(otherPosition))
-            //{
-            //    Test.Bug("empty tile returned ");
-            //    return;
-            //}
-
             originSockets = otherPosition.FindValidSockets(InverseDirection(direction));
-
-            //string ob = "";
-
-            //foreach (var i in originSockets)
-            //{
-            //    ob += i;
-            //}
-
-            // Test.Bug("originSockets" + otherPosition.X + "::" + otherPosition.Y + "direction: " + InverseDirection(direction), ob);
 
             foreach (TileBase tileBase in children.ToList())
             {
@@ -200,47 +173,14 @@
                         return;
                 }
 
-                //Test.Bug("");
-                //Test.Bug("");
-                //Test.Bug("");
-
-
-
-                //Test.Bug("");
-
-                //foreach (var t in tileSockets)
-                //{
-                //Test.Bug("this socket" + X + "::" + Y, t);
-                //}
-
-                //Test.Bug("");
-
                 if (originSockets.Intersect(tileSockets).ToList().Count == 0)
                 {
-                    //Test.Bug("removing child start", tileBase);
-
-                    //Test.Bug("orientation", tileBase.Orientation);
-
-                    //Test.Bug("propagation origin", tileBase.Orientation);
-
                     children.Remove(tileBase);
                     Destroy(tileBase.gameObject);
-
-
-
-
-
-
-                    //Test.Bug("removing child end");
-
-                }
-                else
-                {
-                    //Test.Bug("not remove child");
                 }
             }
-
         }
+
         private HashSet<Socket> FindValidSockets(Direction direction)
         {
             HashSet<Socket> result = new HashSet<Socket>();
@@ -284,9 +224,6 @@
             return result;
         }
 
-
-
-
         public int X
         {
             get
@@ -302,7 +239,6 @@
                 return Mathf.RoundToInt(transform.position.y);
             }
         }
-
 
         public int Compare(SuperPosition x, SuperPosition y)
         {
