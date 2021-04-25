@@ -1,5 +1,6 @@
 ﻿namespace Coreficent.Generation
 {
+    using Coreficent.Setting;
     using Coreficent.Utility;
     using System;
     using System.Collections;
@@ -12,12 +13,11 @@
 
         public World(SuperPosition superPosition, SuperPosition emptyPosition)
         {
-            int size = 7;
-            for (int x = 0; x < size; ++x)
+            for (int x = 0; x < Tuning.Width; ++x)
             {
-                for (int y = 0; y < size; ++y)
+                for (int y = 0; y < Tuning.Height; ++y)
                 {
-                    if (x == 0 || y == 0 || x == size - 1 || y == size - 1)
+                    if (x == 0 || y == 0 || x == Tuning.Width - 1 || y == Tuning.Height - 1)
                     {
                         SuperPosition position = UnityEngine.Object.Instantiate(emptyPosition);
                         position.transform.position = new Vector3(x, y, 0.0f);
