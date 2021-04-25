@@ -6,11 +6,11 @@
         {
             north.Add(Socket.Grass);
 
-            east.Add(Socket.Path);
+            west.Add(Socket.Grass);
 
             south.Add(Socket.Path);
 
-            west.Add(Socket.Grass);
+            east.Add(Socket.Path);
         }
     }
 }
