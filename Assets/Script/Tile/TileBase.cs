@@ -4,6 +4,12 @@
     using System.Collections.Generic;
     using UnityEngine;
 
+    public enum Socket
+    {
+        Grass,
+        Path,
+    }
+
     public class TileBase : Script
     {
         public static Direction InverseDirection(Direction direction)
@@ -23,11 +29,7 @@
             }
         }
 
-        public enum Socket
-        {
-            Grass,
-            Path,
-        }
+
 
         public enum Direction
         {
