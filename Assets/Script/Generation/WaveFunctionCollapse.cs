@@ -35,37 +35,13 @@
                 if (superPosition.Propagate(world))
                 {
 
-                    SuperPosition propogate;
-
-                    propogate = world.Find(superPosition.X, superPosition.Y + 1);
-
-                    if (!track.Contains(propogate))
+                    foreach (SuperPosition i in FindNeighbors(superPosition.X, superPosition.Y))
                     {
-                        dequeue.Push(propogate);
-                        track.Add(propogate);
-                    }
-
-                    propogate = world.Find(superPosition.X - 1, superPosition.Y);
-
-                    if (!track.Contains(propogate))
-                    {
-                        dequeue.Push(propogate);
-                        track.Add(propogate);
-                    }
-
-                    propogate = world.Find(superPosition.X, superPosition.Y - 1);
-                    if (!track.Contains(propogate))
-                    {
-                        dequeue.Push(propogate);
-                        track.Add(propogate);
-                    }
-
-                    
-                    propogate = world.Find(superPosition.X + 1, superPosition.Y);
-                    if (!track.Contains(propogate))
-                    {
-                        dequeue.Push(propogate);
-                        track.Add(propogate);
+                        if (!track.Contains(i))
+                        {
+                            dequeue.Push(i);
+                            track.Add(i);
+                        }
                     }
 
                 }
@@ -82,49 +58,41 @@
 
                 superPosition.Collapse(world);
 
-                SuperPosition propogate;
+                //SuperPosition propogate;
 
-                propogate = world.Find(superPosition.X, superPosition.Y + 1);
-                dequeue.Push(propogate);
+                //propogate = world.Find(superPosition.X, superPosition.Y + 1);
+                //dequeue.Push(propogate);
 
-                propogate = world.Find(superPosition.X - 1, superPosition.Y);
-                dequeue.Push(propogate);
+                //propogate = world.Find(superPosition.X - 1, superPosition.Y);
+                //dequeue.Push(propogate);
 
-                propogate = world.Find(superPosition.X, superPosition.Y - 1);
-                dequeue.Push(propogate);
+                //propogate = world.Find(superPosition.X, superPosition.Y - 1);
+                //dequeue.Push(propogate);
 
-                propogate = world.Find(superPosition.X + 1, superPosition.Y);
-                dequeue.Push(propogate);
+                //propogate = world.Find(superPosition.X + 1, superPosition.Y);
+                //dequeue.Push(propogate);
+
+                foreach (SuperPosition i in FindNeighbors(superPosition.X, superPosition.Y))
+                {
+                    dequeue.Push(i);
+                }
 
                 track.Clear();
                 track.Add(superPosition);
             }
         }
 
-        /*
-
-        map = graph
-
-        while map.not_fully_collapsed()
-            collapsible_chain = dequeue
-            collapsible_chain.push(map.minimum_block)
-
-            while collapsible_chain.not_empty()
-                block <- collapsible_chain
-                collapsible_chain.push(block.collapse())
-
-        class block::collaps -> collapsed block list
+        List<SuperPosition> FindNeighbors(int x, int y)
         {
-            result = list
-            for each in north based on rotation
-                if not have this north socket given tiles in this block
-                    remove
-                    result.add(north)
+            List<SuperPosition> result = new List<SuperPosition>();
 
-            do the same for other directions
+            result.Add(world.Find(x, y + 1));
+            result.Add(world.Find(x - 1, y));
+            result.Add(world.Find(x, y - 1));
+            result.Add(world.Find(x + 1, y));
+
+            return result;
         }
-
-         */
 
     }
 }
