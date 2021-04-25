@@ -1,10 +1,7 @@
 ﻿namespace Coreficent.Utility
 {
-    using System.Linq;
     using Coreficent.Setting;
-    using System;
     using System.Collections;
-    using System.Collections.Generic;
     using UnityEngine;
     public class Test
     {
