@@ -98,11 +98,21 @@
             int childrenCountStart = children.Count;
 
 
-            Constrain(world, PropogateOrigin);
+            Constrain(world, Direction.North);
+            Constrain(world, Direction.West);
+            Constrain(world, Direction.South);
+            Constrain(world, Direction.East);
 
 
             if (childrenCountStart == children.Count)
             {
+                return false;
+            }
+
+            if (children.Count == 0)
+            {
+                Test.Warn("unable to collapse");
+
                 return false;
             }
 
@@ -147,12 +157,11 @@
                     return;
             }
 
-            if (IsEmptySuperPosition(otherPosition))
-            {
-                Test.Bug("empty tile returned ");
-
-                return;
-            }
+            //if (IsEmptySuperPosition(otherPosition))
+            //{
+            //    Test.Bug("empty tile returned ");
+            //    return;
+            //}
 
             originSockets = otherPosition.FindValidSockets(InverseDirection(direction));
 
@@ -199,7 +208,7 @@
 
                 //foreach (var t in tileSockets)
                 //{
-                    //Test.Bug("this socket" + X + "::" + Y, t);
+                //Test.Bug("this socket" + X + "::" + Y, t);
                 //}
 
                 //Test.Bug("");
