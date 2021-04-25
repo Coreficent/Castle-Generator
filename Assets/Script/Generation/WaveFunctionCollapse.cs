@@ -35,7 +35,7 @@
                 if (superPosition.Propagate(world))
                 {
 
-                    foreach (SuperPosition i in FindNeighbors(superPosition.X, superPosition.Y))
+                    foreach (SuperPosition i in FindNeighbors(superPosition.X, superPosition.Y, superPosition.Z))
                     {
                         if (!track.Contains(i))
                         {
@@ -72,7 +72,7 @@
                 //propogate = world.Find(superPosition.X + 1, superPosition.Y);
                 //dequeue.Push(propogate);
 
-                foreach (SuperPosition i in FindNeighbors(superPosition.X, superPosition.Y))
+                foreach (SuperPosition i in FindNeighbors(superPosition.X, superPosition.Y, superPosition.Z))
                 {
                     dequeue.Push(i);
                 }
@@ -82,14 +82,14 @@
             }
         }
 
-        List<SuperPosition> FindNeighbors(int x, int y)
+        List<SuperPosition> FindNeighbors(int x, int y, int z)
         {
             List<SuperPosition> result = new List<SuperPosition>();
 
-            result.Add(world.Find(x, y + 1));
-            result.Add(world.Find(x - 1, y));
-            result.Add(world.Find(x, y - 1));
-            result.Add(world.Find(x + 1, y));
+            result.Add(world.Find(x, y + 1, z));
+            result.Add(world.Find(x - 1, y, z));
+            result.Add(world.Find(x, y - 1, z));
+            result.Add(world.Find(x + 1, y, z));
 
             return result;
         }

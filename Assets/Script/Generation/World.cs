@@ -17,37 +17,39 @@
             {
                 for (int y = 0; y < Tuning.Height; ++y)
                 {
-                    if (x == 0 || y == 0 || x == Tuning.Width - 1 || y == Tuning.Height - 1)
+                    for (int z = 0; z < Tuning.Depth; ++z)
                     {
-                        SuperPosition position = UnityEngine.Object.Instantiate(emptyPosition);
-                        position.transform.position = new Vector3(x, y, 0.0f);
-                        map.Add(Hash(x, y), position);
-                    }
-                    else
-                    {
-                        SuperPosition position = UnityEngine.Object.Instantiate(superPosition);
-                        position.transform.position = new Vector3(x, y, 0.0f);
-                        map.Add(Hash(x, y), position);
+                        if (x == 0 || y == 0 || x == Tuning.Width - 1 || y == Tuning.Height - 1)
+                        {
+                            SuperPosition position = UnityEngine.Object.Instantiate(emptyPosition);
+                            position.transform.position = new Vector3(x, y, z);
+                            map.Add(Hash(x, y, z), position);
+                        }
+                        else
+                        {
+                            SuperPosition position = UnityEngine.Object.Instantiate(superPosition);
+                            position.transform.position = new Vector3(x, y, z);
+                            map.Add(Hash(x, y, z), position);
+                        }
                     }
                 }
             }
         }
 
-        public SuperPosition Find(int x, int y)
+        public SuperPosition Find(int x, int y, int z)
         {
-            if (!map.ContainsKey(Hash(x, y)))
+            if (!map.ContainsKey(Hash(x, y, z)))
             {
-                Test.Warn("position not found", Hash(x, y));
+                Test.Warn("position not found", Hash(x, y, z));
                 return null;
             }
 
-            return map[Hash(x, y)];
+            return map[Hash(x, y, z)];
         }
 
-        private string Hash(int x, int y)
+        private string Hash(int x, int y, int z)
         {
-            string result = "" + x + "::" + y;
-            return result;
+            return "" + x + "::" + y + "::" + z + "";
         }
 
         public bool Collapsed

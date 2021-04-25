@@ -159,16 +159,16 @@
             switch (direction)
             {
                 case Direction.North:
-                    otherPosition = world.Find(X, Y + 1);
+                    otherPosition = world.Find(X, Y + 1, Z);
                     break;
                 case Direction.West:
-                    otherPosition = world.Find(X - 1, Y);
+                    otherPosition = world.Find(X - 1, Y, Z);
                     break;
                 case Direction.South:
-                    otherPosition = world.Find(X, Y - 1);
+                    otherPosition = world.Find(X, Y - 1, Z);
                     break;
                 case Direction.East:
-                    otherPosition = world.Find(X + 1, Y);
+                    otherPosition = world.Find(X + 1, Y, Z);
                     break;
                 default:
                     Test.Warn("attempt to constrain from an invalid origin");
@@ -267,7 +267,7 @@
         {
             get
             {
-                return Mathf.RoundToInt(transform.position.x);
+                return Round(transform.position.x);
             }
         }
 
@@ -275,8 +275,21 @@
         {
             get
             {
-                return Mathf.RoundToInt(transform.position.y);
+                return Round(transform.position.y);
             }
+        }
+
+        public int Z
+        {
+            get
+            {
+                return Round(transform.position.z);
+            }
+        }
+
+        private int Round(float Input)
+        {
+            return Mathf.RoundToInt(Input);
         }
 
         public int Compare(SuperPosition x, SuperPosition y)
