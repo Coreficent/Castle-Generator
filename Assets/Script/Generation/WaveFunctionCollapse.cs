@@ -35,39 +35,43 @@
                 if (superPosition.Propagate(world))
                 {
 
-                    SuperPosition candidate;
+                    SuperPosition propogate;
 
-                    candidate = world.Find(superPosition.X, superPosition.Y + 1);
+                    propogate = world.Find(superPosition.X, superPosition.Y + 1);
+                    propogate.PropogateOrigin = Direction.South;
 
-                    if (!track.Contains(candidate))
+                    if (!track.Contains(propogate))
                     {
-                        dequeue.Push(candidate);
-                        track.Add(candidate);
+                        dequeue.Push(propogate);
+                        track.Add(propogate);
                     }
 
-                    candidate = world.Find(superPosition.X + 1, superPosition.Y);
+                    propogate = world.Find(superPosition.X - 1, superPosition.Y);
+                    propogate.PropogateOrigin = Direction.East;
 
-                    if (!track.Contains(candidate))
+                    if (!track.Contains(propogate))
                     {
-                        dequeue.Push(candidate);
-                        track.Add(candidate);
+                        dequeue.Push(propogate);
+                        track.Add(propogate);
                     }
 
-                    candidate = world.Find(superPosition.X, superPosition.Y - 1);
-
-                    if (!track.Contains(candidate))
+                    propogate = world.Find(superPosition.X, superPosition.Y - 1);
+                    propogate.PropogateOrigin = Direction.North;
+                    if (!track.Contains(propogate))
                     {
-                        dequeue.Push(candidate);
-                        track.Add(candidate);
+                        dequeue.Push(propogate);
+                        track.Add(propogate);
                     }
 
-                    candidate = world.Find(superPosition.X - 1, superPosition.Y);
-
-                    if (!track.Contains(candidate))
+                    
+                    propogate = world.Find(superPosition.X + 1, superPosition.Y);
+                    propogate.PropogateOrigin = Direction.West;
+                    if (!track.Contains(propogate))
                     {
-                        dequeue.Push(candidate);
-                        track.Add(candidate);
+                        dequeue.Push(propogate);
+                        track.Add(propogate);
                     }
+
                 }
                 else
                 {
@@ -76,7 +80,7 @@
             }
             else
             {
-                Test.Bug("collapse");
+                // Test.Bug("collapse");
 
                 SuperPosition superPosition = world.Next;
 

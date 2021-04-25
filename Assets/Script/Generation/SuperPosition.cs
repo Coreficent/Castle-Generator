@@ -163,7 +163,7 @@
                 ob += i;
             }
 
-            Test.Bug("originSockets" + otherPosition.X + "::" + otherPosition.Y + "direction: " + InverseDirection(direction), ob);
+            // Test.Bug("originSockets" + otherPosition.X + "::" + otherPosition.Y + "direction: " + InverseDirection(direction), ob);
 
             foreach (TileBase tileBase in children.ToList())
             {
@@ -189,28 +189,28 @@
                         return;
                 }
 
-                Test.Bug("");
-                Test.Bug("");
-                Test.Bug("");
+                //Test.Bug("");
+                //Test.Bug("");
+                //Test.Bug("");
 
 
 
-                Test.Bug("");
+                //Test.Bug("");
 
-                foreach (var t in tileSockets)
-                {
-                    Test.Bug("this socket" + X + "::" + Y, t);
-                }
+                //foreach (var t in tileSockets)
+                //{
+                    //Test.Bug("this socket" + X + "::" + Y, t);
+                //}
 
-                Test.Bug("");
+                //Test.Bug("");
 
                 if (originSockets.Intersect(tileSockets).ToList().Count == 0)
                 {
-                    Test.Bug("removing child start", tileBase);
+                    //Test.Bug("removing child start", tileBase);
 
-                    Test.Bug("orientation", tileBase.Orientation);
+                    //Test.Bug("orientation", tileBase.Orientation);
 
-                    Test.Bug("propagation origin", tileBase.Orientation);
+                    //Test.Bug("propagation origin", tileBase.Orientation);
 
                     children.Remove(tileBase);
                     Destroy(tileBase.gameObject);
@@ -220,12 +220,12 @@
 
 
 
-                    Test.Bug("removing child end");
+                    //Test.Bug("removing child end");
 
                 }
                 else
                 {
-                    Test.Bug("not remove child");
+                    //Test.Bug("not remove child");
                 }
             }
 
