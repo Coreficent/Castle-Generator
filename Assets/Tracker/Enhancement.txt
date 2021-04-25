@@ -1,4 +1,7 @@
+add rotated children to a set automatically
 define empty super position borders
 add the z dimension
+add weight
+add audio for stepping
 
 complete:
