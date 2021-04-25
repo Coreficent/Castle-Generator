@@ -140,6 +140,3 @@ MonoBehaviour:
   positions:
   - {fileID: 8592277147959183041, guid: 80d6a4bd5cc1f3943b8d839f16eddb1d, type: 3}
   - {fileID: 5929724246854358099, guid: e6ff6dace99bb82449ba8fdc3448cb39, type: 3}
-  - {fileID: 5929724246854358099, guid: 0829137fcde506c4faaade3f2748fb1e, type: 3}
-  - {fileID: 5929724246854358099, guid: c600da2b19be031409c5b6a91f66e39a, type: 3}
-  - {fileID: 5929724246854358099, guid: 7a457c79cea5b65469e051bb46594e16, type: 3}

@@ -12,15 +12,40 @@
     public class SuperPosition : Script, IComparer<SuperPosition>
     {
         [SerializeField]
-        List<TileBase> positions = new List<TileBase>();
+        private List<TileBase> positions = new List<TileBase>();
 
-        List<TileBase> children = new List<TileBase>();
+        private List<TileBase> children = new List<TileBase>();
 
         protected virtual void Start()
         {
             foreach (TileBase tileBase in positions)
             {
-                children.Add(Instantiate(tileBase, transform));
+                if (IsEmptySuperPosition(this))
+                {
+                    children.Add(Instantiate(tileBase, transform));
+                }
+                else
+                {
+                    HashSet<TileBase> filter = new HashSet<TileBase>();
+
+                    for (int i = 0; i < 4; ++i)
+                    {
+                        TileBase tile = Instantiate(tileBase, transform);
+
+                        tile.transform.eulerAngles = new Vector3(0.0f, 0.0f, i * 90.0f);
+
+                        if (!filter.Contains(tile))
+                        {
+                            children.Add(tile);
+                            filter.Add(tile);
+                        }
+                        else
+                        {
+                            Destroy(tile.gameObject);
+                        }
+
+                    }
+                }
             }
             Render();
         }

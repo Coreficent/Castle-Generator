@@ -170,5 +170,44 @@
             string delimiter = ", ";
             return "name" + GetType().Name + delimiter + "orientation" + delimiter + Orientation;
         }
+
+        public override bool Equals(object obj)
+        {
+            TileBase other = obj as TileBase;
+
+            if (other == null)
+            {
+                return false;
+            }
+
+            return North.SetEquals(other.North) && West.SetEquals(other.West) && South.SetEquals(other.South) && East.SetEquals(other.East);
+        }
+
+        public override int GetHashCode()
+        {
+            int hash = 17;
+
+            foreach (var i in North)
+            {
+                hash = hash * 23 + i.GetHashCode();
+            }
+
+            foreach (var i in West)
+            {
+                hash = hash * 23 + i.GetHashCode();
+            }
+
+            foreach (var i in South)
+            {
+                hash = hash * 23 + i.GetHashCode();
+            }
+
+            foreach (var i in East)
+            {
+                hash = hash * 23 + i.GetHashCode();
+            }
+
+            return hash;
+        }
     }
 }
