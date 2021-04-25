@@ -16,8 +16,6 @@
 
         List<TileBase> children = new List<TileBase>();
 
-        // public Direction PropogateOrigin = Direction.Invalid;
-
         protected virtual void Start()
         {
             foreach (TileBase tileBase in positions)
@@ -68,6 +66,8 @@
 
         public void Collapse(World world)
         {
+            Bind(world);
+
             TileBase selection = Instantiate(children[UnityEngine.Random.Range(0, children.Count)], transform);
 
             foreach (TileBase tileBase in children)
@@ -90,10 +90,7 @@
 
             int childrenCountStart = children.Count;
 
-            Constrain(world, Direction.North);
-            Constrain(world, Direction.West);
-            Constrain(world, Direction.South);
-            Constrain(world, Direction.East);
+            Bind(world);
 
             if (childrenCountStart == children.Count)
             {
@@ -115,6 +112,15 @@
         private bool IsEmptySuperPosition(SuperPosition superPosition)
         {
             return superPosition.positions.Count == 1 && superPosition.positions[0] is EmptyTile;
+        }
+
+
+        private void Bind(World world)
+        {
+            Constrain(world, Direction.North);
+            Constrain(world, Direction.West);
+            Constrain(world, Direction.South);
+            Constrain(world, Direction.East);
         }
 
         private void Constrain(World world, Direction direction)
