@@ -87,34 +87,119 @@
         {
             HashSet<SuperPosition> result = new HashSet<SuperPosition>();
 
-            if (direction == Direction.Up)
+            SuperPosition superPosition;
+            HashSet<Socket> sockets;
+
+            switch (direction)
             {
-                SuperPosition superPosition = world.Find(X, Y + 1);
+                case Direction.Up:
+                    superPosition = world.Find(X, Y + 1);
 
-                if (superPosition.Collapsed)
-                {
-                    return result;
-                }
-
-                HashSet<Socket> socketsUp = FindValidSockets(Direction.Up);
-
-                foreach (TileBase tileBase in superPosition.children.ToList())
-                {
-                    if (socketsUp.Intersect(tileBase.South).ToList().Count == 0)
+                    if (superPosition.Collapsed)
                     {
-                        superPosition.children.Remove(tileBase);
-                        Destroy(tileBase.gameObject);
-
-                        result.Add(superPosition);
-
-
+                        return result;
                     }
-                }
 
-                superPosition.Render();
+                    sockets = FindValidSockets(Direction.Up);
+
+                    foreach (TileBase tileBase in superPosition.children.ToList())
+                    {
+                        if (sockets.Intersect(tileBase.South).ToList().Count == 0)
+                        {
+                            superPosition.children.Remove(tileBase);
+                            Destroy(tileBase.gameObject);
+
+                            result.Add(superPosition);
+                        }
+                    }
+
+                    superPosition.Render();
+
+                    break;
+
+                case Direction.Right:
+                    superPosition = world.Find(X + 1, Y);
+
+                    if (superPosition.Collapsed)
+                    {
+                        return result;
+                    }
+
+                    sockets = FindValidSockets(Direction.Right);
+
+                    foreach (TileBase tileBase in superPosition.children.ToList())
+                    {
+                        if (sockets.Intersect(tileBase.South).ToList().Count == 0)
+                        {
+                            superPosition.children.Remove(tileBase);
+                            Destroy(tileBase.gameObject);
+
+                            result.Add(superPosition);
+                        }
+                    }
+
+                    superPosition.Render();
+
+                    break;
+
+                case Direction.Down:
+                    superPosition = world.Find(X, Y - 1);
+
+                    if (superPosition.Collapsed)
+                    {
+                        return result;
+                    }
+
+                    sockets = FindValidSockets(Direction.Down);
+
+                    foreach (TileBase tileBase in superPosition.children.ToList())
+                    {
+                        if (sockets.Intersect(tileBase.South).ToList().Count == 0)
+                        {
+                            superPosition.children.Remove(tileBase);
+                            Destroy(tileBase.gameObject);
+
+                            result.Add(superPosition);
+                        }
+                    }
+
+                    superPosition.Render();
+
+                    break;
+
+                case Direction.Left:
+                    superPosition = world.Find(X - 1, Y);
+
+                    if (superPosition.Collapsed)
+                    {
+                        return result;
+                    }
+
+                    sockets = FindValidSockets(Direction.Left);
+
+                    foreach (TileBase tileBase in superPosition.children.ToList())
+                    {
+                        if (sockets.Intersect(tileBase.South).ToList().Count == 0)
+                        {
+                            superPosition.children.Remove(tileBase);
+                            Destroy(tileBase.gameObject);
+
+                            result.Add(superPosition);
+                        }
+                    }
+
+                    superPosition.Render();
+
+                    break;
+
+
+                default:
+                    Test.Log("unexpected direction in Propagate");
+                    break;
             }
 
-            Test.ToDo("others");
+
+
 
             return result;
         }
