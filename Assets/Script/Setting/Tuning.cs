@@ -4,7 +4,7 @@
 
     public class Tuning
     {
-        public static readonly float StepInterval = 1.0f;
+        public static readonly float StepInterval = 0.25f;
     }
 
 }

@@ -95,6 +95,8 @@
             }
 
 
+
+
             int childrenCountStart = children.Count;
 
 
@@ -128,13 +130,6 @@
 
         private void Constrain(World world, Direction direction)
         {
-            if (direction == Direction.Invalid)
-            {
-                Test.Warn("attempt to constrain from an invalid origin");
-            }
-
-
-
             SuperPosition otherPosition;
             HashSet<Socket> originSockets;
 
@@ -153,8 +148,15 @@
                     otherPosition = world.Find(X + 1, Y);
                     break;
                 default:
-                    Test.Log("unexpected direction");
+                    Test.Warn("attempt to constrain from an invalid origin");
                     return;
+            }
+
+
+            if (otherPosition.children.Count == 0)
+            {
+                Test.Log("avoid cllapsing on uncollapsable tile");
+                return;
             }
 
             //if (IsEmptySuperPosition(otherPosition))
