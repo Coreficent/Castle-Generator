@@ -34,7 +34,7 @@
             waveFunctionCollapse = new WaveFunctionCollapse(superPosition, emptyPosition);
 
             timeController.Reset();
-            timeController.SetTime(0.5f);
+            timeController.SetTime(1.5f);
 
             Test.Log("main initialied");
         }

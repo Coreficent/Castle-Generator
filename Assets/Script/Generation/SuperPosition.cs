@@ -83,10 +83,8 @@
             }
         }
 
-        public HashSet<SuperPosition> Propagate(World world, Direction direction)
+        private void Constrain(World world, Direction direction)
         {
-            HashSet<SuperPosition> result = new HashSet<SuperPosition>();
-
             SuperPosition superPosition;
             HashSet<Socket> sockets;
 
@@ -94,114 +92,74 @@
             {
                 case Direction.Up:
                     superPosition = world.Find(X, Y + 1);
-
-                    if (superPosition.Collapsed)
-                    {
-                        return result;
-                    }
-
-                    sockets = FindValidSockets(Direction.Up);
-
-                    foreach (TileBase tileBase in superPosition.children.ToList())
-                    {
-                        if (sockets.Intersect(tileBase.South).ToList().Count == 0)
-                        {
-                            superPosition.children.Remove(tileBase);
-                            Destroy(tileBase.gameObject);
-
-                            result.Add(superPosition);
-                        }
-                    }
-
-                    superPosition.Render();
-
                     break;
-
                 case Direction.Right:
                     superPosition = world.Find(X + 1, Y);
-
-                    if (superPosition.Collapsed)
-                    {
-                        return result;
-                    }
-
-                    sockets = FindValidSockets(Direction.Right);
-
-                    foreach (TileBase tileBase in superPosition.children.ToList())
-                    {
-                        if (sockets.Intersect(tileBase.South).ToList().Count == 0)
-                        {
-                            superPosition.children.Remove(tileBase);
-                            Destroy(tileBase.gameObject);
-
-                            result.Add(superPosition);
-                        }
-                    }
-
-                    superPosition.Render();
-
                     break;
-
                 case Direction.Down:
                     superPosition = world.Find(X, Y - 1);
-
-                    if (superPosition.Collapsed)
-                    {
-                        return result;
-                    }
-
-                    sockets = FindValidSockets(Direction.Down);
-
-                    foreach (TileBase tileBase in superPosition.children.ToList())
-                    {
-                        if (sockets.Intersect(tileBase.South).ToList().Count == 0)
-                        {
-                            superPosition.children.Remove(tileBase);
-                            Destroy(tileBase.gameObject);
-
-                            result.Add(superPosition);
-                        }
-                    }
-
-                    superPosition.Render();
-
                     break;
-
                 case Direction.Left:
                     superPosition = world.Find(X - 1, Y);
-
-                    if (superPosition.Collapsed)
-                    {
-                        return result;
-                    }
-
-                    sockets = FindValidSockets(Direction.Left);
-
-                    foreach (TileBase tileBase in superPosition.children.ToList())
-                    {
-                        if (sockets.Intersect(tileBase.South).ToList().Count == 0)
-                        {
-                            superPosition.children.Remove(tileBase);
-                            Destroy(tileBase.gameObject);
-
-                            result.Add(superPosition);
-                        }
-                    }
-
-                    superPosition.Render();
-
                     break;
-
-
                 default:
-                    Test.Log("unexpected direction in Propagate");
-                    break;
+                    Test.Log("unexpected direction");
+                    return;
             }
 
+            if (superPosition.positions.Count == 1 && superPosition.positions[0] is EmptyTile)
+            {
+                // Test.Bug("returned ");
 
+                return;
+            }
 
+            sockets = superPosition.FindValidSockets(direction);
 
-            return result;
+            foreach (TileBase tileBase in children.ToList())
+            {
+                if (sockets.Intersect(tileBase.South).ToList().Count == 0)
+                {
+                    children.Remove(tileBase);
+                    Destroy(tileBase.gameObject);
+                }
+            }
+
+        }
+
+        public bool Propagate(World world)
+        {
+            if (Collapsed)
+            {
+                return false;
+            }
+
+            int childrenCountStart = children.Count;
+
+            //Test.Bug("cc1", children.Count);
+
+            Constrain(world, Direction.Up);
+
+            //Test.Bug("cc2", children.Count);
+
+            Constrain(world, Direction.Right);
+
+            //Test.Bug("cc3", children.Count);
+            Constrain(world, Direction.Down);
+
+            //Test.Bug("cc4", children.Count);
+            Constrain(world, Direction.Left);
+
+            //Test.Bug("cc5", children.Count);
+
+            if (childrenCountStart == children.Count)
+            {
+                return false;
+            }
+
+            Render();
+
+            return true;
         }
 
         private HashSet<Socket> FindValidSockets(Direction direction)

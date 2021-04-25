@@ -11,7 +11,7 @@
         private World world;
 
         private Queue<SuperPosition> dequeue = new Queue<SuperPosition>();
-
+        private HashSet<SuperPosition> track = new HashSet<SuperPosition>();
 
         public WaveFunctionCollapse(SuperPosition superPosition, SuperPosition emptyPosition)
         {
@@ -30,28 +30,64 @@
             {
                 SuperPosition superPosition = dequeue.Dequeue();
 
-                HashSet<SuperPosition> superPositions = superPosition.Propagate(world, Direction.Up);
+                Test.Bug("pro", superPosition.X, superPosition.Y);
 
-                foreach (SuperPosition result in superPositions)
+                if (superPosition.Propagate(world))
                 {
-                    dequeue.Enqueue(result);
-                }
 
-                if (superPositions.Count == 0)
+                    SuperPosition candidate;
+
+                    candidate = world.Find(superPosition.X, superPosition.Y + 1);
+
+                    if (!track.Contains(candidate))
+                    {
+                        dequeue.Enqueue(candidate);
+                        track.Add(candidate);
+                    }
+
+                    candidate = world.Find(superPosition.X + 1, superPosition.Y);
+
+                    if (!track.Contains(candidate))
+                    {
+                        dequeue.Enqueue(candidate);
+                        track.Add(candidate);
+                    }
+
+                    candidate = world.Find(superPosition.X, superPosition.Y - 1);
+
+                    if (!track.Contains(candidate))
+                    {
+                        dequeue.Enqueue(candidate);
+                        track.Add(candidate);
+                    }
+
+                    candidate = world.Find(superPosition.X - 1, superPosition.Y);
+
+                    if (!track.Contains(candidate))
+                    {
+                        dequeue.Enqueue(candidate);
+                        track.Add(candidate);
+                    }
+                }
+                else
                 {
                     Next();
                 }
             }
             else
             {
+                Test.Bug("collapse");
+
                 SuperPosition superPosition = world.Next;
 
                 superPosition.Collapse(world);
 
+                dequeue.Enqueue(world.Find(superPosition.X, superPosition.Y + 1));
+                dequeue.Enqueue(world.Find(superPosition.X + 1, superPosition.Y));
+                dequeue.Enqueue(world.Find(superPosition.X, superPosition.Y - 1));
+                dequeue.Enqueue(world.Find(superPosition.X - 1, superPosition.Y));
 
-                dequeue.Enqueue(world.Find(superPosition.X, superPosition.Y));
-
-
+                track.Clear();
             }
         }
 

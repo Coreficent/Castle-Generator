@@ -29,7 +29,7 @@
 
         public static void Bug(params object[] message)
         {
-            Output("Bug", message);
+            Warn("Bug", message);
         }
         public static void ToDo(params object[] message)
         {
