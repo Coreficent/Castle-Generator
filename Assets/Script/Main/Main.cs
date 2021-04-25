@@ -2,6 +2,7 @@
 {
     using Coreficent.Controller;
     using Coreficent.Generation;
+    using Coreficent.Setting;
     using Coreficent.Utility;
     using System.Collections;
     using System.Collections.Generic;
@@ -34,7 +35,7 @@
             waveFunctionCollapse = new WaveFunctionCollapse(superPosition, emptyPosition);
 
             timeController.Reset();
-            timeController.SetTime(1.5f);
+            timeController.SetTime(Tuning.StepInterval);
 
             Test.Log("main initialied");
         }

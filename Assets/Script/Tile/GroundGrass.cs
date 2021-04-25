@@ -8,13 +8,13 @@
     {
         public GroundGrass()
         {
-            north.Add(Socket.GrassToGrass);
+            north.Add(Socket.Grass);
 
-            east.Add(Socket.GrassToGrass);
+            east.Add(Socket.Grass);
 
-            south.Add(Socket.GrassToGrass);
+            south.Add(Socket.Grass);
 
-            west.Add(Socket.GrassToGrass);
+            west.Add(Socket.Grass);
         }
     }
 }

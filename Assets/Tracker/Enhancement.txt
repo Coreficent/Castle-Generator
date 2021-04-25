@@ -1,0 +1,4 @@
+define empty super position borders
+add the z dimension
+
+complete:
