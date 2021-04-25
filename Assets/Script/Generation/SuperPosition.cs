@@ -70,12 +70,11 @@
 
             TileBase selection = Instantiate(children[UnityEngine.Random.Range(0, children.Count)], transform);
 
-            foreach (TileBase tileBase in children)
+            foreach (TileBase tileBase in children.ToList())
             {
-                Destroy(tileBase.gameObject);
+                RemoveChild(tileBase);
             }
 
-            children.Clear();
             children.Add(selection);
 
             Render();
@@ -181,10 +180,15 @@
 
                 if (originSockets.Intersect(tileSockets).ToList().Count == 0)
                 {
-                    children.Remove(tileBase);
-                    Destroy(tileBase.gameObject);
+                    RemoveChild(tileBase);
                 }
             }
+        }
+
+        private void RemoveChild(TileBase tileBase)
+        {
+            children.Remove(tileBase);
+            Destroy(tileBase.gameObject);
         }
 
         private HashSet<Socket> FindValidSockets(Direction direction)
