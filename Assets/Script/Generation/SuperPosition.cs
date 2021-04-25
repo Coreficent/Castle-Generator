@@ -16,7 +16,7 @@
 
         List<TileBase> children = new List<TileBase>();
 
-        public Direction PropogateOrigin = Direction.Invalid;
+        // public Direction PropogateOrigin = Direction.Invalid;
 
         protected virtual void Start()
         {
@@ -167,12 +167,12 @@
 
             originSockets = otherPosition.FindValidSockets(InverseDirection(direction));
 
-            string ob = "";
+            //string ob = "";
 
-            foreach (var i in originSockets)
-            {
-                ob += i;
-            }
+            //foreach (var i in originSockets)
+            //{
+            //    ob += i;
+            //}
 
             // Test.Bug("originSockets" + otherPosition.X + "::" + otherPosition.Y + "direction: " + InverseDirection(direction), ob);
 

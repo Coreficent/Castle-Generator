@@ -38,7 +38,6 @@
                     SuperPosition propogate;
 
                     propogate = world.Find(superPosition.X, superPosition.Y + 1);
-                    propogate.PropogateOrigin = Direction.South;
 
                     if (!track.Contains(propogate))
                     {
@@ -47,7 +46,6 @@
                     }
 
                     propogate = world.Find(superPosition.X - 1, superPosition.Y);
-                    propogate.PropogateOrigin = Direction.East;
 
                     if (!track.Contains(propogate))
                     {
@@ -56,7 +54,6 @@
                     }
 
                     propogate = world.Find(superPosition.X, superPosition.Y - 1);
-                    propogate.PropogateOrigin = Direction.North;
                     if (!track.Contains(propogate))
                     {
                         dequeue.Push(propogate);
@@ -65,7 +62,6 @@
 
                     
                     propogate = world.Find(superPosition.X + 1, superPosition.Y);
-                    propogate.PropogateOrigin = Direction.West;
                     if (!track.Contains(propogate))
                     {
                         dequeue.Push(propogate);
@@ -89,19 +85,15 @@
                 SuperPosition propogate;
 
                 propogate = world.Find(superPosition.X, superPosition.Y + 1);
-                propogate.PropogateOrigin = Direction.South;
                 dequeue.Push(propogate);
 
                 propogate = world.Find(superPosition.X - 1, superPosition.Y);
-                propogate.PropogateOrigin = Direction.East;
                 dequeue.Push(propogate);
 
                 propogate = world.Find(superPosition.X, superPosition.Y - 1);
-                propogate.PropogateOrigin = Direction.North;
                 dequeue.Push(propogate);
 
                 propogate = world.Find(superPosition.X + 1, superPosition.Y);
-                propogate.PropogateOrigin = Direction.West;
                 dequeue.Push(propogate);
 
                 track.Clear();
