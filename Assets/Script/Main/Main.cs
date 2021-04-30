@@ -30,7 +30,7 @@
 
 
 
-        void Start()
+        protected virtual void Awake()
         {
             waveFunctionCollapse = new WaveFunctionCollapse(superPosition, emptyPosition);
 
@@ -68,7 +68,7 @@
 
                         Test.Log("finished");
 
-                        
+
                         break;
 
                     default:

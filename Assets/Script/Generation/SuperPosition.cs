@@ -20,32 +20,30 @@
 
         private bool manuallyCollapsed = false;
 
-        protected virtual void Start()
+        protected virtual void Awake()
         {
             foreach (TileBase tileBase in positions)
             {
-                if (!manuallyCollapsed)
+                HashSet<TileBase> filter = new HashSet<TileBase>();
+
+                for (int i = 0; i < 4; ++i)
                 {
-                    HashSet<TileBase> filter = new HashSet<TileBase>();
+                    TileBase tile = Instantiate(tileBase, transform);
 
-                    for (int i = 0; i < 4; ++i)
+                    tile.transform.eulerAngles = new Vector3(0.0f, 0.0f, i * 90.0f);
+
+                    if (!filter.Contains(tile))
                     {
-                        TileBase tile = Instantiate(tileBase, transform);
-
-                        tile.transform.eulerAngles = new Vector3(0.0f, 0.0f, i * 90.0f);
-
-                        if (!filter.Contains(tile))
-                        {
-                            AddChild(tile);
-                            filter.Add(tile);
-                        }
-                        else
-                        {
-                            Destroy(tile.gameObject);
-                        }
+                        AddChild(tile);
+                        filter.Add(tile);
+                    }
+                    else
+                    {
+                        Destroy(tile.gameObject);
                     }
                 }
             }
+
             Render();
         }
 

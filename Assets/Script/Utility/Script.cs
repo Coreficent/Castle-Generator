@@ -7,7 +7,7 @@
 
     public class Script : MonoBehaviour
     {
-        protected virtual void Awake()
+        protected virtual void Start()
         {
             if (DebugMode.On)
             {
