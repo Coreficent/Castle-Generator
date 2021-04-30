@@ -44,7 +44,7 @@
             }
             else
             {
-                Superposition superposition = world.Next;
+                Superposition superposition = world.NextMinimumEntropyPosition;
 
                 superposition.Collapse(world);
 

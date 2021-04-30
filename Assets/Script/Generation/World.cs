@@ -75,7 +75,7 @@
             }
         }
 
-        public Superposition Next
+        public Superposition NextMinimumEntropyPosition
         {
             get
             {
