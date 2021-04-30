@@ -11,7 +11,7 @@
     {
         private Dictionary<string, Superposition> map = new Dictionary<string, Superposition>();
 
-        public World(Superposition superPosition, Superposition emptyPosition)
+        public World(Superposition superPosition)
         {
             for (int x = 0; x < Tuning.Width; ++x)
             {

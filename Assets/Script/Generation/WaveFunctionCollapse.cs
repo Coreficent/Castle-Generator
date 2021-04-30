@@ -13,9 +13,9 @@
         private Stack<Superposition> dequeue = new Stack<Superposition>();
         private HashSet<Superposition> track = new HashSet<Superposition>();
 
-        public WaveFunctionCollapse(Superposition superPosition, Superposition emptyPosition)
+        public WaveFunctionCollapse(Superposition superPosition)
         {
-            world = new World(superPosition, emptyPosition);
+            world = new World(superPosition);
         }
 
         public bool HasNext()

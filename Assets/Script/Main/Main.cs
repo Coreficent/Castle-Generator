@@ -4,17 +4,12 @@
     using Coreficent.Generation;
     using Coreficent.Setting;
     using Coreficent.Utility;
-    using System.Collections;
-    using System.Collections.Generic;
     using UnityEngine;
 
     public class Main : Script
     {
         [SerializeField]
         private Superposition superPosition;
-
-        [SerializeField]
-        private Superposition emptyPosition;
 
         private enum State
         {
@@ -28,11 +23,9 @@
 
         private WaveFunctionCollapse waveFunctionCollapse;
 
-
-
         protected virtual void Awake()
         {
-            waveFunctionCollapse = new WaveFunctionCollapse(superPosition, emptyPosition);
+            waveFunctionCollapse = new WaveFunctionCollapse(superPosition);
 
             timeController.Reset();
             timeController.SetTime(Tuning.StepInterval);
