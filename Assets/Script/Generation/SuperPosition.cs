@@ -22,7 +22,7 @@
             {
                 if (IsEmptySuperPosition(this))
                 {
-                    children.Add(Instantiate(tileBase, transform));
+                    AddChild(Instantiate(tileBase, transform));
                 }
                 else
                 {
@@ -36,7 +36,7 @@
 
                         if (!filter.Contains(tile))
                         {
-                            children.Add(tile);
+                            AddChild(tile);
                             filter.Add(tile);
                         }
                         else
@@ -106,10 +106,10 @@
 
             foreach (TileBase tileBase in children.ToList())
             {
-                RemoveChild(tileBase);
+                DeleteChild(tileBase);
             }
 
-            children.Add(selection);
+            AddChild(selection);
 
             Render();
         }
@@ -214,14 +214,24 @@
 
                 if (originSockets.Intersect(tileSockets).ToList().Count == 0)
                 {
-                    RemoveChild(tileBase);
+                    DeleteChild(tileBase);
                 }
             }
+        }
+
+        private void AddChild(TileBase tileBase)
+        {
+            children.Add(tileBase);
         }
 
         private void RemoveChild(TileBase tileBase)
         {
             children.Remove(tileBase);
+        }
+
+        private void DeleteChild(TileBase tileBase)
+        {
+            RemoveChild(tileBase);
             Destroy(tileBase.gameObject);
         }
 
