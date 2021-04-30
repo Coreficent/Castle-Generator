@@ -47,9 +47,9 @@
         {
             int volume = 1;
 
-            while (volume < Mathf.RoundToInt(Mathf.Sqrt(children.Count)))
+            while (volume < children.Count)
             {
-                volume <<= 2;
+                volume <<= 3;
             }
 
             int scale = volume >> 2;
@@ -105,7 +105,7 @@
         {
             Bind(world);
 
-            ModuleBase selection = Instantiate(children[UnityEngine.Random.Range(0, children.Count)], transform);
+            ModuleBase selection = Instantiate(children[Random.Range(0, children.Count)], transform);
             DeleteChildren();
             AddChild(selection);
 

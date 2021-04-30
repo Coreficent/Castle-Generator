@@ -8,6 +8,7 @@
     {
         Dirt,
         Grass,
+        Air,
         Path,
         River,
         BridgeToGrass

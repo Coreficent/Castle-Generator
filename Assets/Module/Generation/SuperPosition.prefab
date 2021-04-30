@@ -237,14 +237,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   border: {fileID: 8271546953553442383, guid: f242cd838ed7d5d4f99589c5156ddf4b, type: 3}
   positions:
+  - {fileID: 5323657015893663833, guid: a17bb6c5388e93843833c1ea97c5db70, type: 3}
   - {fileID: 4831933140143854154, guid: c9af3d3e7c9bd7c429c9970b45f5c72e, type: 3}
-  - {fileID: 5929724246854358099, guid: e6ff6dace99bb82449ba8fdc3448cb39, type: 3}
-  - {fileID: 2542518592862611093, guid: f93348bddf4d47a4c83fe6b8466e2dc4, type: 3}
-  - {fileID: 6861845970344767882, guid: 4c2c63118ae5020418ba9fee39467824, type: 3}
-  - {fileID: 5939501688847093842, guid: a0a9dbbd17a1c2d4ab75976026134ebe, type: 3}
-  - {fileID: 4509426222996500881, guid: 3048d5f3f57a4b74da6980da56f70b95, type: 3}
-  - {fileID: 2114153783650180293, guid: 17613bfbe2fed9c43a399581da936691, type: 3}
-  - {fileID: 7707309915025191859, guid: aa6469beff6718b4a9cea2216a119d0b, type: 3}
   - {fileID: 8271546953553442383, guid: f242cd838ed7d5d4f99589c5156ddf4b, type: 3}
 --- !u!1 &5018253292764751659
 GameObject:
