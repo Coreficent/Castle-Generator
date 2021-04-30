@@ -1,0 +1,6 @@
+implement manual collapse
+implement z axis
+implement display object
+
+complete:
+

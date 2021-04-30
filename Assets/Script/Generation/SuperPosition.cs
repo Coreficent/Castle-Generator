@@ -54,9 +54,14 @@
         {
             int scale = 1;
 
+            //while (scale < Mathf.Sqrt(children.Count))
+            //{
+            //    scale <<= 2;
+            //}
+
             while (scale < Mathf.Sqrt(children.Count))
             {
-                scale <<= 2;
+                ++scale;
             }
 
             for (int i = 0; i < children.Count; ++i)

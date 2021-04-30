@@ -8,6 +8,8 @@
     {
         Grass,
         Path,
+        River,
+        BridgeToGrass
     }
 
     public enum Direction
