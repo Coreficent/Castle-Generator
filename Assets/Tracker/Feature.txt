@@ -1,8 +1,8 @@
-add to board
 implement z axis
 
 complete:
 
+add to board
 implement world generator
 isolate world
 merge super position
