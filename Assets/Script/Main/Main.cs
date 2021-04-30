@@ -6,46 +6,42 @@
     using Coreficent.Utility;
     using UnityEngine;
 
+    internal enum State
+    {
+        Initialize,
+        WaveFunctionCollapse,
+        Fin,
+    }
+
     public class Main : Script
     {
         [SerializeField]
-        private Superposition superPosition;
+        private Superposition superposition;
 
-        private enum State
-        {
-            WaveFunctionCollapse,
-            Fin,
-        }
-
-        private State gameState = State.WaveFunctionCollapse;
-
+        private State gameState = State.Initialize;
         private readonly TimeController timeController = new TimeController();
 
+        private World world;
         private WaveFunctionCollapse waveFunctionCollapse;
 
-        protected virtual void Awake()
-        {
-            waveFunctionCollapse = new WaveFunctionCollapse(superPosition);
-
-            timeController.Reset();
-            timeController.SetTime(Tuning.StepInterval);
-
-            //Test.Log("main initialied");
-        }
-
-        // Update is called once per frame
         void Update()
         {
-
-
             if (timeController.Reached)
             {
-                //Test.Log("on update");
-
                 switch (gameState)
                 {
-                    case State.WaveFunctionCollapse:
+                    case State.Initialize:
+                        world = new World(superposition);
+                        waveFunctionCollapse = new WaveFunctionCollapse(world);
 
+                        timeController.Reset();
+                        timeController.SetTime(Tuning.StepInterval);
+
+                        Transition(State.WaveFunctionCollapse);
+
+                        break;
+
+                    case State.WaveFunctionCollapse:
                         if (waveFunctionCollapse.HasNext())
                         {
                             waveFunctionCollapse.Next();
@@ -58,9 +54,7 @@
 
                         break;
                     case State.Fin:
-
                         Test.Log("finished");
-
 
                         break;
 
@@ -71,7 +65,6 @@
                 }
                 timeController.Reset();
             }
-
         }
 
         private void Transition(State next)

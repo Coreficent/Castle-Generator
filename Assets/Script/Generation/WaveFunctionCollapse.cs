@@ -1,21 +1,17 @@
 ﻿namespace Coreficent.Generation
 {
-    using Coreficent.Utility;
-    using System.Collections;
     using System.Collections.Generic;
-    using UnityEngine;
-    using static Coreficent.Tile.TileBase;
 
     public class WaveFunctionCollapse : IAnimatable
     {
-        private World world;
-
         private Stack<Superposition> dequeue = new Stack<Superposition>();
         private HashSet<Superposition> track = new HashSet<Superposition>();
 
-        public WaveFunctionCollapse(Superposition superPosition)
+        private readonly World world;
+
+        public WaveFunctionCollapse(World world)
         {
-            world = new World(superPosition);
+            this.world = world;
         }
 
         public bool HasNext()
@@ -28,14 +24,12 @@
 
             if (dequeue.Count > 0)
             {
-                Superposition superPosition = dequeue.Pop();
+                Superposition superposition = dequeue.Pop();
 
-                // Test.Bug("pro", superPosition.X, superPosition.Y);
-
-                if (superPosition.Propagate(world))
+                if (superposition.Propagate(world))
                 {
 
-                    foreach (Superposition i in FindNeighbors(superPosition.X, superPosition.Y, superPosition.Z))
+                    foreach (Superposition i in FindNeighbors(superposition.X, superposition.Y, superposition.Z))
                     {
                         if (!track.Contains(i))
                         {
@@ -43,7 +37,6 @@
                             track.Add(i);
                         }
                     }
-
                 }
                 else
                 {
@@ -52,33 +45,17 @@
             }
             else
             {
-                // Test.Bug("collapse");
+                Superposition superposition = world.Next;
 
-                Superposition superPosition = world.Next;
+                superposition.Collapse(world);
 
-                superPosition.Collapse(world);
-
-                //SuperPosition propogate;
-
-                //propogate = world.Find(superPosition.X, superPosition.Y + 1);
-                //dequeue.Push(propogate);
-
-                //propogate = world.Find(superPosition.X - 1, superPosition.Y);
-                //dequeue.Push(propogate);
-
-                //propogate = world.Find(superPosition.X, superPosition.Y - 1);
-                //dequeue.Push(propogate);
-
-                //propogate = world.Find(superPosition.X + 1, superPosition.Y);
-                //dequeue.Push(propogate);
-
-                foreach (Superposition i in FindNeighbors(superPosition.X, superPosition.Y, superPosition.Z))
+                foreach (Superposition i in FindNeighbors(superposition.X, superposition.Y, superposition.Z))
                 {
                     dequeue.Push(i);
                 }
 
                 track.Clear();
-                track.Add(superPosition);
+                track.Add(superposition);
             }
         }
 
