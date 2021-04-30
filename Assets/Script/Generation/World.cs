@@ -16,7 +16,7 @@
         public World(Superposition superPosition, GameObject board)
         {
             this.board = Object.Instantiate(board);
-            this.board.transform.position = new Vector3(Tuning.Width / 2.0f, Tuning.Height / 2.0f, Tuning.Depth / 2.0f);
+            this.board.transform.position = new Vector3(-(Tuning.Width - 1) / 2.0f, -(Tuning.Height - 1) / 2.0f, -(Tuning.Depth - 1) / 2.0f);
 
             for (int x = 0; x < Tuning.Width; ++x)
             {
@@ -25,7 +25,7 @@
                     for (int z = 0; z < Tuning.Depth; ++z)
                     {
                         Superposition position = Object.Instantiate(superPosition, this.board.transform);
-                        position.transform.position = new Vector3(x, y, z);
+                        position.transform.localPosition = new Vector3(x, y, z);
                         map.Add(Hash(x, y, z), position);
 
                         //if (x == 0 || y == 0 || x == Tuning.Width - 1 || y == Tuning.Height - 1)

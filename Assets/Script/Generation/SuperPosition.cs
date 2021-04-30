@@ -281,7 +281,7 @@
         {
             get
             {
-                return Round(transform.position.x);
+                return Round(transform.localPosition.x);
             }
         }
 
@@ -289,7 +289,7 @@
         {
             get
             {
-                return Round(transform.position.y);
+                return Round(transform.localPosition.y);
             }
         }
 
@@ -297,7 +297,7 @@
         {
             get
             {
-                return Round(transform.position.z);
+                return Round(transform.localPosition.z);
             }
         }
 
