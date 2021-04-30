@@ -26,7 +26,7 @@
                 if (y < Tuning.Height)
                 {
                     Superposition superposition = world.Find(x, y, Tuning.Depth - 1);
-                    superposition.Collapse(superposition.air);
+                    superposition.Collapse(superposition.dirt);
 
                     ++y;
                     return;
