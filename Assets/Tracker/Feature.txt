@@ -1,7 +1,8 @@
-implement manual collapse
-merge super position
-implement z axis
 implement world generator
+implement z axis
 
 complete:
+
+merge super position
+implement manual collapse
 implement display object
