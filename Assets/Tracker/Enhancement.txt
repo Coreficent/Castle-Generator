@@ -1,7 +1,5 @@
-add the z dimension
 add weight
 add audio for stepping
-
 optimize
 
 complete:
