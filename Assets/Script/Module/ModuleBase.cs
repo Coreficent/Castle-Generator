@@ -46,6 +46,9 @@
         protected HashSet<Face> south = new HashSet<Face>();
         protected HashSet<Face> west = new HashSet<Face>();
 
+        protected HashSet<Face> top = new HashSet<Face>();
+        protected HashSet<Face> bottom = new HashSet<Face>();
+
         public HashSet<Face> North
         {
             get
@@ -135,6 +138,22 @@
                         Test.Warn("unexpected direction");
                         return null;
                 }
+            }
+        }
+
+        public HashSet<Face> Top
+        {
+            get
+            {
+                return top;
+            }
+        }
+
+        public HashSet<Face> Bottom
+        {
+            get
+            {
+                return bottom;
             }
         }
 
