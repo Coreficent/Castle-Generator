@@ -40,7 +40,7 @@
 
             if (timeController.Reached)
             {
-                Test.Log("on update");
+                //Test.Log("on update");
 
                 switch (gameState)
                 {
