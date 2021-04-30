@@ -21,7 +21,6 @@
 
         public void Next()
         {
-
             if (dequeue.Count > 0)
             {
                 Superposition superposition = dequeue.Pop();

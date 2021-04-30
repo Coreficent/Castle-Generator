@@ -2,14 +2,14 @@
 {
     using Coreficent.Setting;
     using Coreficent.Utility;
-    using System;
-    using System.Collections;
     using System.Collections.Generic;
+    using System.Linq;
     using UnityEngine;
 
     public class World
     {
-        private Dictionary<string, Superposition> map = new Dictionary<string, Superposition>();
+        private readonly Dictionary<string, Superposition> map = new Dictionary<string, Superposition>();
+        private readonly HashSet<Superposition> uncollapsedPositions = new HashSet<Superposition>();
 
         public World(Superposition superPosition)
         {
@@ -26,6 +26,10 @@
                         if (x == 0 || y == 0 || x == Tuning.Width - 1 || y == Tuning.Height - 1)
                         {
                             position.Collapse(position.border);
+                        }
+                        else
+                        {
+                            uncollapsedPositions.Add(position);
                         }
                     }
                 }
@@ -71,14 +75,20 @@
                 int entropy = int.MaxValue;
                 Superposition result = null;
 
-                foreach (KeyValuePair<string, Superposition> entry in map)
+                foreach (Superposition superposition in uncollapsedPositions.ToList())
                 {
-                    Superposition position = entry.Value;
 
-                    if (!position.Collapsed && position.Entropy < entropy)
+                    if (superposition.Collapsed)
                     {
-                        entropy = position.Entropy;
-                        result = position;
+                        uncollapsedPositions.Remove(superposition);
+                    }
+                    else
+                    {
+                        if (superposition.Entropy < entropy)
+                        {
+                            entropy = superposition.Entropy;
+                            result = superposition;
+                        }
                     }
                 }
 
