@@ -1,3 +1,4 @@
+isolate world
 implement world generator
 implement z axis
 
