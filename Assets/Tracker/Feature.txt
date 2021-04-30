@@ -1,9 +1,10 @@
-isolate world
 implement world generator
+add to board
 implement z axis
 
 complete:
 
+isolate world
 merge super position
 implement manual collapse
 implement display object
