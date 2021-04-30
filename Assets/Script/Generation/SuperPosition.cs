@@ -45,40 +45,50 @@
 
         private void Render()
         {
-            int scale = 1;
+            int volume = 1;
 
-            //while (scale < Mathf.Sqrt(children.Count))
-            //{
-            //    scale <<= 2;
-            //}
-
-            while (scale < Mathf.Sqrt(children.Count))
+            while (volume < Mathf.RoundToInt(Mathf.Sqrt(children.Count)))
             {
-                ++scale;
+                volume <<= 2;
             }
+
+            int scale = volume >> 2;
+
+            if (scale == 0)
+            {
+                scale = 1;
+            }
+
+            float scaler = 1.0f / scale;
+            float sideScale = children.Count == 1 ? scaler : scaler * 0.75f;
 
             for (int i = 0; i < children.Count; ++i)
             {
                 ModuleBase result = children[i];
-                result.transform.localScale = new Vector3(1.0f / scale, 1.0f / scale, 1.0f);
+                result.transform.localScale = new Vector3(sideScale, sideScale, sideScale);
             }
 
             int index = 0;
 
-            int length = Mathf.RoundToInt(Mathf.Sqrt(children.Count));
+            float offset = 0.5f * scaler * (scale - 1);
 
-            for (int x = 0; x < length; ++x)
+            for (int x = 0; x < scale; ++x)
             {
-                for (int y = 0; y < length; ++y)
+                for (int y = 0; y < scale; ++y)
                 {
-                    if (index < children.Count)
+                    for (int z = 0; z < scale; ++z)
                     {
-                        float offset = length == 1 ? 0.0f : 1.0f * length / scale / 2;
+                        if (index < children.Count)
+                        {
+                            children[index].transform.localPosition = new Vector3(x * scaler - offset, y * scaler - offset, z * scaler - offset);
+                        }
+                        else
+                        {
+                            return;
+                        }
 
-                        children[index].transform.localPosition = new Vector3(1.0f * x / scale - offset, 1.0f * y / scale - offset, 0.0f);
+                        index++;
                     }
-
-                    ++index;
                 }
             }
         }
