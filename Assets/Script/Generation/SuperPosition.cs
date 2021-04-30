@@ -1,11 +1,11 @@
 ﻿namespace Coreficent.Generation
 {
-    using Coreficent.Tile;
+    using Coreficent.Module;
     using Coreficent.Utility;
     using System.Collections.Generic;
     using System.Linq;
     using UnityEngine;
-    using static Coreficent.Tile.TileBase;
+    using static Coreficent.Module.TileBase;
 
     public class Superposition : Script, IComparer<Superposition>
     {
@@ -150,7 +150,7 @@
         private void Constrain(World world, Direction direction)
         {
             Superposition otherPosition;
-            HashSet<Socket> originSockets;
+            HashSet<Face> originSockets;
 
             switch (direction)
             {
@@ -182,7 +182,7 @@
             foreach (TileBase tileBase in children.ToList())
             {
 
-                HashSet<Socket> tileSockets;
+                HashSet<Face> tileSockets;
 
                 switch (direction)
                 {
@@ -234,9 +234,9 @@
             }
         }
 
-        private HashSet<Socket> FindValidSockets(Direction direction)
+        private HashSet<Face> FindValidSockets(Direction direction)
         {
-            HashSet<Socket> result = new HashSet<Socket>();
+            HashSet<Face> result = new HashSet<Face>();
 
             switch (direction)
             {

@@ -199,7 +199,7 @@ GameObject:
   - component: {fileID: 4318848385235439123}
   - component: {fileID: 4318848385235439122}
   m_Layer: 0
-  m_Name: SuperPosition
+  m_Name: Superposition
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -245,6 +245,7 @@ MonoBehaviour:
   - {fileID: 4509426222996500881, guid: 3048d5f3f57a4b74da6980da56f70b95, type: 3}
   - {fileID: 2114153783650180293, guid: 17613bfbe2fed9c43a399581da936691, type: 3}
   - {fileID: 7707309915025191859, guid: aa6469beff6718b4a9cea2216a119d0b, type: 3}
+  - {fileID: 8271546953553442383, guid: f242cd838ed7d5d4f99589c5156ddf4b, type: 3}
 --- !u!1 &5018253292764751659
 GameObject:
   m_ObjectHideFlags: 0
