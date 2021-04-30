@@ -10,6 +10,7 @@
     {
         Initialization,
         World,
+        Sky,
         WaveFunctionCollapse,
         Fin,
     }
@@ -26,7 +27,8 @@
         private readonly TimeController timeController = new TimeController();
 
         private World world;
-        private Border border;
+        private Sky sky;
+        private Ground border;
         private WaveFunctionCollapse waveFunctionCollapse;
 
         void Update()
@@ -39,13 +41,26 @@
                 {
                     case State.Initialization:
                         world = new World(superposition, board);
-                        border = new Border(world);
+                        sky = new Sky(world);
+                        border = new Ground(world);
                         waveFunctionCollapse = new WaveFunctionCollapse(world);
 
                         timeController.Reset();
                         timeController.SetTime(Tuning.StepInterval);
 
-                        Transition(State.World);
+                        Transition(State.Sky);
+
+                        break;
+
+                    case State.Sky:
+                        if (sky.HasNext())
+                        {
+                            sky.Next();
+                        }
+                        else
+                        {
+                            Transition(State.World);
+                        }
 
                         break;
 

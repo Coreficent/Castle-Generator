@@ -9,7 +9,8 @@
 
     public class Superposition : Script, IComparer<Superposition>
     {
-        public ModuleBase border;
+        public ModuleBase air;
+        public ModuleBase dirt;
 
         [SerializeField]
         private List<ModuleBase> positions = new List<ModuleBase>();
