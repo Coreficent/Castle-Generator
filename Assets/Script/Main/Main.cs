@@ -8,7 +8,8 @@
 
     internal enum State
     {
-        Initialize,
+        Initialization,
+        World,
         WaveFunctionCollapse,
         Fin,
     }
@@ -18,26 +19,42 @@
         [SerializeField]
         private Superposition superposition;
 
-        private State gameState = State.Initialize;
+        private State gameState = State.Initialization;
         private readonly TimeController timeController = new TimeController();
 
         private World world;
+        private Border border;
         private WaveFunctionCollapse waveFunctionCollapse;
 
         void Update()
         {
             if (timeController.Reached)
             {
+                Test.Bug("current state", gameState);
+
                 switch (gameState)
                 {
-                    case State.Initialize:
+                    case State.Initialization:
                         world = new World(superposition);
+                        border = new Border(world);
                         waveFunctionCollapse = new WaveFunctionCollapse(world);
 
                         timeController.Reset();
                         timeController.SetTime(Tuning.StepInterval);
 
-                        Transition(State.WaveFunctionCollapse);
+                        Transition(State.World);
+
+                        break;
+
+                    case State.World:
+                        if (border.HasNext())
+                        {
+                            border.Next();
+                        }
+                        else
+                        {
+                            Transition(State.WaveFunctionCollapse);
+                        }
 
                         break;
 

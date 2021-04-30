@@ -8,29 +8,35 @@
 
     public class World
     {
+        public int Width = Tuning.Width;
+        public int Height = Tuning.Height;
+        public int Depth = Tuning.Depth;
+
         private readonly Dictionary<string, Superposition> map = new Dictionary<string, Superposition>();
         private readonly HashSet<Superposition> uncollapsedPositions = new HashSet<Superposition>();
 
         public World(Superposition superPosition)
         {
-            for (int x = 0; x < Tuning.Width; ++x)
+            for (int x = 0; x < Width; ++x)
             {
-                for (int y = 0; y < Tuning.Height; ++y)
+                for (int y = 0; y < Height; ++y)
                 {
-                    for (int z = 0; z < Tuning.Depth; ++z)
+                    for (int z = 0; z < Depth; ++z)
                     {
-                        Superposition position = UnityEngine.Object.Instantiate(superPosition);
+                        Superposition position = Object.Instantiate(superPosition);
                         position.transform.position = new Vector3(x, y, z);
                         map.Add(Hash(x, y, z), position);
 
-                        if (x == 0 || y == 0 || x == Tuning.Width - 1 || y == Tuning.Height - 1)
-                        {
-                            position.Collapse(position.border);
-                        }
-                        else
-                        {
-                            uncollapsedPositions.Add(position);
-                        }
+                        //if (x == 0 || y == 0 || x == Tuning.Width - 1 || y == Tuning.Height - 1)
+                        //{
+                        //    position.Collapse(position.border);
+                        //}
+                        //else
+                        //{
+                        //    uncollapsedPositions.Add(position);
+                        //}
+
+                        uncollapsedPositions.Add(position);
                     }
                 }
             }
