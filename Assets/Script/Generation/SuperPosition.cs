@@ -2,8 +2,6 @@
 {
     using Coreficent.Tile;
     using Coreficent.Utility;
-    using System;
-    using System.Collections;
     using System.Collections.Generic;
     using System.Linq;
     using UnityEngine;
@@ -17,8 +15,6 @@
         private List<TileBase> positions = new List<TileBase>();
 
         private List<TileBase> children = new List<TileBase>();
-
-        private bool manuallyCollapsed = false;
 
         protected virtual void Awake()
         {
@@ -91,7 +87,7 @@
         {
             get
             {
-                return manuallyCollapsed || children.Count <= 1;
+                return children.Count <= 1;
             }
         }
 
@@ -113,8 +109,6 @@
             AddChild(Instantiate(selection, transform));
 
             Render();
-
-            manuallyCollapsed = true;
         }
 
         public bool Propagate(World world)
