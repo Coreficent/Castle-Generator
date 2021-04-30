@@ -1,6 +1,6 @@
 ﻿namespace Coreficent.Module
 {
-    public class StoneBridge : Module
+    public class StoneBridge : ModuleBase
     {
         public StoneBridge()
         {

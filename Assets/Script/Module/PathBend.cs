@@ -1,6 +1,6 @@
 ﻿namespace Coreficent.Module
 {
-    public class PathBend : Module
+    public class PathBend : ModuleBase
     {
         public PathBend()
         {

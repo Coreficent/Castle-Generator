@@ -5,26 +5,26 @@
     using System.Collections.Generic;
     using System.Linq;
     using UnityEngine;
-    using static Coreficent.Module.Module;
+    using static Coreficent.Module.ModuleBase;
 
     public class Superposition : Script, IComparer<Superposition>
     {
-        public Module border;
+        public ModuleBase border;
 
         [SerializeField]
-        private List<Module> positions = new List<Module>();
+        private List<ModuleBase> positions = new List<ModuleBase>();
 
-        private List<Module> children = new List<Module>();
+        private List<ModuleBase> children = new List<ModuleBase>();
 
         protected virtual void Awake()
         {
-            foreach (Module tileBase in positions)
+            foreach (ModuleBase tileBase in positions)
             {
-                HashSet<Module> filter = new HashSet<Module>();
+                HashSet<ModuleBase> filter = new HashSet<ModuleBase>();
 
                 for (int i = 0; i < 4; ++i)
                 {
-                    Module tile = Instantiate(tileBase, transform);
+                    ModuleBase tile = Instantiate(tileBase, transform);
 
                     tile.transform.eulerAngles = new Vector3(0.0f, 0.0f, i * 90.0f);
 
@@ -59,7 +59,7 @@
 
             for (int i = 0; i < children.Count; ++i)
             {
-                Module result = children[i];
+                ModuleBase result = children[i];
                 result.transform.localScale = new Vector3(1.0f / scale, 1.0f / scale, 1.0f);
             }
 
@@ -95,14 +95,14 @@
         {
             Bind(world);
 
-            Module selection = Instantiate(children[UnityEngine.Random.Range(0, children.Count)], transform);
+            ModuleBase selection = Instantiate(children[UnityEngine.Random.Range(0, children.Count)], transform);
             DeleteChildren();
             AddChild(selection);
 
             Render();
         }
 
-        public void Collapse(Module selection)
+        public void Collapse(ModuleBase selection)
         {
             DeleteChildren();
 
@@ -179,7 +179,7 @@
 
             originSockets = otherPosition.FindValidSockets(InverseDirection(direction));
 
-            foreach (Module tileBase in children.ToList())
+            foreach (ModuleBase tileBase in children.ToList())
             {
 
                 HashSet<Face> tileSockets;
@@ -210,17 +210,17 @@
             }
         }
 
-        private void AddChild(Module tileBase)
+        private void AddChild(ModuleBase tileBase)
         {
             children.Add(tileBase);
         }
 
-        private void RemoveChild(Module tileBase)
+        private void RemoveChild(ModuleBase tileBase)
         {
             children.Remove(tileBase);
         }
 
-        private void DeleteChild(Module tileBase)
+        private void DeleteChild(ModuleBase tileBase)
         {
             RemoveChild(tileBase);
             Destroy(tileBase.gameObject);
@@ -228,7 +228,7 @@
 
         private void DeleteChildren()
         {
-            foreach (Module tileBase in children.ToList())
+            foreach (ModuleBase tileBase in children.ToList())
             {
                 DeleteChild(tileBase);
             }
@@ -241,28 +241,28 @@
             switch (direction)
             {
                 case Direction.North:
-                    foreach (Module tileBase in children)
+                    foreach (ModuleBase tileBase in children)
                     {
                         result.UnionWith(tileBase.North);
                     }
                     break;
 
                 case Direction.East:
-                    foreach (Module tileBase in children)
+                    foreach (ModuleBase tileBase in children)
                     {
                         result.UnionWith(tileBase.East);
                     }
                     break;
 
                 case Direction.South:
-                    foreach (Module tileBase in children)
+                    foreach (ModuleBase tileBase in children)
                     {
                         result.UnionWith(tileBase.South);
                     }
                     break;
 
                 case Direction.West:
-                    foreach (Module tileBase in children)
+                    foreach (ModuleBase tileBase in children)
                     {
                         result.UnionWith(tileBase.West);
                     }

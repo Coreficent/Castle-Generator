@@ -1,6 +1,6 @@
 ﻿namespace Coreficent.Module
 {
-    public class EmptyTile : Module
+    public class EmptyTile : ModuleBase
     {
         public EmptyTile()
         {

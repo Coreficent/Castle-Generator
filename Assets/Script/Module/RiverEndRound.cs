@@ -1,6 +1,6 @@
 ﻿namespace Coreficent.Module
 {
-    public class RiverEndRound : Module
+    public class RiverEndRound : ModuleBase
     {
         public RiverEndRound()
         {

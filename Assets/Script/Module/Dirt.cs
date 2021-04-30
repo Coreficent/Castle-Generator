@@ -1,6 +1,6 @@
 ﻿namespace Coreficent.Module
 {
-    public class Dirt : Module
+    public class Dirt : ModuleBase
     {
         public Dirt()
         {

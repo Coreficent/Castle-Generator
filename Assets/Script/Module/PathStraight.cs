@@ -1,6 +1,6 @@
 ﻿namespace Coreficent.Module
 {
-    public class PathStraight : Module
+    public class PathStraight : ModuleBase
     {
         public PathStraight()
         {

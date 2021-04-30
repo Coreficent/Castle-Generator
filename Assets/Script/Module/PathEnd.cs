@@ -1,6 +1,6 @@
 ﻿namespace Coreficent.Module
 {
-    public class PathEnd : Module
+    public class PathEnd : ModuleBase
     {
         public PathEnd()
         {

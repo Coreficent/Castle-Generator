@@ -22,7 +22,7 @@
         Invalid,
     }
 
-    public class Module : Script
+    public class ModuleBase : Script
     {
         public static Direction InverseDirection(Direction direction)
         {
@@ -174,7 +174,7 @@
 
         public override bool Equals(object obj)
         {
-            Module other = obj as Module;
+            ModuleBase other = obj as ModuleBase;
 
             if (other == null)
             {
