@@ -37,7 +37,7 @@
             timeController.Reset();
             timeController.SetTime(Tuning.StepInterval);
 
-            Test.Log("main initialied");
+            //Test.Log("main initialied");
         }
 
         // Update is called once per frame

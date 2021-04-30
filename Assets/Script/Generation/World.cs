@@ -19,17 +19,13 @@
                 {
                     for (int z = 0; z < Tuning.Depth; ++z)
                     {
+                        Superposition position = UnityEngine.Object.Instantiate(superPosition);
+                        position.transform.position = new Vector3(x, y, z);
+                        map.Add(Hash(x, y, z), position);
+
                         if (x == 0 || y == 0 || x == Tuning.Width - 1 || y == Tuning.Height - 1)
                         {
-                            Superposition position = UnityEngine.Object.Instantiate(emptyPosition);
-                            position.transform.position = new Vector3(x, y, z);
-                            map.Add(Hash(x, y, z), position);
-                        }
-                        else
-                        {
-                            Superposition position = UnityEngine.Object.Instantiate(superPosition);
-                            position.transform.position = new Vector3(x, y, z);
-                            map.Add(Hash(x, y, z), position);
+                            position.Collapse(position.border);
                         }
                     }
                 }

@@ -11,20 +11,20 @@
 
     public class Superposition : Script, IComparer<Superposition>
     {
+        public TileBase border;
+
         [SerializeField]
         private List<TileBase> positions = new List<TileBase>();
 
         private List<TileBase> children = new List<TileBase>();
 
+        private bool manuallyCollapsed = false;
+
         protected virtual void Start()
         {
             foreach (TileBase tileBase in positions)
             {
-                if (IsEmptySuperPosition(this))
-                {
-                    AddChild(Instantiate(tileBase, transform));
-                }
-                else
+                if (!manuallyCollapsed)
                 {
                     HashSet<TileBase> filter = new HashSet<TileBase>();
 
@@ -43,7 +43,6 @@
                         {
                             Destroy(tile.gameObject);
                         }
-
                     }
                 }
             }
@@ -94,7 +93,7 @@
         {
             get
             {
-                return children.Count <= 1;
+                return manuallyCollapsed || children.Count <= 1;
             }
         }
 
@@ -103,20 +102,26 @@
             Bind(world);
 
             TileBase selection = Instantiate(children[UnityEngine.Random.Range(0, children.Count)], transform);
-
-            foreach (TileBase tileBase in children.ToList())
-            {
-                DeleteChild(tileBase);
-            }
-
+            DeleteChildren();
             AddChild(selection);
 
             Render();
         }
 
+        public void Collapse(TileBase selection)
+        {
+            DeleteChildren();
+
+            AddChild(Instantiate(selection, transform));
+
+            Render();
+
+            manuallyCollapsed = true;
+        }
+
         public bool Propagate(World world)
         {
-            if (IsEmptySuperPosition(this))
+            if (Collapsed)
             {
                 return false;
             }
@@ -141,12 +146,6 @@
 
             return true;
         }
-
-        private bool IsEmptySuperPosition(Superposition superPosition)
-        {
-            return superPosition.positions.Count == 1 && superPosition.positions[0] is EmptyTile;
-        }
-
 
         private void Bind(World world)
         {
@@ -233,6 +232,14 @@
         {
             RemoveChild(tileBase);
             Destroy(tileBase.gameObject);
+        }
+
+        private void DeleteChildren()
+        {
+            foreach (TileBase tileBase in children.ToList())
+            {
+                DeleteChild(tileBase);
+            }
         }
 
         private HashSet<Socket> FindValidSockets(Direction direction)

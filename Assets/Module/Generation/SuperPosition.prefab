@@ -235,6 +235,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b23501ac83bf2a5409fdcb0852898e2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  border: {fileID: 8592277147959183041, guid: 80d6a4bd5cc1f3943b8d839f16eddb1d, type: 3}
   positions:
   - {fileID: 8592277147959183041, guid: 80d6a4bd5cc1f3943b8d839f16eddb1d, type: 3}
   - {fileID: 5929724246854358099, guid: e6ff6dace99bb82449ba8fdc3448cb39, type: 3}

@@ -1,4 +1,3 @@
-
 implement manual collapse
 merge super position
 implement z axis
