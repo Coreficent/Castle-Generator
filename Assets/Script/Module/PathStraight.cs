@@ -1,6 +1,6 @@
 ﻿namespace Coreficent.Module
 {
-    public class PathStraight : TileBase
+    public class PathStraight : Module
     {
         public PathStraight()
         {

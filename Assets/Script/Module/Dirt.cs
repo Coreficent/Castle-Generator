@@ -1,10 +1,10 @@
 ﻿namespace Coreficent.Module
 {
-    public class Dirt : TileBase
+    public class Dirt : Module
     {
         public Dirt()
         {
-            north.Add(Face.Grass);
+            north.Add(Face.Dirt);
 
             west.Add(Face.Dirt);
 

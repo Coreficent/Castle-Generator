@@ -1,6 +1,6 @@
 ﻿namespace Coreficent.Module
 {
-    public class PathBend : TileBase
+    public class PathBend : Module
     {
         public PathBend()
         {

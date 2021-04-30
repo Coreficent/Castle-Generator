@@ -1,6 +1,6 @@
 ﻿namespace Coreficent.Module
 {
-    public class RiverRock : TileBase
+    public class RiverRock : Module
     {
         public RiverRock()
         {

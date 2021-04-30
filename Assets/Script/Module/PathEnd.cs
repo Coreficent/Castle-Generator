@@ -1,6 +1,6 @@
 ﻿namespace Coreficent.Module
 {
-    public class PathEnd : TileBase
+    public class PathEnd : Module
     {
         public PathEnd()
         {

@@ -1,6 +1,6 @@
 ﻿namespace Coreficent.Module
 {
-    public class Grass : TileBase
+    public class Grass : Module
     {
         public Grass()
         {
