@@ -19,6 +19,9 @@
         [SerializeField]
         private Superposition superposition;
 
+        [SerializeField]
+        private GameObject board;
+
         private State gameState = State.Initialization;
         private readonly TimeController timeController = new TimeController();
 
@@ -30,12 +33,12 @@
         {
             if (timeController.Reached)
             {
-                Test.Bug("current state", gameState);
+                Test.Log("current state", gameState);
 
                 switch (gameState)
                 {
                     case State.Initialization:
-                        world = new World(superposition);
+                        world = new World(superposition, board);
                         border = new Border(world);
                         waveFunctionCollapse = new WaveFunctionCollapse(world);
 

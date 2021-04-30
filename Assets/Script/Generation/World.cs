@@ -8,22 +8,23 @@
 
     public class World
     {
-        public int Width = Tuning.Width;
-        public int Height = Tuning.Height;
-        public int Depth = Tuning.Depth;
-
         private readonly Dictionary<string, Superposition> map = new Dictionary<string, Superposition>();
         private readonly HashSet<Superposition> uncollapsedPositions = new HashSet<Superposition>();
 
-        public World(Superposition superPosition)
+        private GameObject board;
+
+        public World(Superposition superPosition, GameObject board)
         {
-            for (int x = 0; x < Width; ++x)
+            this.board = Object.Instantiate(board);
+            this.board.transform.position = new Vector3(Tuning.Width / 2.0f, Tuning.Height / 2.0f, Tuning.Depth / 2.0f);
+
+            for (int x = 0; x < Tuning.Width; ++x)
             {
-                for (int y = 0; y < Height; ++y)
+                for (int y = 0; y < Tuning.Height; ++y)
                 {
-                    for (int z = 0; z < Depth; ++z)
+                    for (int z = 0; z < Tuning.Depth; ++z)
                     {
-                        Superposition position = Object.Instantiate(superPosition);
+                        Superposition position = Object.Instantiate(superPosition, this.board.transform);
                         position.transform.position = new Vector3(x, y, z);
                         map.Add(Hash(x, y, z), position);
 

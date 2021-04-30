@@ -1,4 +1,6 @@
-﻿namespace Coreficent.Generation
+﻿using Coreficent.Setting;
+
+namespace Coreficent.Generation
 {
     public class Border : IAnimatable
     {
@@ -15,18 +17,18 @@
 
         public bool HasNext()
         {
-            return x != world.Width;
+            return x != Tuning.Width;
         }
 
         public void Next()
         {
-            if (x < world.Width)
+            if (x < Tuning.Width)
             {
-                if (y < world.Height)
+                if (y < Tuning.Height)
                 {
-                    if (z < world.Depth)
+                    if (z < Tuning.Depth)
                     {
-                        if (x == 0 || y == 0 || x == world.Width - 1 || y == world.Height - 1)
+                        if (x == 0 || y == 0 || x == Tuning.Width - 1 || y == Tuning.Height - 1)
                         {
                             Superposition superposition = world.Find(x, y, z);
                             superposition.Collapse(superposition.border);
