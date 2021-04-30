@@ -2,14 +2,14 @@
 {
     using Coreficent.Setting;
 
-    public class Ground : IAnimatable
+    public class Boundary : IAnimatable
     {
         private int x = 0;
         private int y = 0;
 
         private readonly World world;
 
-        public Ground(World world)
+        public Boundary(World world)
         {
             this.world = world;
         }
@@ -25,7 +25,7 @@
             {
                 if (y < Tuning.Height)
                 {
-                    Superposition superposition = world.Find(x, y, Tuning.Depth - 1);
+                    Superposition superposition = world.Find(x, y, 0);
                     superposition.Collapse(superposition.air);
 
                     ++y;

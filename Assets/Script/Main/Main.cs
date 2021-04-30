@@ -28,7 +28,7 @@
 
         private World world;
         private Sky sky;
-        private Ground border;
+        private Ground ground;
         private WaveFunctionCollapse waveFunctionCollapse;
 
         void Update()
@@ -42,7 +42,7 @@
                     case State.Initialization:
                         world = new World(superposition, board);
                         sky = new Sky(world);
-                        border = new Ground(world);
+                        ground = new Ground(world);
                         waveFunctionCollapse = new WaveFunctionCollapse(world);
 
                         timeController.Reset();
@@ -53,39 +53,17 @@
                         break;
 
                     case State.Sky:
-                        if (sky.HasNext())
-                        {
-                            sky.Next();
-                        }
-                        else
-                        {
-                            Transition(State.World);
-                        }
+                        Process(sky, State.World);
 
                         break;
 
                     case State.World:
-                        if (border.HasNext())
-                        {
-                            border.Next();
-                        }
-                        else
-                        {
-                            Transition(State.WaveFunctionCollapse);
-                        }
+                        Process(ground, State.WaveFunctionCollapse);
 
                         break;
 
                     case State.WaveFunctionCollapse:
-                        if (waveFunctionCollapse.HasNext())
-                        {
-                            waveFunctionCollapse.Next();
-                        }
-                        else
-                        {
-                            Transition(State.Fin);
-                        }
-
+                        Process(waveFunctionCollapse, State.Fin);
 
                         break;
                     case State.Fin:
@@ -102,6 +80,17 @@
             }
         }
 
+        private void Process(IAnimatable animatable, State next)
+        {
+            if (animatable.HasNext())
+            {
+                animatable.Next();
+            }
+            else
+            {
+                Transition(next);
+            }
+        }
         private void Transition(State next)
         {
             timeController.Reset();

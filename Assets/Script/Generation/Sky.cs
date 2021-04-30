@@ -1,6 +1,4 @@
-﻿
-
-namespace Coreficent.Generation
+﻿namespace Coreficent.Generation
 {
     using Coreficent.Setting;
 
