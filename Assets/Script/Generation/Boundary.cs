@@ -28,17 +28,23 @@
                 {
                     if (z < Tuning.Height)
                     {
-                        Superposition superposition = world.Find(x, y, z);
-                        superposition.Collapse(superposition.air);
-                        ++z;
-                        return;
+                        if (x == 0 || x == Tuning.Width - 1 || y == 0 || y == Tuning.Height - 1 || z == 0 || z == Tuning.Depth - 1)
+                        {
+                            Superposition superposition = world.Find(x, y, z);
+                            superposition.Collapse(superposition.air);
+                            ++z;
+                        }
+                        else
+                        {
+                            ++z;
+                            Next();
+                        }
                     }
                     else
                     {
                         ++y;
                         z = 0;
                         Next();
-                        return;
                     }
                 }
                 else
