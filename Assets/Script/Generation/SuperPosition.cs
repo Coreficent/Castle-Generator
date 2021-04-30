@@ -9,7 +9,7 @@
     using UnityEngine;
     using static Coreficent.Tile.TileBase;
 
-    public class SuperPosition : Script, IComparer<SuperPosition>
+    public class Superposition : Script, IComparer<Superposition>
     {
         [SerializeField]
         private List<TileBase> positions = new List<TileBase>();
@@ -142,7 +142,7 @@
             return true;
         }
 
-        private bool IsEmptySuperPosition(SuperPosition superPosition)
+        private bool IsEmptySuperPosition(Superposition superPosition)
         {
             return superPosition.positions.Count == 1 && superPosition.positions[0] is EmptyTile;
         }
@@ -158,7 +158,7 @@
 
         private void Constrain(World world, Direction direction)
         {
-            SuperPosition otherPosition;
+            Superposition otherPosition;
             HashSet<Socket> originSockets;
 
             switch (direction)
@@ -297,7 +297,7 @@
             return Mathf.RoundToInt(Input);
         }
 
-        public int Compare(SuperPosition x, SuperPosition y)
+        public int Compare(Superposition x, Superposition y)
         {
             return x.Entropy.CompareTo(y.Entropy);
         }

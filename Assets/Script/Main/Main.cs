@@ -11,10 +11,10 @@
     public class Main : Script
     {
         [SerializeField]
-        private SuperPosition superPosition;
+        private Superposition superPosition;
 
         [SerializeField]
-        private SuperPosition emptyPosition;
+        private Superposition emptyPosition;
 
         private enum State
         {

@@ -10,10 +10,10 @@
     {
         private World world;
 
-        private Stack<SuperPosition> dequeue = new Stack<SuperPosition>();
-        private HashSet<SuperPosition> track = new HashSet<SuperPosition>();
+        private Stack<Superposition> dequeue = new Stack<Superposition>();
+        private HashSet<Superposition> track = new HashSet<Superposition>();
 
-        public WaveFunctionCollapse(SuperPosition superPosition, SuperPosition emptyPosition)
+        public WaveFunctionCollapse(Superposition superPosition, Superposition emptyPosition)
         {
             world = new World(superPosition, emptyPosition);
         }
@@ -28,14 +28,14 @@
 
             if (dequeue.Count > 0)
             {
-                SuperPosition superPosition = dequeue.Pop();
+                Superposition superPosition = dequeue.Pop();
 
                 // Test.Bug("pro", superPosition.X, superPosition.Y);
 
                 if (superPosition.Propagate(world))
                 {
 
-                    foreach (SuperPosition i in FindNeighbors(superPosition.X, superPosition.Y, superPosition.Z))
+                    foreach (Superposition i in FindNeighbors(superPosition.X, superPosition.Y, superPosition.Z))
                     {
                         if (!track.Contains(i))
                         {
@@ -54,7 +54,7 @@
             {
                 // Test.Bug("collapse");
 
-                SuperPosition superPosition = world.Next;
+                Superposition superPosition = world.Next;
 
                 superPosition.Collapse(world);
 
@@ -72,7 +72,7 @@
                 //propogate = world.Find(superPosition.X + 1, superPosition.Y);
                 //dequeue.Push(propogate);
 
-                foreach (SuperPosition i in FindNeighbors(superPosition.X, superPosition.Y, superPosition.Z))
+                foreach (Superposition i in FindNeighbors(superPosition.X, superPosition.Y, superPosition.Z))
                 {
                     dequeue.Push(i);
                 }
@@ -82,9 +82,9 @@
             }
         }
 
-        List<SuperPosition> FindNeighbors(int x, int y, int z)
+        List<Superposition> FindNeighbors(int x, int y, int z)
         {
-            List<SuperPosition> result = new List<SuperPosition>();
+            List<Superposition> result = new List<Superposition>();
 
             result.Add(world.Find(x, y + 1, z));
             result.Add(world.Find(x - 1, y, z));

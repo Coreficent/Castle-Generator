@@ -9,9 +9,9 @@
 
     public class World
     {
-        private Dictionary<string, SuperPosition> map = new Dictionary<string, SuperPosition>();
+        private Dictionary<string, Superposition> map = new Dictionary<string, Superposition>();
 
-        public World(SuperPosition superPosition, SuperPosition emptyPosition)
+        public World(Superposition superPosition, Superposition emptyPosition)
         {
             for (int x = 0; x < Tuning.Width; ++x)
             {
@@ -21,13 +21,13 @@
                     {
                         if (x == 0 || y == 0 || x == Tuning.Width - 1 || y == Tuning.Height - 1)
                         {
-                            SuperPosition position = UnityEngine.Object.Instantiate(emptyPosition);
+                            Superposition position = UnityEngine.Object.Instantiate(emptyPosition);
                             position.transform.position = new Vector3(x, y, z);
                             map.Add(Hash(x, y, z), position);
                         }
                         else
                         {
-                            SuperPosition position = UnityEngine.Object.Instantiate(superPosition);
+                            Superposition position = UnityEngine.Object.Instantiate(superPosition);
                             position.transform.position = new Vector3(x, y, z);
                             map.Add(Hash(x, y, z), position);
                         }
@@ -36,7 +36,7 @@
             }
         }
 
-        public SuperPosition Find(int x, int y, int z)
+        public Superposition Find(int x, int y, int z)
         {
             if (!map.ContainsKey(Hash(x, y, z)))
             {
@@ -56,7 +56,7 @@
         {
             get
             {
-                foreach (KeyValuePair<string, SuperPosition> entry in map)
+                foreach (KeyValuePair<string, Superposition> entry in map)
                 {
                     if (!entry.Value.Collapsed)
                     {
@@ -68,16 +68,16 @@
             }
         }
 
-        public SuperPosition Next
+        public Superposition Next
         {
             get
             {
                 int entropy = int.MaxValue;
-                SuperPosition result = null;
+                Superposition result = null;
 
-                foreach (KeyValuePair<string, SuperPosition> entry in map)
+                foreach (KeyValuePair<string, Superposition> entry in map)
                 {
-                    SuperPosition position = entry.Value;
+                    Superposition position = entry.Value;
 
                     if (!position.Collapsed && position.Entropy < entropy)
                     {
