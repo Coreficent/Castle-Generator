@@ -86,7 +86,7 @@
             get
             {
                 int entropy = int.MaxValue;
-                Superposition result = null;
+                List<Superposition> result = new List<Superposition>();
 
                 foreach (Superposition superposition in uncollapsedPositions.ToList())
                 {
@@ -100,17 +100,17 @@
                         if (superposition.Entropy < entropy)
                         {
                             entropy = superposition.Entropy;
-                            result = superposition;
+                            result.Add(superposition);
                         }
                     }
                 }
 
-                if (result == null)
+                if (result.Count == 0)
                 {
-                    Test.Warn("unexpected null position for uncollapsed world");
+                    Test.Warn("minimum entropy not found");
                 }
 
-                return result;
+                return result[UnityEngine.Random.Range(0, result.Count)];
             }
         }
 
