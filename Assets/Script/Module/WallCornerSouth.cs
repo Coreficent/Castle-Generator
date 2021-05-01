@@ -2,17 +2,17 @@
 
 namespace Coreficent.Module
 {
-    public class WallSpace : ModuleBase
+    public class WallCornerSouth : ModuleBase
     {
-        public WallSpace()
+        public WallCornerSouth()
         {
-            north.Add(Face.Air);
+            north.Add(Face.WallCenterSouth);
 
-            west.Add(Face.Air);
+            west.Add(Face.WallSpace);
 
             south.Add(Face.Air);
 
-            east.Add(Face.Air);
+            east.Add(Face.WallSouthTower);
 
             top.Add(Face.Air);
 
