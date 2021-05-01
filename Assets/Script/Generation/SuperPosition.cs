@@ -59,7 +59,7 @@
                 volume <<= 2;
             }
 
-            int scale = volume >> 2;
+            int scale = volume >> 1;
 
             if (scale == 0)
             {
