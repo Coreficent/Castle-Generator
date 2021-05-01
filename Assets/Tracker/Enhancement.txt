@@ -1,10 +1,10 @@
 implement collection logging
-add weight
 add audio for stepping
 optimize
 
 complete:
 
+add weight
 isolate enum
 add rotated children to a set automatically
 define empty super position borders
