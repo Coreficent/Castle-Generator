@@ -120,8 +120,6 @@
         {
             Bind(world);
 
-
-
             if (!Uncollapsible)
             {
                 ModuleBase selection = Instantiate(children[Random.Range(0, children.Count)], transform);
@@ -392,7 +390,7 @@
 
         public override string ToString()
         {
-            string delimiter = " : ";
+            string delimiter = ":";
             return GetType().Name + delimiter + X + delimiter + Y + delimiter + Z;
         }
     }

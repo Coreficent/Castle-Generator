@@ -2,6 +2,7 @@
 {
     using Coreficent.Setting;
     using Coreficent.Utility;
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using UnityEngine;
@@ -15,7 +16,7 @@
 
         public World(Superposition superPosition, GameObject board)
         {
-            this.board = Object.Instantiate(board);
+            this.board = UnityEngine.Object.Instantiate(board);
             this.board.transform.position = new Vector3(-(Tuning.Width - 1) / 2.0f, -(Tuning.Height - 1) / 2.0f, -(Tuning.Depth - 1) / 2.0f);
 
             for (int x = 0; x < Tuning.Width; ++x)
@@ -24,7 +25,7 @@
                 {
                     for (int z = 0; z < Tuning.Depth; ++z)
                     {
-                        Superposition position = Object.Instantiate(superPosition, this.board.transform);
+                        Superposition position = UnityEngine.Object.Instantiate(superPosition, this.board.transform);
                         position.transform.localPosition = new Vector3(x, y, z);
                         map.Add(Hash(x, y, z), position);
 
@@ -106,6 +107,21 @@
 
                 return result;
             }
+        }
+
+        public HashSet<Superposition> Collect(Func<Superposition, bool> filter)
+        {
+            HashSet<Superposition> result = new HashSet<Superposition>();
+
+            foreach (KeyValuePair<string, Superposition> entry in map)
+            {
+                if (filter(entry.Value))
+                {
+                    result.Add(entry.Value);
+                }
+            }
+
+            return result;
         }
     }
 }

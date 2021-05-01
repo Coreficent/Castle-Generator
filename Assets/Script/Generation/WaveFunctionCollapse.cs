@@ -9,7 +9,7 @@
         private HashSet<Superposition> track = new HashSet<Superposition>();
 
         private readonly World world;
-
+        private bool initialState = true;
         public WaveFunctionCollapse(World world)
         {
             this.world = world;
@@ -22,7 +22,16 @@
 
         public void Next()
         {
-            if (dequeue.Count > 0)
+            if (initialState)
+            {
+                foreach (Superposition superposition in world.Collect(superposition => !superposition.Collapsed))
+                {
+                    dequeue.Push(superposition);
+                }
+
+                initialState = false;
+            }
+            else if (dequeue.Count > 0)
             {
                 Superposition superposition = dequeue.Pop();
 
@@ -69,6 +78,8 @@
             result.Add(world.Find(x - 1, y, z));
             result.Add(world.Find(x, y - 1, z));
             result.Add(world.Find(x + 1, y, z));
+            result.Add(world.Find(x, y, z - 1));
+            result.Add(world.Find(x, y, z + 1));
 
             return result;
         }

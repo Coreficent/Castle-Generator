@@ -47,20 +47,20 @@
                         ground = new Ground(world);
                         waveFunctionCollapse = new WaveFunctionCollapse(world);
 
-                        timeController.Reset();
                         timeController.SetTime(Tuning.StepInterval);
+                        timeController.Reset();
 
                         Transition(State.Boundary);
 
                         break;
 
                     case State.Boundary:
-                        Process(boundary, State.World, true);
+                        Process(boundary, State.World, false);
 
                         break;
 
                     case State.World:
-                        Process(ground, State.WaveFunctionCollapse, true);
+                        Process(ground, State.WaveFunctionCollapse, false);
 
                         break;
 
@@ -75,6 +75,7 @@
 
                     default:
                         Test.Warn("unexpected game state");
+
                         break;
 
                 }
