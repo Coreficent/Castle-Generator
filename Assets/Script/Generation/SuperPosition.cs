@@ -157,7 +157,7 @@
 
             if (children.Count == 0)
             {
-                Test.Warn("unable to collapse");
+                Test.Warn("unable to collapse", this);
 
                 return false;
             }
@@ -210,8 +210,6 @@
             if (otherPosition.Uncollapsible)
             {
                 Test.Warn("skip collapse", this, otherPosition);
-                Test.Pause();
-
                 return;
             }
 

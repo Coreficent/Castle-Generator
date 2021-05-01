@@ -30,15 +30,12 @@
         private Boundary boundary;
         private Ground ground;
 
-
         private WaveFunctionCollapse waveFunctionCollapse;
 
-        void Update()
+        protected virtual void Update()
         {
             if (timeController.Reached)
             {
-                Test.Log("current state", gameState);
-
                 switch (gameState)
                 {
                     case State.Initialization:
@@ -71,7 +68,6 @@
 
                         break;
                     case State.Fin:
-                        Test.Log("finished");
 
                         break;
 
@@ -112,6 +108,7 @@
         {
             timeController.Reset();
             gameState = next;
+            Test.Log("transitioning to", next);
         }
     }
 }
