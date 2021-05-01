@@ -1,12 +1,12 @@
 ﻿namespace Coreficent.Module
 {
-    public class River : ModuleBase
+    public class GrassCorner : ModuleBase
     {
-        public River()
+        public GrassCorner()
         {
-            north.Add(Face.Grass);
+            north.Add(Face.Air);
 
-            west.Add(Face.Grass);
+            west.Add(Face.Air);
 
             south.Add(Face.Grass);
 

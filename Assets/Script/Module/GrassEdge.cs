@@ -1,16 +1,16 @@
 ﻿namespace Coreficent.Module
 {
-    public class PathBend : ModuleBase
+    public class GrassEdge : ModuleBase
     {
-        public PathBend()
+        public GrassEdge()
         {
             north.Add(Face.Grass);
 
             west.Add(Face.Grass);
 
-            south.Add(Face.Path);
+            south.Add(Face.Grass);
 
-            east.Add(Face.Path);
+            east.Add(Face.Grass);
         }
     }
 }

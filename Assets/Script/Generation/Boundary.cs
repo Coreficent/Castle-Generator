@@ -26,7 +26,7 @@
             {
                 if (y < Tuning.Height)
                 {
-                    if (z < Tuning.Height)
+                    if (z < Tuning.Depth)
                     {
                         if (x == 0 || x == Tuning.Width - 1 || y == 0 || y == Tuning.Height - 1 || z == 0 || z == Tuning.Depth - 1)
                         {

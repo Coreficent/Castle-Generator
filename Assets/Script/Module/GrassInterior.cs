@@ -1,10 +1,10 @@
 ﻿namespace Coreficent.Module
 {
-    public class Grass : ModuleBase
+    public class GrassInterior : ModuleBase
     {
-        public Grass()
+        public GrassInterior()
         {
-            north.Add(Face.Grass);
+            north.Add(Face.Air);
 
             west.Add(Face.Grass);
 
