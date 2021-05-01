@@ -50,7 +50,7 @@
 
             while (volume < children.Count)
             {
-                volume <<= 3;
+                volume <<= 2;
             }
 
             int scale = volume >> 2;
@@ -61,7 +61,7 @@
             }
 
             float scaler = 1.0f / scale;
-            float sideScale = children.Count == 1 ? scaler : scaler * 0.75f;
+            float sideScale = children.Count == 1 ? scaler : scaler * 1.0f;
 
             for (int i = 0; i < children.Count; ++i)
             {
