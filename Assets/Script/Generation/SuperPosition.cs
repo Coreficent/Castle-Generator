@@ -15,7 +15,7 @@
         [SerializeField]
         private List<ModuleBase> positions = new List<ModuleBase>();
 
-        private List<ModuleBase> children = new List<ModuleBase>();
+        private readonly List<ModuleBase> children = new List<ModuleBase>();
 
         protected virtual void Awake()
         {
@@ -27,7 +27,7 @@
                 {
                     ModuleBase module = Instantiate(tileBase, transform);
 
-                    module.transform.eulerAngles = new Vector3(0.0f, 0.0f, i * 90.0f);
+                    module.transform.localEulerAngles = new Vector3(0.0f, 0.0f, i * 90.0f);
 
                     if (!filter.Contains(module))
                     {

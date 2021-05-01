@@ -9,9 +9,7 @@
         Dirt,
         Grass,
         Air,
-        Path,
-        River,
-        BridgeToGrass,
+        Wall,
     }
 
     public enum Direction
@@ -221,7 +219,7 @@
                 Test.Warn(name, "bottom is empty");
             }
 
-            transform.Find("display").transform.eulerAngles = new Vector3(-90.0f, 0.0f, 0.0f);
+            transform.Find("display").transform.localEulerAngles = new Vector3(-90.0f, 0.0f, 0.0f);
 
             base.Start();
         }
