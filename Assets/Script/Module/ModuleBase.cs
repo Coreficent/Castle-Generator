@@ -186,10 +186,16 @@
             }
         }
 
+        protected override void Start()
+        {
+            name = ToString();
+            base.Start();
+        }
+
         public override string ToString()
         {
-            string delimiter = ", ";
-            return "name" + GetType().Name + delimiter + "orientation" + delimiter + Orientation;
+            string delimiter = " - ";
+            return GetType().Name + delimiter + Orientation;
         }
 
         public override bool Equals(object obj)

@@ -25,18 +25,18 @@
 
                 for (int i = 0; i < 4; ++i)
                 {
-                    ModuleBase tile = Instantiate(tileBase, transform);
+                    ModuleBase module = Instantiate(tileBase, transform);
 
-                    tile.transform.eulerAngles = new Vector3(0.0f, 0.0f, i * 90.0f);
+                    module.transform.eulerAngles = new Vector3(0.0f, 0.0f, i * 90.0f);
 
-                    if (!filter.Contains(tile))
+                    if (!filter.Contains(module))
                     {
-                        AddChild(tile);
-                        filter.Add(tile);
+                        AddChild(module);
+                        filter.Add(module);
                     }
                     else
                     {
-                        Destroy(tile.gameObject);
+                        Destroy(module.gameObject);
                     }
                 }
             }
