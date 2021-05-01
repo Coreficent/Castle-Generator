@@ -5,7 +5,7 @@
     using UnityEngine;
     public class Test
     {
-        private static readonly string delimiter = "::";
+        private static readonly string delimiter = " -> ";
         private static readonly string terminator = ".";
 
         public static void Pause()
