@@ -4,7 +4,7 @@
     {
         public GrassInterior()
         {
-            north.Add(Face.Air);
+            north.Add(Face.Grass);
 
             west.Add(Face.Grass);
 

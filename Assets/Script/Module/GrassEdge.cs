@@ -4,7 +4,7 @@
     {
         public GrassEdge()
         {
-            north.Add(Face.Grass);
+            north.Add(Face.Air);
 
             west.Add(Face.Grass);
 
