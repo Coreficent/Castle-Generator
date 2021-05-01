@@ -44,6 +44,12 @@
             Render();
         }
 
+        protected override void Start()
+        {
+            name = ToString();
+            base.Start();
+        }
+
         private void Render()
         {
             int volume = 1;
@@ -328,6 +334,12 @@
             {
                 return children.Count;
             }
+        }
+
+        public override string ToString()
+        {
+            string delimiter = " : ";
+            return GetType().Name + delimiter + X + delimiter + Y + delimiter + Z;
         }
     }
 }
