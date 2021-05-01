@@ -55,17 +55,17 @@
                         break;
 
                     case State.Boundary:
-                        Process(boundary, State.World);
+                        Process(boundary, State.World, true);
 
                         break;
 
                     case State.World:
-                        Process(ground, State.WaveFunctionCollapse);
+                        Process(ground, State.WaveFunctionCollapse, true);
 
                         break;
 
                     case State.WaveFunctionCollapse:
-                        Process(waveFunctionCollapse, State.Fin);
+                        Process(waveFunctionCollapse, State.Fin, false);
 
                         break;
                     case State.Fin:
@@ -82,17 +82,29 @@
             }
         }
 
-        private void Process(IAnimatable animatable, State next)
+        private void Process(IAnimatable animatable, State next, bool instant)
         {
-            if (animatable.HasNext())
+            if (instant)
             {
-                animatable.Next();
+                while (animatable.HasNext())
+                {
+                    animatable.Next();
+                }
+                Transition(next);
             }
             else
             {
-                Transition(next);
+                if (animatable.HasNext())
+                {
+                    animatable.Next();
+                }
+                else
+                {
+                    Transition(next);
+                }
             }
         }
+
         private void Transition(State next)
         {
             timeController.Reset();
