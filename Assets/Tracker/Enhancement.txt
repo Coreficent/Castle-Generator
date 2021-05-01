@@ -1,3 +1,4 @@
+implement collection logging
 add weight
 add audio for stepping
 optimize
