@@ -18,7 +18,7 @@
         {
             if (DebugMode.On)
             {
-                Debug.DrawLine(start, end, color);
+                UnityEngine.Debug.DrawLine(start, end, color);
             }
         }
 
@@ -30,7 +30,7 @@
             }
         }
 
-        public static void Bug(params object[] message)
+        public static void Debug(params object[] message)
         {
             Warn("Bug", message);
         }
@@ -107,19 +107,19 @@
                 switch (messageType)
                 {
                     case "Error":
-                        Debug.LogError(messageType + message + terminator);
+                        UnityEngine.Debug.LogError(messageType + message + terminator);
                         break;
 
                     case "Warn":
-                        Debug.LogWarning(messageType + message + terminator);
+                        UnityEngine.Debug.LogWarning(messageType + message + terminator);
                         break;
 
                     case "Todo":
-                        Debug.Log(messageType + message + terminator);
+                        UnityEngine.Debug.Log(messageType + message + terminator);
                         break;
 
                     default:
-                        Debug.Log(messageType + message + terminator);
+                        UnityEngine.Debug.Log(messageType + message + terminator);
                         break;
                 }
             }

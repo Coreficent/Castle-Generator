@@ -122,9 +122,41 @@
 
             if (!Uncollapsible)
             {
-                ModuleBase selection = Instantiate(children[Random.Range(0, children.Count)], transform);
+
+
+                int totalWeight = children.Select(module => module.Weight).Sum();
+
+                if (totalWeight <= 0)
+                {
+                    Test.Warn("unexpected total weight");
+                }
+
+                // Test.Debug("wet", totalWeight);
+
+                int pick = Random.Range(0, totalWeight);
+
+                int score = 0;
+
+                ModuleBase selectedModule = null;
+
+                for (int i = 0; i < children.Count; ++i)
+                {
+                    score += children[i].Weight;
+
+                    if (score >= pick)
+                    {
+                        selectedModule = Instantiate(children[i], transform);
+                        break;
+                    }
+                }
+
+                if (selectedModule == null)
+                {
+                    Test.Warn("fail to select module based on weight");
+                }
+
                 DeleteChildren();
-                AddChild(selection);
+                AddChild(selectedModule);
             }
 
             Render();

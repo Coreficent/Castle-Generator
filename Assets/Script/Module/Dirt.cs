@@ -15,6 +15,8 @@
             top.Add(Face.Dirt);
 
             bottom.Add(Face.Dirt);
+
+            weight = 1024;
         }
     }
 }

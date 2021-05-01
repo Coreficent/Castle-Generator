@@ -15,6 +15,8 @@
             top.Add(Face.Air);
 
             bottom.Add(Face.Air);
+
+            weight = 1024;
         }
     }
 }

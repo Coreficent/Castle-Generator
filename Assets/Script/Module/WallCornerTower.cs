@@ -14,7 +14,9 @@
 
             top.Add(Face.Air);
 
-            bottom.Add(Face.Grass);
+            bottom.Add(Face.Foundation);
+
+            weight = 1024;
         }
     }
 }

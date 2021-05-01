@@ -10,6 +10,7 @@
         Grass,
         Air,
         Wall,
+        Foundation,
     }
 
     public enum Direction
@@ -53,6 +54,16 @@
 
         protected HashSet<Face> top = new HashSet<Face>();
         protected HashSet<Face> bottom = new HashSet<Face>();
+
+        protected int weight = 1024;
+
+        public int Weight
+        {
+            get
+            {
+                return weight;
+            }
+        }
 
         public HashSet<Face> NorthSet
         {
