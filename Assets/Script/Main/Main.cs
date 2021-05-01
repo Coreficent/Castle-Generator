@@ -12,7 +12,7 @@
         World,
         Boundary,
         WaveFunctionCollapse,
-        Fin,
+        Success,
     }
 
     public class Main : Script
@@ -64,10 +64,10 @@
                         break;
 
                     case State.WaveFunctionCollapse:
-                        Process(waveFunctionCollapse, State.Fin, false);
+                        Process(waveFunctionCollapse, State.Success, false);
 
                         break;
-                    case State.Fin:
+                    case State.Success:
 
                         break;
 
@@ -108,7 +108,7 @@
         {
             timeController.Reset();
             gameState = next;
-            Test.Log("transitioning to", next);
+            Test.Log("processing", next);
         }
     }
 }
