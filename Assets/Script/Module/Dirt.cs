@@ -11,6 +11,10 @@
             south.Add(Face.Dirt);
 
             east.Add(Face.Dirt);
+
+            top.Add(Face.Dirt);
+
+            bottom.Add(Face.Dirt);
         }
     }
 }

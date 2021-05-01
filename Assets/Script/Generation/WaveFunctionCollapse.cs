@@ -1,5 +1,6 @@
 ﻿namespace Coreficent.Generation
 {
+    using Coreficent.Utility;
     using System.Collections.Generic;
 
     public class WaveFunctionCollapse : IAnimatable
@@ -47,6 +48,8 @@
                 Superposition superposition = world.NextMinimumEntropyPosition;
 
                 superposition.Collapse(world);
+
+                //Test.Pause();
 
                 foreach (Superposition i in FindNeighbors(superposition.X, superposition.Y, superposition.Z))
                 {

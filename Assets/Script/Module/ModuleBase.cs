@@ -11,7 +11,7 @@
         Air,
         Path,
         River,
-        BridgeToGrass
+        BridgeToGrass,
     }
 
     public enum Direction
@@ -20,6 +20,8 @@
         East,
         South,
         West,
+        Top,
+        Bottom,
         Invalid,
     }
 
@@ -37,6 +39,10 @@
                     return Direction.North;
                 case Direction.West:
                     return Direction.East;
+                case Direction.Top:
+                    return Direction.Bottom;
+                case Direction.Bottom:
+                    return Direction.Top;
                 default:
                     return Direction.Invalid;
             }
@@ -50,7 +56,7 @@
         protected HashSet<Face> top = new HashSet<Face>();
         protected HashSet<Face> bottom = new HashSet<Face>();
 
-        public HashSet<Face> North
+        public HashSet<Face> NorthSet
         {
             get
             {
@@ -73,7 +79,7 @@
             }
         }
 
-        public HashSet<Face> East
+        public HashSet<Face> EastSet
         {
             get
             {
@@ -96,7 +102,7 @@
             }
         }
 
-        public HashSet<Face> South
+        public HashSet<Face> SouthSet
         {
             get
             {
@@ -119,7 +125,7 @@
             }
         }
 
-        public HashSet<Face> West
+        public HashSet<Face> WestSet
         {
             get
             {
@@ -142,7 +148,7 @@
             }
         }
 
-        public HashSet<Face> Top
+        public HashSet<Face> TopSet
         {
             get
             {
@@ -150,7 +156,7 @@
             }
         }
 
-        public HashSet<Face> Bottom
+        public HashSet<Face> BottomSet
         {
             get
             {
@@ -189,6 +195,32 @@
         protected override void Start()
         {
             name = ToString();
+
+            if (NorthSet.Count == 0)
+            {
+                Test.Warn(name, "north is empty");
+            }
+            if (WestSet.Count == 0)
+            {
+                Test.Warn(name, "west is empty");
+            }
+            if (SouthSet.Count == 0)
+            {
+                Test.Warn(name, "south is empty");
+            }
+            if (EastSet.Count == 0)
+            {
+                Test.Warn(name, "east is empty");
+            }
+            if (TopSet.Count == 0)
+            {
+                Test.Warn(name, "top is empty");
+            }
+            if (BottomSet.Count == 0)
+            {
+                Test.Warn(name, "bottom is empty");
+            }
+
             base.Start();
         }
 
@@ -207,29 +239,29 @@
                 return false;
             }
 
-            return North.SetEquals(other.North) && West.SetEquals(other.West) && South.SetEquals(other.South) && East.SetEquals(other.East);
+            return NorthSet.SetEquals(other.NorthSet) && WestSet.SetEquals(other.WestSet) && SouthSet.SetEquals(other.SouthSet) && EastSet.SetEquals(other.EastSet);
         }
 
         public override int GetHashCode()
         {
             int hash = 17;
 
-            foreach (var i in North)
+            foreach (var i in NorthSet)
             {
                 hash = hash * 23 + i.GetHashCode();
             }
 
-            foreach (var i in West)
+            foreach (var i in WestSet)
             {
                 hash = hash * 23 + i.GetHashCode();
             }
 
-            foreach (var i in South)
+            foreach (var i in SouthSet)
             {
                 hash = hash * 23 + i.GetHashCode();
             }
 
-            foreach (var i in East)
+            foreach (var i in EastSet)
             {
                 hash = hash * 23 + i.GetHashCode();
             }

@@ -8,6 +8,12 @@
         private static readonly string delimiter = "::";
         private static readonly string terminator = ".";
 
+        public static void Pause()
+        {
+            Time.timeScale = 0.0f;
+            Warn("paused");
+        }
+
         public static void Draw(Vector3 start, Vector3 end, Color color)
         {
             if (DebugMode.On)
@@ -70,17 +76,22 @@
                     }
                     else
                     {
-                        if (i.GetType().GetInterface(nameof(ICollection)) != null)
+                        if (i is string)
+                        {
+                            message += i;
+                        }
+                        else if (i.GetType().GetInterface(nameof(IEnumerable)) != null)
                         {
                             message += "[";
                             IEnumerable enumerable = (i as IEnumerable);
 
                             foreach (var item in enumerable)
                             {
-                                message += item.ToString();
+                                message += item;
                                 message += ",";
                             }
-                            //message += string.Join(",", enumerable);
+
+                            message = message.Remove(message.Length - 1);
 
                             message += "]";
                         }

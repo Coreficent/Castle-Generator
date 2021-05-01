@@ -108,13 +108,26 @@
             }
         }
 
+        public bool Uncollapsible
+        {
+            get
+            {
+                return children.Count == 0;
+            }
+        }
+
         public void Collapse(World world)
         {
             Bind(world);
 
-            ModuleBase selection = Instantiate(children[Random.Range(0, children.Count)], transform);
-            DeleteChildren();
-            AddChild(selection);
+
+
+            if (!Uncollapsible)
+            {
+                ModuleBase selection = Instantiate(children[Random.Range(0, children.Count)], transform);
+                DeleteChildren();
+                AddChild(selection);
+            }
 
             Render();
         }
@@ -162,12 +175,14 @@
             Constrain(world, Direction.West);
             Constrain(world, Direction.South);
             Constrain(world, Direction.East);
+            Constrain(world, Direction.Top);
+            Constrain(world, Direction.Bottom);
         }
 
         private void Constrain(World world, Direction direction)
         {
             Superposition otherPosition;
-            HashSet<Face> originSockets;
+            HashSet<Face> thatSockets;
 
             switch (direction)
             {
@@ -183,44 +198,69 @@
                 case Direction.East:
                     otherPosition = world.Find(X + 1, Y, Z);
                     break;
+                case Direction.Top:
+                    otherPosition = world.Find(X, Y, Z - 1);
+                    break;
+                case Direction.Bottom:
+                    otherPosition = world.Find(X, Y, Z + 1);
+                    break;
                 default:
                     Test.Warn("attempt to constrain from an invalid origin");
                     return;
             }
 
-            if (otherPosition.children.Count == 0)
+            if (otherPosition.Uncollapsible)
             {
-                Test.Log("avoid cllapsing on uncollapsable tile");
+                Test.Warn("skip collapse", this, otherPosition);
+                Test.Pause();
+
                 return;
             }
 
-            originSockets = otherPosition.FindValidSockets(InverseDirection(direction));
+            thatSockets = otherPosition.FindValidSockets(InverseDirection(direction));
+
+            //if (Direction.Bottom == direction)
+            //{
+            //    foreach (var i in thatSockets)
+            //    {
+            //        Test.Bug("thatSockets", i, otherPosition);
+            //    }
+            //}
+
 
             foreach (ModuleBase tileBase in children.ToList())
             {
 
-                HashSet<Face> tileSockets;
+                HashSet<Face> thisSockets;
 
                 switch (direction)
                 {
                     case Direction.North:
-                        tileSockets = tileBase.North;
+                        thisSockets = tileBase.NorthSet;
                         break;
                     case Direction.East:
-                        tileSockets = tileBase.East;
+                        thisSockets = tileBase.EastSet;
                         break;
                     case Direction.South:
-                        tileSockets = tileBase.South;
+                        thisSockets = tileBase.SouthSet;
                         break;
                     case Direction.West:
-                        tileSockets = tileBase.West;
+                        thisSockets = tileBase.WestSet;
+                        break;
+                    case Direction.Top:
+                        thisSockets = tileBase.TopSet;
+                        break;
+                    case Direction.Bottom:
+                        thisSockets = tileBase.BottomSet;
                         break;
                     default:
                         Test.Log("unexpected direction");
                         return;
                 }
 
-                if (originSockets.Intersect(tileSockets).ToList().Count == 0)
+
+
+                if (thatSockets.Intersect(thisSockets).ToList().Count == 0)
                 {
                     DeleteChild(tileBase);
                 }
@@ -260,28 +300,42 @@
                 case Direction.North:
                     foreach (ModuleBase tileBase in children)
                     {
-                        result.UnionWith(tileBase.North);
+                        result.UnionWith(tileBase.NorthSet);
                     }
                     break;
 
                 case Direction.East:
                     foreach (ModuleBase tileBase in children)
                     {
-                        result.UnionWith(tileBase.East);
+                        result.UnionWith(tileBase.EastSet);
                     }
                     break;
 
                 case Direction.South:
                     foreach (ModuleBase tileBase in children)
                     {
-                        result.UnionWith(tileBase.South);
+                        result.UnionWith(tileBase.SouthSet);
                     }
                     break;
 
                 case Direction.West:
                     foreach (ModuleBase tileBase in children)
                     {
-                        result.UnionWith(tileBase.West);
+                        result.UnionWith(tileBase.WestSet);
+                    }
+                    break;
+
+                case Direction.Top:
+                    foreach (ModuleBase tileBase in children)
+                    {
+                        result.UnionWith(tileBase.TopSet);
+                    }
+                    break;
+
+                case Direction.Bottom:
+                    foreach (ModuleBase tileBase in children)
+                    {
+                        result.UnionWith(tileBase.BottomSet);
                     }
                     break;
 

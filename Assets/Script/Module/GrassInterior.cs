@@ -11,6 +11,10 @@
             south.Add(Face.Grass);
 
             east.Add(Face.Grass);
+
+            top.Add(Face.Air);
+
+            bottom.Add(Face.Dirt);
         }
     }
 }
