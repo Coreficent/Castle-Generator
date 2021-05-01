@@ -1,7 +1,8 @@
-implement z axis
+implement context aware z face
 
 complete:
 
+implement z axis
 add to board
 implement world generator
 isolate world
