@@ -1,3 +1,5 @@
+implement propagation after manual collapse.
+
 complete:
 
 last collapse is not context aware.
