@@ -44,6 +44,11 @@
             }
         }
 
+        public void Clear()
+        {
+            UnityEngine.Object.Destroy(board);
+        }
+
         public Superposition Find(int x, int y, int z)
         {
             if (!map.ContainsKey(Hash(x, y, z)))

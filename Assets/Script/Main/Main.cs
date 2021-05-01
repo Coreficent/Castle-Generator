@@ -39,6 +39,8 @@
                 switch (gameState)
                 {
                     case State.Initialization:
+                        Test.Log("Initializing");
+
                         world = new World(superposition, board);
                         boundary = new Boundary(world);
                         ground = new Ground(world);
@@ -68,6 +70,11 @@
 
                         break;
                     case State.Success:
+                        if (Input.GetKey(KeyCode.R))
+                        {
+                            world.Clear();
+                            Transition(State.Initialization);
+                        }
 
                         break;
 
