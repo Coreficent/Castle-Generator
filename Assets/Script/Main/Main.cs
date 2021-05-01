@@ -50,6 +50,8 @@
                         timeController.SetTime(Tuning.StepInterval);
                         timeController.Reset();
 
+                        QualitySettings.shadows = Tuning.ShadowSetting;
+
                         Transition(State.Boundary);
 
                         break;
