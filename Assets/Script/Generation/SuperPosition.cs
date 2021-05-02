@@ -224,7 +224,7 @@
         private void Constrain(World world, Direction direction)
         {
             Superposition otherPosition;
-            HashSet<Face> thatSockets;
+            HashSet<Face> thatFaces;
 
             switch (direction)
             {
@@ -257,41 +257,32 @@
                 return;
             }
 
-            thatSockets = otherPosition.FindValidSockets(InverseDirection(direction));
-
-            //if (Direction.Bottom == direction)
-            //{
-            //    foreach (var i in thatSockets)
-            //    {
-            //        Test.Bug("thatSockets", i, otherPosition);
-            //    }
-            //}
-
+            thatFaces = otherPosition.FindValidFaces(InverseDirection(direction));
 
             foreach (ModuleBase tileBase in children.ToList())
             {
 
-                HashSet<Face> thisSockets;
+                HashSet<Face> thisFaces;
 
                 switch (direction)
                 {
                     case Direction.North:
-                        thisSockets = tileBase.NorthSet;
+                        thisFaces = tileBase.NorthSet;
                         break;
                     case Direction.East:
-                        thisSockets = tileBase.EastSet;
+                        thisFaces = tileBase.EastSet;
                         break;
                     case Direction.South:
-                        thisSockets = tileBase.SouthSet;
+                        thisFaces = tileBase.SouthSet;
                         break;
                     case Direction.West:
-                        thisSockets = tileBase.WestSet;
+                        thisFaces = tileBase.WestSet;
                         break;
                     case Direction.Top:
-                        thisSockets = tileBase.TopSet;
+                        thisFaces = tileBase.TopSet;
                         break;
                     case Direction.Bottom:
-                        thisSockets = tileBase.BottomSet;
+                        thisFaces = tileBase.BottomSet;
                         break;
                     default:
                         Test.Log("unexpected direction");
@@ -300,7 +291,7 @@
 
 
 
-                if (thatSockets.Intersect(thisSockets).ToList().Count == 0)
+                if (thatFaces.Intersect(thisFaces).ToList().Count == 0)
                 {
                     DeleteChild(tileBase);
                 }
@@ -331,7 +322,7 @@
             }
         }
 
-        private HashSet<Face> FindValidSockets(Direction direction)
+        private HashSet<Face> FindValidFaces(Direction direction)
         {
             HashSet<Face> result = new HashSet<Face>();
 
