@@ -21,10 +21,7 @@
 
         TowerCenter,
         TowerEast,
-        TowerSeast,
         TowerSouth,
-
-        TowerSpace,
 
         TowerBalconyCenterEast,
         TowerBalconyCenterSouth,

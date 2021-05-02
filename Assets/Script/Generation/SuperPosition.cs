@@ -222,21 +222,21 @@
             {
                 Test.Log("try to uncollapse", this);
 
-                UncollapseIfNotBoundary(world, X, Y + 1, Z);
-                UncollapseIfNotBoundary(world, X - 1, Y, Z);
-                UncollapseIfNotBoundary(world, X, Y - 1, Z);
-                UncollapseIfNotBoundary(world, X + 1, Y, Z);
-                UncollapseIfNotBoundary(world, X, Y, Z - 1);
-                UncollapseIfNotBoundary(world, X, Y, Z + 1);
+                UncollapseMutableModule(world, X, Y + 1, Z);
+                UncollapseMutableModule(world, X - 1, Y, Z);
+                UncollapseMutableModule(world, X, Y - 1, Z);
+                UncollapseMutableModule(world, X + 1, Y, Z);
+                UncollapseMutableModule(world, X, Y, Z - 1);
+                UncollapseMutableModule(world, X, Y, Z + 1);
 
-                UncollapseIfNotBoundary(world, X - 1, Y - 1, Z - 1);
-                UncollapseIfNotBoundary(world, X + 1, Y - 1, Z - 1);
-                UncollapseIfNotBoundary(world, X + 1, Y + 1, Z - 1);
-                UncollapseIfNotBoundary(world, X - 1, Y + 1, Z - 1);
-                UncollapseIfNotBoundary(world, X - 1, Y - 1, Z + 1);
-                UncollapseIfNotBoundary(world, X + 1, Y - 1, Z + 1);
-                UncollapseIfNotBoundary(world, X + 1, Y + 1, Z + 1);
-                UncollapseIfNotBoundary(world, X - 1, Y + 1, Z + 1);
+                UncollapseMutableModule(world, X - 1, Y - 1, Z - 1);
+                UncollapseMutableModule(world, X + 1, Y - 1, Z - 1);
+                UncollapseMutableModule(world, X + 1, Y + 1, Z - 1);
+                UncollapseMutableModule(world, X - 1, Y + 1, Z - 1);
+                UncollapseMutableModule(world, X - 1, Y - 1, Z + 1);
+                UncollapseMutableModule(world, X + 1, Y - 1, Z + 1);
+                UncollapseMutableModule(world, X + 1, Y + 1, Z + 1);
+                UncollapseMutableModule(world, X - 1, Y + 1, Z + 1);
 
                 Uncollapse();
 
@@ -248,7 +248,7 @@
             return true;
         }
 
-        private void UncollapseIfNotBoundary(World world, int x, int y, int z)
+        private void UncollapseMutableModule(World world, int x, int y, int z)
         {
             Superposition superposition = world.Find(x, y, z); ;
             if (!superposition.Immutable)

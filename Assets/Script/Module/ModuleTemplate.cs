@@ -1,7 +1,6 @@
-﻿using Coreficent.Utility;
-
-namespace Coreficent.Module
+﻿namespace Coreficent.Module
 {
+    using Coreficent.Utility;
     public class ModuleTemplate : ModuleBase
     {
         public ModuleTemplate()

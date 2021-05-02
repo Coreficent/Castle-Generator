@@ -1,6 +1,4 @@
-﻿using Coreficent.Utility;
-
-namespace Coreficent.Module
+﻿namespace Coreficent.Module
 {
     public class WallCornerSouth : ModuleBase
     {

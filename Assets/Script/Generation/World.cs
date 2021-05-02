@@ -4,19 +4,18 @@
     using Coreficent.Utility;
     using System;
     using System.Collections.Generic;
-    using System.Linq;
     using UnityEngine;
 
     public class World
     {
         private readonly Dictionary<string, Superposition> map = new Dictionary<string, Superposition>();
-        //private readonly HashSet<Superposition> uncollapsedPositions = new HashSet<Superposition>();
 
         private GameObject board;
 
         public World(Superposition superPosition, GameObject board)
         {
             this.board = UnityEngine.Object.Instantiate(board);
+            this.board.name = "world";
             this.board.transform.position = new Vector3(-(Tuning.Width - 1) / 2.0f, -(Tuning.Height - 1) / 2.0f, -(Tuning.Depth - 1) / 2.0f);
 
             for (int x = 0; x < Tuning.Width; ++x)
@@ -28,17 +27,6 @@
                         Superposition position = UnityEngine.Object.Instantiate(superPosition, this.board.transform);
                         position.transform.localPosition = new Vector3(x, y, z);
                         map.Add(Hash(x, y, z), position);
-
-                        //if (x == 0 || y == 0 || x == Tuning.Width - 1 || y == Tuning.Height - 1)
-                        //{
-                        //    position.Collapse(position.border);
-                        //}
-                        //else
-                        //{
-                        //    uncollapsedPositions.Add(position);
-                        //}
-
-                        //uncollapsedPositions.Add(position);
                     }
                 }
             }
