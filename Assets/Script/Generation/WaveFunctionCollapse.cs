@@ -1,5 +1,6 @@
 ﻿namespace Coreficent.Generation
 {
+    using Coreficent.Utility;
     using System.Collections.Generic;
     using System.Linq;
     using UnityEngine;
@@ -20,6 +21,10 @@
             foreach (Superposition superposition in world.Collect(superposition => !superposition.Collapsed))
             {
                 dequeue.Push(superposition);
+            }
+            foreach (Superposition superposition in world.Collect(superposition => superposition.Uncollapsible))
+            {
+                Test.Warn("unexpected uncollapsible state", superposition);
             }
         }
 

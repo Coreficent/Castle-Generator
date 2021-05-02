@@ -108,7 +108,7 @@
         {
             get
             {
-                return children.Count <= 1;
+                return children.Count == 1;
             }
         }
 
@@ -201,7 +201,6 @@
             Render();
         }
 
-
         public bool Propagate(World world)
         {
             if (Collapsed)
@@ -213,12 +212,7 @@
 
             Bind(world);
 
-            if (childrenCountStart == children.Count)
-            {
-                return false;
-            }
-
-            if (children.Count == 0)
+            if (Uncollapsible)
             {
                 Test.Log("uncollapse", this);
 
@@ -243,9 +237,15 @@
                 return true;
             }
 
-            Render();
-
-            return true;
+            if (childrenCountStart == children.Count)
+            {
+                return false;
+            }
+            else
+            {
+                Render();
+                return true;
+            }
         }
 
         private void UncollapseMutableModule(World world, int x, int y, int z)
