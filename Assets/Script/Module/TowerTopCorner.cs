@@ -14,7 +14,7 @@
 
             top.Add(Face.Air);
 
-            bottom.Add(Face.TowerCenter);
+            bottom.Add(Face.TowerTopCorner);
         }
 
         public override int Weight => 1024;

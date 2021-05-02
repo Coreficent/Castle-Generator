@@ -12,9 +12,10 @@
 
             east.Add(Face.TowerBalconyCenterEast);
 
-            top.Add(Face.TowerCenter);
+            top.Add(Face.TowerTop);
+            top.Add(Face.TowerSegment);
 
-            bottom.Add(Face.TowerCenter);
+            bottom.Add(Face.TowerSegment);
         }
 
         public override int Weight => 1024;

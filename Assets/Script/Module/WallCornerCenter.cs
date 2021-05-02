@@ -12,7 +12,8 @@
 
             east.Add(Face.WallCornerCenterEast);
 
-            top.Add(Face.TowerCenter);
+            top.Add(Face.TowerTopCorner);
+            top.Add(Face.TowerSegment);
 
             bottom.Add(Face.Foundation);
         }

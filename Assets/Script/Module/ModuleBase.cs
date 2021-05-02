@@ -19,7 +19,9 @@
 
         Foundation,
 
-        TowerCenter,
+        TowerSegment,
+        TowerTop,
+        TowerTopCorner,
         TowerEast,
         TowerSouth,
 
