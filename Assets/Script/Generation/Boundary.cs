@@ -32,6 +32,7 @@
                         {
                             Superposition superposition = world.Find(x, y, z);
                             superposition.Collapse(superposition.air);
+                            superposition.Immutable = true;
                             ++z;
                         }
                         else

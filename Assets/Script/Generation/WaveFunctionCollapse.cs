@@ -2,6 +2,8 @@
 {
     using Coreficent.Utility;
     using System.Collections.Generic;
+    using System.Linq;
+    using UnityEngine;
 
     public class WaveFunctionCollapse : IAnimatable
     {
@@ -79,7 +81,7 @@
             result.Add(world.Find(x, y, z - 1));
             result.Add(world.Find(x, y, z + 1));
 
-            return result;
+            return result.OrderBy(a => Random.Range(0, 1024)).ToList(); ;
         }
 
     }

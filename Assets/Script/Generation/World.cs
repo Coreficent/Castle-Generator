@@ -10,7 +10,7 @@
     public class World
     {
         private readonly Dictionary<string, Superposition> map = new Dictionary<string, Superposition>();
-        private readonly HashSet<Superposition> uncollapsedPositions = new HashSet<Superposition>();
+        //private readonly HashSet<Superposition> uncollapsedPositions = new HashSet<Superposition>();
 
         private GameObject board;
 
@@ -38,7 +38,7 @@
                         //    uncollapsedPositions.Add(position);
                         //}
 
-                        uncollapsedPositions.Add(position);
+                        //uncollapsedPositions.Add(position);
                     }
                 }
             }
@@ -47,6 +47,11 @@
         public void Clear()
         {
             UnityEngine.Object.Destroy(board);
+        }
+
+        public bool Has(int x, int y, int z)
+        {
+            return map.ContainsKey(Hash(x, y, z));
         }
 
         public Superposition Find(int x, int y, int z)
@@ -88,20 +93,12 @@
                 int entropy = int.MaxValue;
                 List<Superposition> result = new List<Superposition>();
 
-                foreach (Superposition superposition in uncollapsedPositions.ToList())
+                foreach (Superposition superposition in Collect(superposition => !superposition.Collapsed))
                 {
-
-                    if (superposition.Collapsed)
+                    if (superposition.Entropy < entropy)
                     {
-                        uncollapsedPositions.Remove(superposition);
-                    }
-                    else
-                    {
-                        if (superposition.Entropy < entropy)
-                        {
-                            entropy = superposition.Entropy;
-                            result.Add(superposition);
-                        }
+                        entropy = superposition.Entropy;
+                        result.Add(superposition);
                     }
                 }
 

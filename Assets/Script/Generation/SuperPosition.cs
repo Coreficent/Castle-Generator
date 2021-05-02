@@ -18,31 +18,23 @@
 
         private readonly List<ModuleBase> children = new List<ModuleBase>();
 
+        private bool immutable = false;
+
+        public bool Immutable
+        {
+            get
+            {
+                return immutable;
+            }
+            set
+            {
+                immutable = value;
+            }
+        }
+
         protected virtual void Awake()
         {
-            foreach (ModuleBase tileBase in positions)
-            {
-                HashSet<ModuleBase> filter = new HashSet<ModuleBase>();
-
-                for (int i = 0; i < 4; ++i)
-                {
-                    ModuleBase module = Instantiate(tileBase, transform);
-
-                    module.transform.localEulerAngles = new Vector3(0.0f, 0.0f, i * 90.0f);
-
-                    if (!filter.Contains(module))
-                    {
-                        AddChild(module);
-                        filter.Add(module);
-                    }
-                    else
-                    {
-                        Destroy(module.gameObject);
-                    }
-                }
-            }
-
-            Render();
+            Uncollapse();
         }
 
         protected override void Start()
@@ -183,6 +175,34 @@
             Render();
         }
 
+        public void Uncollapse()
+        {
+            foreach (ModuleBase tileBase in positions)
+            {
+                HashSet<ModuleBase> filter = new HashSet<ModuleBase>();
+
+                for (int i = 0; i < 4; ++i)
+                {
+                    ModuleBase module = Instantiate(tileBase, transform);
+
+                    module.transform.localEulerAngles = new Vector3(0.0f, 0.0f, i * 90.0f);
+
+                    if (!filter.Contains(module))
+                    {
+                        AddChild(module);
+                        filter.Add(module);
+                    }
+                    else
+                    {
+                        Destroy(module.gameObject);
+                    }
+                }
+            }
+
+            Render();
+        }
+
+
         public bool Propagate(World world)
         {
             if (Collapsed)
@@ -201,14 +221,32 @@
 
             if (children.Count == 0)
             {
-                Test.Warn("unable to collapse", this);
+                Test.Log("try to uncollapse", this);
 
-                return false;
+                UncollapseIfNotBoundary(world, X, Y + 1, Z);
+                UncollapseIfNotBoundary(world, X - 1, Y, Z);
+                UncollapseIfNotBoundary(world, X, Y - 1, Z);
+                UncollapseIfNotBoundary(world, X + 1, Y, Z);
+                UncollapseIfNotBoundary(world, X, Y, Z - 1);
+                UncollapseIfNotBoundary(world, X, Y, Z + 1);
+
+                Uncollapse();
+
+                return true;
             }
 
             Render();
 
             return true;
+        }
+
+        private void UncollapseIfNotBoundary(World world, int x, int y, int z)
+        {
+            Superposition superposition = world.Find(x, y, z); ;
+            if (!superposition.Immutable)
+            {
+                superposition.Uncollapse();
+            }
         }
 
         private void Bind(World world)
