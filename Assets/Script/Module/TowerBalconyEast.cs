@@ -13,6 +13,7 @@
             east.Add(Face.Air);
 
             top.Add(Face.Air);
+            top.Add(Face.TowerEast);
 
             bottom.Add(Face.TowerEast);
         }

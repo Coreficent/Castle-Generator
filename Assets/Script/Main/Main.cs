@@ -40,7 +40,7 @@
                 switch (gameState)
                 {
                     case State.Initialization:
-                        Test.Log("Initializing");
+                        Test.Log("initializing");
 
                         world = new World(superposition, board);
                         boundary = new Boundary(world);
