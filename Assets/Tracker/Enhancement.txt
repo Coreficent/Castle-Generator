@@ -1,12 +1,12 @@
 reference world in superposition
-create progress bar for world
-make world generation asynchronous
 implement collection logging
 add audio for stepping
 optimize
 
 complete:
 
+make world generation asynchronous
+create progress bar for world
 add weight
 isolate enum
 add rotated children to a set automatically
