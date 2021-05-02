@@ -6,28 +6,68 @@
     using System.Collections.Generic;
     using UnityEngine;
 
-    public class World
+    public class World : IAnimatable
     {
-        private readonly Dictionary<string, Superposition> map = new Dictionary<string, Superposition>();
+        private readonly Dictionary<string, Superposition> worldMap = new Dictionary<string, Superposition>();
 
         private GameObject board;
+        private Superposition superposition;
 
-        public World(Superposition superPosition, GameObject board)
+        private int x = 0;
+        private int y = 0;
+        private int z = 0;
+        private int index = 0;
+
+        public World(Superposition superposition, GameObject board)
         {
             this.board = UnityEngine.Object.Instantiate(board);
-            this.board.name = "world";
+            this.board.name = "World";
             this.board.transform.position = new Vector3(-(Tuning.Width - 1) / 2.0f, -(Tuning.Height - 1) / 2.0f, -(Tuning.Depth - 1) / 2.0f);
 
-            for (int x = 0; x < Tuning.Width; ++x)
+            this.superposition = superposition;
+        }
+
+        public float Progress
+        {
+            get
             {
-                for (int y = 0; y < Tuning.Height; ++y)
+                return 1.0f * index / (Tuning.Width * Tuning.Height * Tuning.Depth);
+            }
+        }
+
+        public bool HasNext()
+        {
+            return x < Tuning.Width;
+        }
+
+        public void Next()
+        {
+            if (x < Tuning.Width)
+            {
+                if (y < Tuning.Height)
                 {
-                    for (int z = 0; z < Tuning.Depth; ++z)
+                    if (z < Tuning.Depth)
                     {
-                        Superposition position = UnityEngine.Object.Instantiate(superPosition, this.board.transform);
+                        Superposition position = UnityEngine.Object.Instantiate(superposition, board.transform);
                         position.transform.localPosition = new Vector3(x, y, z);
-                        map.Add(Hash(x, y, z), position);
+                        worldMap.Add(Hash(x, y, z), position);
+
+                        ++index;
+                        ++z;
                     }
+                    else
+                    {
+                        ++y;
+                        z = 0;
+                        Next();
+                    }
+                }
+                else
+                {
+                    ++x;
+                    y = 0;
+                    z = 0;
+                    Next();
                 }
             }
         }
@@ -39,25 +79,25 @@
 
         public bool Has(int x, int y, int z)
         {
-            return map.ContainsKey(Hash(x, y, z));
+            return worldMap.ContainsKey(Hash(x, y, z));
         }
 
         public Superposition Find(int x, int y, int z)
         {
-            if (!map.ContainsKey(Hash(x, y, z)))
+            if (!worldMap.ContainsKey(Hash(x, y, z)))
             {
                 Test.Warn("position not found", Hash(x, y, z));
                 return null;
             }
 
-            Superposition result = map[Hash(x, y, z)];
+            Superposition result = worldMap[Hash(x, y, z)];
 
             if (!result || result == null || result.ToString() == "null")
             {
                 Test.Warn("null superposition found at", x, y, z);
             }
 
-            return map[Hash(x, y, z)];
+            return worldMap[Hash(x, y, z)];
         }
 
         private string Hash(int x, int y, int z)
@@ -69,7 +109,7 @@
         {
             get
             {
-                foreach (KeyValuePair<string, Superposition> entry in map)
+                foreach (KeyValuePair<string, Superposition> entry in worldMap)
                 {
                     if (!entry.Value.Collapsed)
                     {
@@ -110,7 +150,7 @@
         {
             HashSet<Superposition> result = new HashSet<Superposition>();
 
-            foreach (KeyValuePair<string, Superposition> entry in map)
+            foreach (KeyValuePair<string, Superposition> entry in worldMap)
             {
                 if (filter(entry.Value))
                 {
@@ -120,5 +160,7 @@
 
             return result;
         }
+
+
     }
 }
