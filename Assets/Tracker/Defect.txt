@@ -1,3 +1,5 @@
+implement retry on uncollapsible modules.
+
 complete:
 
 implement propagation after manual collapse.
