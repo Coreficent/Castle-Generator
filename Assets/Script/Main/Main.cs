@@ -62,7 +62,7 @@
                         break;
 
                     case State.World:
-                        Process(ground, State.Queue, true);
+                        Process(ground, State.Queue, Tuning.InstantRendering);
 
                         break;
 

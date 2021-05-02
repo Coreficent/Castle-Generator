@@ -12,6 +12,7 @@
 
             east.Add(Face.WallCornerSouthSeast);
 
+            top.Add(Face.Air);
             top.Add(Face.TowerSouth);
 
             bottom.Add(Face.Foundation);
