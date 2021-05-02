@@ -206,6 +206,17 @@
             }
         }
 
+        public bool Visible
+        {
+            set
+            {
+                foreach (Renderer i in GetComponentsInChildren<Renderer>())
+                {
+                    i.enabled = value;
+                }
+            }
+        }
+
         protected override void Start()
         {
             name = ToString();

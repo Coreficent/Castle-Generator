@@ -56,17 +56,17 @@
                         break;
 
                     case State.Boundary:
-                        Process(boundary, State.World, Tuning.Instant);
+                        Process(boundary, State.World, true);
 
                         break;
 
                     case State.World:
-                        Process(ground, State.WaveFunctionCollapse, Tuning.Instant);
+                        Process(ground, State.WaveFunctionCollapse, Tuning.InstantRendering);
 
                         break;
 
                     case State.WaveFunctionCollapse:
-                        Process(waveFunctionCollapse, State.Success, Tuning.Instant);
+                        Process(waveFunctionCollapse, State.Success, Tuning.InstantRendering);
 
                         break;
                     case State.Success:

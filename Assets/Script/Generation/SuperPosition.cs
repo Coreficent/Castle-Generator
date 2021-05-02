@@ -1,6 +1,7 @@
 ﻿namespace Coreficent.Generation
 {
     using Coreficent.Module;
+    using Coreficent.Setting;
     using Coreficent.Utility;
     using System.Collections.Generic;
     using System.Linq;
@@ -71,8 +72,9 @@
 
             for (int i = 0; i < children.Count; ++i)
             {
-                ModuleBase result = children[i];
-                result.transform.localScale = new Vector3(sideScale, sideScale, sideScale);
+                ModuleBase child = children[i];
+                child.transform.localScale = new Vector3(sideScale, sideScale, sideScale);
+                child.Visible = false;
             }
 
             int index = 0;
@@ -85,13 +87,23 @@
                 {
                     for (int z = 0; z < scale; ++z)
                     {
-                        if (index < children.Count)
+                        if (children.Count >= Tuning.MaximumRenderCount)
                         {
-                            children[index].transform.localPosition = new Vector3(x * scaler - offset, y * scaler - offset, z * scaler - offset);
+                            return;
                         }
                         else
                         {
-                            return;
+                            if (index < children.Count)
+                            {
+                                ModuleBase child = children[index];
+
+                                child.Visible = true;
+                                child.transform.localPosition = new Vector3(x * scaler - offset, y * scaler - offset, z * scaler - offset);
+                            }
+                            else
+                            {
+                                return;
+                            }
                         }
 
                         index++;
@@ -241,7 +253,7 @@
 
             if (otherPosition.Uncollapsible)
             {
-                Test.Warn("skip collapse", this, otherPosition);
+                Test.Log("skip collapse", this, otherPosition);
                 return;
             }
 
