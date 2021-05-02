@@ -1,6 +1,5 @@
-implement retry on uncollapsible modules.
-
 complete:
 
+implement retry on uncollapsible modules.
 implement propagation after manual collapse.
 last collapse is not context aware.
