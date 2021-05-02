@@ -11,6 +11,7 @@
         Initialization,
         World,
         Boundary,
+        Queue,
         WaveFunctionCollapse,
         Success,
     }
@@ -61,7 +62,13 @@
                         break;
 
                     case State.World:
-                        Process(ground, State.WaveFunctionCollapse, Tuning.InstantRendering);
+                        Process(ground, State.Queue, Tuning.InstantRendering);
+
+                        break;
+
+                    case State.Queue:
+                        waveFunctionCollapse.QueueUncollapsedModules();
+                        Transition(State.WaveFunctionCollapse);
 
                         break;
 
