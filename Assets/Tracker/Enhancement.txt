@@ -1,3 +1,5 @@
+create progress bar for world
+make world generation asynchronous
 implement collection logging
 add audio for stepping
 optimize
