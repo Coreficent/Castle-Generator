@@ -216,21 +216,23 @@
             {
                 Test.Log("uncollapse", this);
 
-                UncollapseMutableModule(world, X, Y + 1, Z);
-                UncollapseMutableModule(world, X - 1, Y, Z);
-                UncollapseMutableModule(world, X, Y - 1, Z);
-                UncollapseMutableModule(world, X + 1, Y, Z);
-                UncollapseMutableModule(world, X, Y, Z - 1);
-                UncollapseMutableModule(world, X, Y, Z + 1);
+                int collapseSize = 1;
 
-                UncollapseMutableModule(world, X - 1, Y - 1, Z - 1);
-                UncollapseMutableModule(world, X + 1, Y - 1, Z - 1);
-                UncollapseMutableModule(world, X + 1, Y + 1, Z - 1);
-                UncollapseMutableModule(world, X - 1, Y + 1, Z - 1);
-                UncollapseMutableModule(world, X - 1, Y - 1, Z + 1);
-                UncollapseMutableModule(world, X + 1, Y - 1, Z + 1);
-                UncollapseMutableModule(world, X + 1, Y + 1, Z + 1);
-                UncollapseMutableModule(world, X - 1, Y + 1, Z + 1);
+                while (collapseSize < Mathf.Min(Tuning.Width, Tuning.Height, Tuning.Depth) && Random.Range(0, 16) == 0)
+                {
+                    ++collapseSize;
+                }
+
+                for (int x = -collapseSize; x <= collapseSize; ++x)
+                {
+                    for (int y = -collapseSize; y <= collapseSize; ++y)
+                    {
+                        for (int z = -collapseSize; z <= collapseSize; ++z)
+                        {
+                            UncollapseMutableModule(world, X + x, Y + y, Z + z);
+                        }
+                    }
+                }
 
                 Uncollapse();
 
@@ -250,10 +252,13 @@
 
         private void UncollapseMutableModule(World world, int x, int y, int z)
         {
-            Superposition superposition = world.Find(x, y, z); ;
-            if (!superposition.Immutable)
+            if (world.Has(x, y, z))
             {
-                superposition.Uncollapse();
+                Superposition superposition = world.Find(x, y, z); ;
+                if (!superposition.Immutable)
+                {
+                    superposition.Uncollapse();
+                }
             }
         }
 
