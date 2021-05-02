@@ -19,7 +19,15 @@
 
         Foundation,
 
-        Tower,
+        TowerCenter,
+        TowerEast,
+        TowerSeast,
+        TowerSouth,
+
+        TowerSpace,
+
+        TowerBalconyCenterEast,
+        TowerBalconyCenterSouth,
     }
 
     public enum Direction

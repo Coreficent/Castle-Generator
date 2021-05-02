@@ -8,13 +8,13 @@
 
             west.Add(Face.Air);
 
-            south.Add(Face.Air);
+            south.Add(Face.TowerBalconyCenterSouth);
 
-            east.Add(Face.Air);
+            east.Add(Face.TowerBalconyCenterEast);
 
             top.Add(Face.Air);
 
-            bottom.Add(Face.Tower);
+            bottom.Add(Face.TowerCenter);
 
             weight = 1024;
         }

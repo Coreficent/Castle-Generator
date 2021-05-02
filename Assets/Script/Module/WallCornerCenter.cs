@@ -13,6 +13,7 @@
             east.Add(Face.WallCornerCenterEast);
 
             top.Add(Face.Air);
+            top.Add(Face.TowerCenter);
 
             bottom.Add(Face.Foundation);
 

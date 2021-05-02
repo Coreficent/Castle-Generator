@@ -43,7 +43,7 @@ GameObject:
   - component: {fileID: 8592277147959183040}
   - component: {fileID: 8224336601658115079}
   m_Layer: 0
-  m_Name: TowerBalcony
+  m_Name: TowerBalconyCenter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

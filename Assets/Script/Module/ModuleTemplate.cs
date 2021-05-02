@@ -1,4 +1,6 @@
-﻿namespace Coreficent.Module
+﻿using Coreficent.Utility;
+
+namespace Coreficent.Module
 {
     public class ModuleTemplate : ModuleBase
     {
@@ -17,6 +19,8 @@
             bottom.Add(Face.Air);
 
             weight = 1024;
+
+            Test.Warn("module script not configured");
         }
     }
 }

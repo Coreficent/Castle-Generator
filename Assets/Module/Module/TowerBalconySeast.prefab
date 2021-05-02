@@ -40,7 +40,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8592277147959183040}
-  - component: {fileID: 1211036421573157780}
+  - component: {fileID: 6856727081881447979}
   m_Layer: 0
   m_Name: TowerBalconySeast
   m_TagString: Untagged
@@ -63,7 +63,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1211036421573157780
+--- !u!114 &6856727081881447979
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -72,7 +72,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 8592277147959183043}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bd6dc6150c2d45140b94078177ce8ffa, type: 3}
+  m_Script: {fileID: 11500000, guid: cc7079761dff0f448ba56cdeb77a24be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &8995576133483572857

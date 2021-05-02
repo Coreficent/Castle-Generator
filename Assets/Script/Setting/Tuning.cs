@@ -8,7 +8,7 @@
         public static readonly int Height = 15;
         public static readonly int Depth = 5;
         public static readonly ShadowQuality ShadowSetting = ShadowQuality.Disable;
-        public static readonly bool InstantRendering = false;
+        public static readonly bool InstantRendering = true;
         public static readonly int MaximumRenderCount = 20;
     }
 }
