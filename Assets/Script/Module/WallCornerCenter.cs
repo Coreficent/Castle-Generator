@@ -8,9 +8,9 @@
 
             west.Add(Face.Wall);
 
-            south.Add(Face.WallCenterSouth);
+            south.Add(Face.WallCornerToSouth);
 
-            east.Add(Face.WallCenterEast);
+            east.Add(Face.WallCornerToEast);
 
             top.Add(Face.Air);
 

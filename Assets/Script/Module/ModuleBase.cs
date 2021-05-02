@@ -10,11 +10,11 @@
         Grass,
         Air,
         Wall,
-        WallCenterSouth,
-        WallCenterEast,
         WallSpace,
-        WallSouthTower,
-        WallEastTower,
+        WallCornerToSouth,
+        WallCornerToEast,
+        WallSouthToTower,
+        WallEastToTower,
         Foundation,
     }
 

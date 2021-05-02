@@ -4,9 +4,9 @@
     {
         public WallCornerTower()
         {
-            north.Add(Face.WallEastTower);
+            north.Add(Face.WallEastToTower);
 
-            west.Add(Face.WallSouthTower);
+            west.Add(Face.WallSouthToTower);
 
             south.Add(Face.Air);
 

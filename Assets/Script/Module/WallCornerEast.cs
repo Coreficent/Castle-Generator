@@ -6,9 +6,9 @@
         {
             north.Add(Face.WallSpace);
 
-            west.Add(Face.WallCenterEast);
+            west.Add(Face.WallCornerToEast);
 
-            south.Add(Face.WallEastTower);
+            south.Add(Face.WallEastToTower);
 
             east.Add(Face.Air);
 
