@@ -1,3 +1,4 @@
+reference world in superposition
 create progress bar for world
 make world generation asynchronous
 implement collection logging
