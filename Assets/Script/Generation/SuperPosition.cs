@@ -193,7 +193,6 @@
                         AddChild(module);
                         filter.Add(module);
                     }
-                   
                 }
             }
 
@@ -361,6 +360,15 @@
         private HashSet<Face> FindValidFaces(Direction direction)
         {
             HashSet<Face> result = new HashSet<Face>();
+
+            if (DebugMode.On)
+            {
+                if (children.Where(child => child == null).Count() > 0)
+                {
+                    Test.Warn("null child found in children");
+                }
+            }
+
 
             switch (direction)
             {

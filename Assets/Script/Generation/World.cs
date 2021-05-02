@@ -62,6 +62,13 @@
                 return null;
             }
 
+            Superposition result = map[Hash(x, y, z)];
+
+            if (!result || result == null || result.ToString() == "null")
+            {
+                Test.Warn("null superposition found at", x, y, z);
+            }
+
             return map[Hash(x, y, z)];
         }
 

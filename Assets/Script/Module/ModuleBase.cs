@@ -270,7 +270,12 @@
                 return false;
             }
 
-            return NorthSet.SetEquals(other.NorthSet) && WestSet.SetEquals(other.WestSet) && SouthSet.SetEquals(other.SouthSet) && EastSet.SetEquals(other.EastSet);
+            if (GetType().Name != other.GetType().Name)
+            {
+                return false;
+            }
+
+            return NorthSet.SetEquals(other.NorthSet) && WestSet.SetEquals(other.WestSet) && SouthSet.SetEquals(other.SouthSet) && EastSet.SetEquals(other.EastSet) && TopSet.SetEquals(other.TopSet) && BottomSet.SetEquals(other.BottomSet);
         }
 
         public override int GetHashCode()
@@ -293,6 +298,16 @@
             }
 
             foreach (var i in EastSet)
+            {
+                hash = hash * 23 + i.GetHashCode();
+            }
+
+            foreach (var i in TopSet)
+            {
+                hash = hash * 23 + i.GetHashCode();
+            }
+
+            foreach (var i in BottomSet)
             {
                 hash = hash * 23 + i.GetHashCode();
             }
