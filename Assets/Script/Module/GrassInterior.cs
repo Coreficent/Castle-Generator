@@ -17,7 +17,7 @@
 
             bottom.Add(Face.Dirt);
 
-            weight = 1024;
         }
+        public override int Weight => 1024;
     }
 }

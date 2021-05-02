@@ -69,13 +69,11 @@
         protected HashSet<Face> top = new HashSet<Face>();
         protected HashSet<Face> bottom = new HashSet<Face>();
 
-        protected int weight = 1024;
-
-        public int Weight
+        public virtual int Weight
         {
             get
             {
-                return weight;
+                return 1024;
             }
         }
 

@@ -16,8 +16,8 @@
             top.Add(Face.TowerEast);
 
             bottom.Add(Face.Foundation);
-
-            weight = 1024;
         }
+
+        public override int Weight => 1024;
     }
 }

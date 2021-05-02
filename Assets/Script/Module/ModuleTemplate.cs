@@ -17,9 +17,9 @@
 
             bottom.Add(Face.Air);
 
-            weight = 1024;
-
             Test.Warn("module script not configured");
         }
+
+        public override int Weight => 1024;
     }
 }
