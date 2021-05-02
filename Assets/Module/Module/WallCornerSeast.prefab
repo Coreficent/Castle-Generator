@@ -42,7 +42,7 @@ GameObject:
   - component: {fileID: 8592277147959183040}
   - component: {fileID: 4974325367970571174}
   m_Layer: 0
-  m_Name: WallCornerTower
+  m_Name: WallCornerSeast
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

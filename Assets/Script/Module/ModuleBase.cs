@@ -12,10 +12,10 @@
 
         Wall,
         WallSpace,
-        WallCornerToSouth,
-        WallCornerToEast,
-        WallSouthToTower,
-        WallEastToTower,
+        WallCornerCenterSouth,
+        WallCornerCenterEast,
+        WallCornerSouthSeast,
+        WallCornerEastSeast,
 
         Foundation,
 

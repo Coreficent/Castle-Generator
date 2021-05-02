@@ -1,12 +1,12 @@
 ﻿namespace Coreficent.Module
 {
-    public class WallCornerTower : ModuleBase
+    public class WallCornerSeast : ModuleBase
     {
-        public WallCornerTower()
+        public WallCornerSeast()
         {
-            north.Add(Face.WallEastToTower);
+            north.Add(Face.WallCornerEastSeast);
 
-            west.Add(Face.WallSouthToTower);
+            west.Add(Face.WallCornerSouthSeast);
 
             south.Add(Face.Air);
 

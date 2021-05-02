@@ -6,13 +6,13 @@ namespace Coreficent.Module
     {
         public WallCornerSouth()
         {
-            north.Add(Face.WallCornerToSouth);
+            north.Add(Face.WallCornerCenterSouth);
 
             west.Add(Face.WallSpace);
 
             south.Add(Face.Air);
 
-            east.Add(Face.WallSouthToTower);
+            east.Add(Face.WallCornerSouthSeast);
 
             top.Add(Face.Air);
 
