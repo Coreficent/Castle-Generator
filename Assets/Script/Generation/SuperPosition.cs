@@ -229,6 +229,15 @@
                 UncollapseIfNotBoundary(world, X, Y, Z - 1);
                 UncollapseIfNotBoundary(world, X, Y, Z + 1);
 
+                UncollapseIfNotBoundary(world, X - 1, Y - 1, Z - 1);
+                UncollapseIfNotBoundary(world, X + 1, Y - 1, Z - 1);
+                UncollapseIfNotBoundary(world, X + 1, Y + 1, Z - 1);
+                UncollapseIfNotBoundary(world, X - 1, Y + 1, Z - 1);
+                UncollapseIfNotBoundary(world, X - 1, Y - 1, Z + 1);
+                UncollapseIfNotBoundary(world, X + 1, Y - 1, Z + 1);
+                UncollapseIfNotBoundary(world, X + 1, Y + 1, Z + 1);
+                UncollapseIfNotBoundary(world, X - 1, Y + 1, Z + 1);
+
                 Uncollapse();
 
                 return true;
