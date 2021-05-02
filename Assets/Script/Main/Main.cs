@@ -107,13 +107,23 @@
             }
             else
             {
-                if (animatable.HasNext())
+                int actionCount = Mathf.RoundToInt(Tuning.ActionPerSecond * Time.deltaTime);
+
+                if (actionCount < 1)
                 {
-                    animatable.Next();
+                    actionCount = 1;
                 }
-                else
+
+                for (int i = 0; i < actionCount; ++i)
                 {
-                    Transition(next);
+                    if (animatable.HasNext())
+                    {
+                        animatable.Next();
+                    }
+                    else
+                    {
+                        Transition(next);
+                    }
                 }
             }
         }
