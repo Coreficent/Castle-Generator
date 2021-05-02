@@ -194,6 +194,8 @@
                         filter.Add(module);
                     }
                 }
+
+                tileBase.transform.localEulerAngles = Vector3.zero;
             }
 
             Render();
