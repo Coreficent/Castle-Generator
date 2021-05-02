@@ -183,19 +183,17 @@
 
                 for (int i = 0; i < 4; ++i)
                 {
-                    ModuleBase module = Instantiate(tileBase, transform);
 
-                    module.transform.localEulerAngles = new Vector3(0.0f, 0.0f, i * 90.0f);
+                    tileBase.transform.localEulerAngles = new Vector3(0.0f, 0.0f, i * 90.0f);
 
-                    if (!filter.Contains(module))
+                    if (!filter.Contains(tileBase))
                     {
+                        ModuleBase module = Instantiate(tileBase, transform);
+
                         AddChild(module);
                         filter.Add(module);
                     }
-                    else
-                    {
-                        Destroy(module.gameObject);
-                    }
+                   
                 }
             }
 

@@ -9,13 +9,17 @@
         Dirt,
         Grass,
         Air,
+
         Wall,
         WallSpace,
         WallCornerToSouth,
         WallCornerToEast,
         WallSouthToTower,
         WallEastToTower,
+
         Foundation,
+
+        Tower,
     }
 
     public enum Direction
