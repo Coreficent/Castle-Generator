@@ -6,9 +6,11 @@
 
     public enum Face
     {
-        Dirt,
-        Grass,
         Air,
+
+        Dirt,
+        DirtGrass,
+        GrassyTerrain,
 
         Wall,
         WallSpace,
@@ -16,8 +18,6 @@
         WallCornerCenterEast,
         WallCornerSouthSeast,
         WallCornerEastSeast,
-
-        Foundation,
 
         TowerSegment,
         TowerTop,

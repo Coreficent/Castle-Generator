@@ -8,9 +8,9 @@
 
             west.Add(Face.Air);
 
-            south.Add(Face.Grass);
+            south.Add(Face.DirtGrass);
 
-            east.Add(Face.Grass);
+            east.Add(Face.DirtGrass);
 
             top.Add(Face.Air);
 

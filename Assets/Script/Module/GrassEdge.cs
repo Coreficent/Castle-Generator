@@ -6,11 +6,11 @@
         {
             north.Add(Face.Air);
 
-            west.Add(Face.Grass);
+            west.Add(Face.DirtGrass);
 
-            south.Add(Face.Grass);
+            south.Add(Face.DirtGrass);
 
-            east.Add(Face.Grass);
+            east.Add(Face.DirtGrass);
 
             top.Add(Face.Air);
 

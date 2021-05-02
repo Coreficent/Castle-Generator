@@ -15,7 +15,7 @@
             top.Add(Face.TowerTopCorner);
             top.Add(Face.TowerSegment);
 
-            bottom.Add(Face.Foundation);
+            bottom.Add(Face.GrassyTerrain);
         }
 
         public override int Weight => 1024;

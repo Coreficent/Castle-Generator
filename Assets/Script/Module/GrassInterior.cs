@@ -4,16 +4,16 @@
     {
         public GrassInterior()
         {
-            north.Add(Face.Grass);
+            north.Add(Face.DirtGrass);
 
-            west.Add(Face.Grass);
+            west.Add(Face.DirtGrass);
 
-            south.Add(Face.Grass);
+            south.Add(Face.DirtGrass);
 
-            east.Add(Face.Grass);
+            east.Add(Face.DirtGrass);
 
             top.Add(Face.Air);
-            top.Add(Face.Foundation);
+            top.Add(Face.GrassyTerrain);
 
             bottom.Add(Face.Dirt);
 
