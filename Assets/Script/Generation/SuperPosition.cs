@@ -220,7 +220,7 @@
 
             if (children.Count == 0)
             {
-                Test.Log("try to uncollapse", this);
+                Test.Log("uncollapse", this);
 
                 UncollapseMutableModule(world, X, Y + 1, Z);
                 UncollapseMutableModule(world, X - 1, Y, Z);
