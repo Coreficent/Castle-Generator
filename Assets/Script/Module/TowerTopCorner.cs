@@ -1,8 +1,8 @@
 ﻿namespace Coreficent.Module
 {
-    public class TowerBalconyCenter : ModuleBase
+    public class TowerTopCorner : ModuleBase
     {
-        public TowerBalconyCenter()
+        public TowerTopCorner()
         {
             north.Add(Face.Air);
 
@@ -12,7 +12,7 @@
 
             east.Add(Face.TowerBalconyCenterEast);
 
-            top.Add(Face.TowerCenter);
+            top.Add(Face.Air);
 
             bottom.Add(Face.TowerCenter);
         }
