@@ -13,7 +13,6 @@
             east.Add(Face.TowerBalconyCenterEast);
 
             top.Add(Face.TowerTop);
-            top.Add(Face.TowerSegment);
 
             bottom.Add(Face.TowerSegment);
         }
