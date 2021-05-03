@@ -61,7 +61,7 @@
                         break;
 
                     case State.World:
-                        Process(world, State.Boundary, true);
+                        Process(world, State.Boundary, Tuning.InstantRendering);
                         progress.transform.localScale = new Vector3(1.0f, 1.0f - world.Progress, 1.0f);
 
                         break;

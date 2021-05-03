@@ -1,12 +1,13 @@
 ﻿namespace Coreficent.Module
 {
-    public class WallCornerSeast : ModuleBase
+    using Coreficent.Utility;
+    public class SquareTree : ModuleBase
     {
-        public WallCornerSeast()
+        public SquareTree()
         {
-            north.Add(Face.WallCornerEastSeast);
+            north.Add(Face.Air);
 
-            west.Add(Face.WallCornerSouthSeast);
+            west.Add(Face.Air);
 
             south.Add(Face.Air);
 
@@ -15,7 +16,8 @@
             top.Add(Face.Air);
 
             bottom.Add(Face.GrassyTerrain);
-            bottom.Add(Face.Plant);
+
+            
         }
 
         public override int Weight => 1024;

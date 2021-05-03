@@ -6,6 +6,7 @@
         {
             north.Add(Face.WallCornerCenterSouth);
 
+            west.Add(Face.Air);
             west.Add(Face.WallSpace);
 
             south.Add(Face.Air);
@@ -16,6 +17,7 @@
             top.Add(Face.TowerSouth);
 
             bottom.Add(Face.GrassyTerrain);
+            bottom.Add(Face.Plant);
         }
         public override int Weight => 1024;
     }

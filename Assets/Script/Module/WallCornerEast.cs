@@ -4,6 +4,7 @@
     {
         public WallCornerEast()
         {
+            north.Add(Face.Air);
             north.Add(Face.WallSpace);
 
             west.Add(Face.WallCornerCenterEast);
@@ -16,6 +17,7 @@
             top.Add(Face.TowerEast);
 
             bottom.Add(Face.GrassyTerrain);
+            bottom.Add(Face.Plant);
         }
 
         public override int Weight => 1024;

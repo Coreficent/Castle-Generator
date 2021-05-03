@@ -1,8 +1,9 @@
 ﻿namespace Coreficent.Module
 {
-    public class TowerBalconyCenter : ModuleBase
+    using Coreficent.Utility;
+    public class TowerTopRoof : ModuleBase
     {
-        public TowerBalconyCenter()
+        public TowerTopRoof()
         {
             north.Add(Face.Air);
 
@@ -12,10 +13,9 @@
 
             east.Add(Face.TowerBalconyCenterEast);
 
-            top.Add(Face.TowerTop);
-            top.Add(Face.TowerBalconyBase);
+            top.Add(Face.Air);
 
-            bottom.Add(Face.TowerSegment);
+            bottom.Add(Face.TowerTop);
         }
 
         public override int Weight => 1024;

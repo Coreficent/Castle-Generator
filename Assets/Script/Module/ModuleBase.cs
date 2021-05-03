@@ -10,6 +10,7 @@
 
         Dirt,
         DirtGrass,
+        Plant,
         GrassyTerrain,
 
         Wall,
@@ -24,6 +25,7 @@
         TowerTopCorner,
         TowerEast,
         TowerSouth,
+        TowerBalconyBase,
 
         TowerBalconyCenterEast,
         TowerBalconyCenterSouth,
