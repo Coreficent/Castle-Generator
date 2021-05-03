@@ -1,10 +1,10 @@
-reference world in superposition
 implement collection logging
 add audio for stepping
 optimize
 
 complete:
 
+reference world in superposition
 make world generation asynchronous
 create progress bar for world
 add weight
