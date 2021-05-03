@@ -20,6 +20,8 @@
 
         private bool immutable = false;
 
+        private World world;
+
         public bool Immutable
         {
             get
@@ -29,6 +31,44 @@
             set
             {
                 immutable = value;
+            }
+        }
+        public int X
+        {
+            get
+            {
+                return Round(transform.localPosition.x);
+            }
+        }
+
+        public int Y
+        {
+            get
+            {
+                return Round(transform.localPosition.y);
+            }
+        }
+
+        public int Z
+        {
+            get
+            {
+                return Round(transform.localPosition.z);
+            }
+        }
+        public int Entropy
+        {
+            get
+            {
+                return children.Count;
+            }
+        }
+
+        public World World
+        {
+            set
+            {
+                world = value;
             }
         }
 
@@ -120,14 +160,16 @@
             }
         }
 
-        public void Collapse(World world)
+        public void Collapse()
         {
-            Bind(world);
+            Bind();
 
-            if (!Uncollapsible)
+            if (Uncollapsible)
             {
-
-
+                UncollapseSurrounding();
+            }
+            else
+            {
                 int totalWeight = children.Select(module => module.Weight).Sum();
 
                 if (totalWeight <= 0)
@@ -201,7 +243,7 @@
             Render();
         }
 
-        public bool Propagate(World world)
+        public bool Propagate()
         {
             if (Collapsed)
             {
@@ -210,32 +252,12 @@
 
             int childrenCountStart = children.Count;
 
-            Bind(world);
+            Bind();
 
             if (Uncollapsible)
             {
-                Test.Log("uncollapse", this);
-
-                int collapseSize = 1;
-
-                while (collapseSize < Mathf.Min(Tuning.Width, Tuning.Height, Tuning.Depth) && Random.Range(0, 16) == 0)
-                {
-                    ++collapseSize;
-                }
-
-                for (int x = -collapseSize; x <= collapseSize; ++x)
-                {
-                    for (int y = -collapseSize; y <= collapseSize; ++y)
-                    {
-                        for (int z = -collapseSize; z <= collapseSize; ++z)
-                        {
-                            UncollapseMutableModule(world, X + x, Y + y, Z + z);
-                        }
-                    }
-                }
-
-                Uncollapse();
-
+                UncollapseSurrounding();
+                Render();
                 return true;
             }
 
@@ -250,7 +272,30 @@
             }
         }
 
-        private void UncollapseMutableModule(World world, int x, int y, int z)
+        private void UncollapseSurrounding()
+        {
+            int collapseSize = 1;
+
+            while (collapseSize < Mathf.Min(Tuning.Width, Tuning.Height, Tuning.Depth) && Random.Range(0, 64) == 0)
+            {
+                ++collapseSize;
+            }
+
+            Test.Log("uncollapse", collapseSize, this);
+
+            for (int x = -collapseSize; x <= collapseSize; ++x)
+            {
+                for (int y = -collapseSize; y <= collapseSize; ++y)
+                {
+                    for (int z = -collapseSize; z <= collapseSize; ++z)
+                    {
+                        UncollapseMutableModule(X + x, Y + y, Z + z);
+                    }
+                }
+            }
+        }
+
+        private void UncollapseMutableModule(int x, int y, int z)
         {
             if (world.Has(x, y, z))
             {
@@ -262,17 +307,17 @@
             }
         }
 
-        private void Bind(World world)
+        private void Bind()
         {
-            Constrain(world, Direction.North);
-            Constrain(world, Direction.West);
-            Constrain(world, Direction.South);
-            Constrain(world, Direction.East);
-            Constrain(world, Direction.Top);
-            Constrain(world, Direction.Bottom);
+            Constrain(Direction.North);
+            Constrain(Direction.West);
+            Constrain(Direction.South);
+            Constrain(Direction.East);
+            Constrain(Direction.Top);
+            Constrain(Direction.Bottom);
         }
 
-        private void Constrain(World world, Direction direction)
+        private void Constrain(Direction direction)
         {
             Superposition otherPosition;
             HashSet<Face> thatFaces;
@@ -385,7 +430,6 @@
                 }
             }
 
-
             switch (direction)
             {
                 case Direction.North:
@@ -439,30 +483,6 @@
             return result;
         }
 
-        public int X
-        {
-            get
-            {
-                return Round(transform.localPosition.x);
-            }
-        }
-
-        public int Y
-        {
-            get
-            {
-                return Round(transform.localPosition.y);
-            }
-        }
-
-        public int Z
-        {
-            get
-            {
-                return Round(transform.localPosition.z);
-            }
-        }
-
         private int Round(float Input)
         {
             return Mathf.RoundToInt(Input);
@@ -471,14 +491,6 @@
         public int Compare(Superposition x, Superposition y)
         {
             return x.Entropy.CompareTo(y.Entropy);
-        }
-
-        public int Entropy
-        {
-            get
-            {
-                return children.Count;
-            }
         }
 
         public override string ToString()

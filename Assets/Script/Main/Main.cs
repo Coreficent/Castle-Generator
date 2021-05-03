@@ -73,13 +73,7 @@
                         break;
 
                     case State.Ground:
-                        Process(ground, State.Queue, Tuning.InstantRendering);
-
-                        break;
-
-                    case State.Queue:
-                        waveFunctionCollapse.QueueUncollapsedModules();
-                        Transition(State.WaveFunctionCollapse);
+                        Process(ground, State.WaveFunctionCollapse, Tuning.InstantRendering);
 
                         break;
 

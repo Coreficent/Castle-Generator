@@ -16,18 +16,6 @@
             this.world = world;
         }
 
-        public void QueueUncollapsedModules()
-        {
-            foreach (Superposition superposition in world.Collect(superposition => !superposition.Collapsed))
-            {
-                dequeue.Push(superposition);
-            }
-            foreach (Superposition superposition in world.Collect(superposition => superposition.Uncollapsible))
-            {
-                Test.Warn("unexpected uncollapsible state", superposition);
-            }
-        }
-
         public bool HasNext()
         {
             return !world.Collapsed;
@@ -39,7 +27,7 @@
             {
                 Superposition superposition = dequeue.Pop();
 
-                if (superposition.Propagate(world))
+                if (superposition.Propagate())
                 {
 
                     foreach (Superposition i in FindNeighbors(superposition.X, superposition.Y, superposition.Z))
@@ -60,7 +48,7 @@
             {
                 Superposition superposition = world.NextMinimumEntropyPosition;
 
-                superposition.Collapse(world);
+                superposition.Collapse();
 
                 //Test.Pause();
 

@@ -49,6 +49,7 @@
                     if (z < Tuning.Depth)
                     {
                         Superposition position = UnityEngine.Object.Instantiate(superposition, board.transform);
+                        position.World = this;
                         position.transform.localPosition = new Vector3(x, y, z);
                         worldMap.Add(Hash(x, y, z), position);
 
