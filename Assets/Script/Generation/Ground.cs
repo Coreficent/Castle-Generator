@@ -25,7 +25,7 @@
             {
                 if (y < Tuning.Height - 1)
                 {
-                    Superposition superposition = world.Find(x, y, Tuning.Depth - 1);
+                    SuperpositionX superposition = world.Find(x, y, Tuning.Depth - 1);
                     superposition.Collapse(superposition.dirt);
                     superposition.Immutable = true;
                     ++y;

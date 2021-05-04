@@ -16,7 +16,7 @@
         Reduced,
     }
 
-    public class Superposition : Script, IComparer<Superposition>
+    public class SuperpositionX : Script, IComparer<SuperpositionX>
     {
         public ModuleBase air;
         public ModuleBase dirt;
@@ -309,7 +309,7 @@
         {
             if (world.Has(x, y, z))
             {
-                Superposition superposition = world.Find(x, y, z); ;
+                SuperpositionX superposition = world.Find(x, y, z); ;
                 if (!superposition.Immutable)
                 {
                     superposition.Uncollapse();
@@ -329,7 +329,7 @@
 
         private void Constrain(Direction direction)
         {
-            Superposition otherPosition;
+            SuperpositionX otherPosition;
             HashSet<Face> thatFaces;
 
             switch (direction)
@@ -498,15 +498,15 @@
             return Mathf.RoundToInt(Input);
         }
 
-        public int Compare(Superposition x, Superposition y)
+        public int Compare(SuperpositionX x, SuperpositionX y)
         {
             return x.Entropy.CompareTo(y.Entropy);
         }
 
         public override string ToString()
         {
-            string delimiter = ":";
-            return GetType().Name + delimiter + X + delimiter + Y + delimiter + Z;
+            string delimiter = ", ";
+            return GetType().Name + ": " + X + delimiter + Y + delimiter + Z;
         }
     }
 }

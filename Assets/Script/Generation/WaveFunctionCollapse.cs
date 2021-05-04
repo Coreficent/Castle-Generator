@@ -8,8 +8,8 @@
 
     public class WaveFunctionCollapse : IAnimatable
     {
-        private Stack<Superposition> dequeue = new Stack<Superposition>();
-        private HashSet<Superposition> track = new HashSet<Superposition>();
+        private Stack<SuperpositionX> dequeue = new Stack<SuperpositionX>();
+        private HashSet<SuperpositionX> track = new HashSet<SuperpositionX>();
 
         private int uncollapseCount = 0;
 
@@ -29,14 +29,14 @@
         {
             if (dequeue.Count > 0)
             {
-                Superposition superposition = dequeue.Pop();
+                SuperpositionX superposition = dequeue.Pop();
 
                 Propagation state = superposition.Propagate();
 
                 switch (state)
                 {
                     case Propagation.Reduced:
-                        foreach (Superposition i in FindNeighbors(superposition.X, superposition.Y, superposition.Z))
+                        foreach (SuperpositionX i in FindNeighbors(superposition.X, superposition.Y, superposition.Z))
                         {
                             if (!track.Contains(i))
                             {
@@ -55,7 +55,7 @@
                         break;
 
                     case Propagation.Uncollapsible:
-                        foreach (Superposition i in FindNeighbors(superposition.X, superposition.Y, superposition.Z))
+                        foreach (SuperpositionX i in FindNeighbors(superposition.X, superposition.Y, superposition.Z))
                         {
                             if (!track.Contains(i))
                             {
@@ -73,13 +73,13 @@
             }
             else
             {
-                Superposition superposition = world.NextMinimumEntropyPosition;
+                SuperpositionX superposition = world.NextMinimumEntropyPosition;
 
                 superposition.Collapse();
 
                 //Test.Pause();
 
-                foreach (Superposition i in FindNeighbors(superposition.X, superposition.Y, superposition.Z))
+                foreach (SuperpositionX i in FindNeighbors(superposition.X, superposition.Y, superposition.Z))
                 {
                     dequeue.Push(i);
                 }
@@ -94,9 +94,9 @@
             Test.Log("statistics: uncollapse count, width, height, depth", uncollapseCount, Tuning.Width, Tuning.Height, Tuning.Depth);
         }
 
-        private List<Superposition> FindNeighbors(int x, int y, int z)
+        private List<SuperpositionX> FindNeighbors(int x, int y, int z)
         {
-            List<Superposition> result = new List<Superposition>();
+            List<SuperpositionX> result = new List<SuperpositionX>();
 
             result.Add(world.Find(x, y + 1, z));
             result.Add(world.Find(x - 1, y, z));
