@@ -148,11 +148,13 @@
             }
         }
 
-        public Superposition NextRandomPosition
+        public Superposition NextRandomUncollapsedPosition
         {
             get
             {
-                return worldMap[worldMap.Keys.ToList()[UnityEngine.Random.Range(0, worldMap.Keys.Count)]];
+                List<Superposition> superpositions = Collect(superposition => !superposition.Collapsed).ToList();
+
+                return superpositions[UnityEngine.Random.Range(0, superpositions.Count)];
             }
         }
 

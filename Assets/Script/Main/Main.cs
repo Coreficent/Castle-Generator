@@ -14,6 +14,7 @@
         Ground,
         Queue,
         WaveFunctionCollapse,
+        Finalization,
         Success,
     }
 
@@ -78,9 +79,16 @@
                         break;
 
                     case State.WaveFunctionCollapse:
-                        Process(waveFunctionCollapse, State.Success, Tuning.InstantRendering);
+                        Process(waveFunctionCollapse, State.Finalization, Tuning.InstantRendering);
 
                         break;
+
+                    case State.Finalization:
+                        waveFunctionCollapse.PrintStatistics();
+
+                        Transition(State.Success);
+                        break;
+
                     case State.Success:
                         if (Input.GetKey(KeyCode.R))
                         {

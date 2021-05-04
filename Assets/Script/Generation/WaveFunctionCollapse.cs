@@ -1,5 +1,6 @@
 ﻿namespace Coreficent.Generation
 {
+    using Coreficent.Setting;
     using Coreficent.Utility;
     using System.Collections.Generic;
     using System.Linq;
@@ -9,6 +10,8 @@
     {
         private Stack<Superposition> dequeue = new Stack<Superposition>();
         private HashSet<Superposition> track = new HashSet<Superposition>();
+
+        private int uncollapseCount = 0;
 
         private readonly World world;
 
@@ -61,7 +64,9 @@
                             }
                         }
 
-                        dequeue.Push(world.NextRandomPosition);
+                        dequeue.Push(world.NextRandomUncollapsedPosition);
+
+                        ++uncollapseCount;
 
                         break;
                 }
@@ -84,6 +89,11 @@
             }
         }
 
+        public void PrintStatistics()
+        {
+            Test.Log("statistics: uncollapse count, width, height, depth", uncollapseCount, Tuning.Width, Tuning.Height, Tuning.Depth);
+        }
+
         private List<Superposition> FindNeighbors(int x, int y, int z)
         {
             List<Superposition> result = new List<Superposition>();
@@ -97,6 +107,5 @@
 
             return result.OrderBy(a => Random.Range(0, 1024)).ToList(); ;
         }
-
     }
 }
