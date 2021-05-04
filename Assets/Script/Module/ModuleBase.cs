@@ -13,7 +13,8 @@
         Plant,
         GrassyTerrain,
 
-        Wall,
+        WallNorth,
+        WallWest,
         WallSpace,
         WallInvisible,
         WallCornerCenterSouth,
@@ -30,6 +31,10 @@
 
         TowerBalconyCenterEast,
         TowerBalconyCenterSouth,
+
+        CastleFloor,
+        CastleFloorInterior,
+        CastleFloorSide,
     }
 
     public enum Direction

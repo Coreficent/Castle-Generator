@@ -14,8 +14,7 @@
 
             top.Add(Face.Air);
 
-            bottom.Add(Face.GrassyTerrain);
-            bottom.Add(Face.Plant);
+            bottom.Add(Face.CastleFloor);
         }
 
         public override int Weight => 1024;

@@ -4,9 +4,9 @@
     {
         public WallCornerCenter()
         {
-            north.Add(Face.Wall);
+            north.Add(Face.WallNorth);
 
-            west.Add(Face.Wall);
+            west.Add(Face.WallWest);
 
             south.Add(Face.WallCornerCenterSouth);
 
@@ -15,7 +15,7 @@
             top.Add(Face.TowerTopCorner);
             top.Add(Face.TowerSegment);
 
-            bottom.Add(Face.GrassyTerrain);
+            bottom.Add(Face.CastleFloorInterior);
         }
 
         public override int Weight => 1024;

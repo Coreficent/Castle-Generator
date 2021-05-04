@@ -5,19 +5,21 @@
     {
         public Wall()
         {
-            north.Add(Face.Wall);
+            north.Add(Face.WallNorth);
+            north.Add(Face.WallWest);
 
             west.Add(Face.WallInvisible);
 
-            south.Add(Face.Wall);
+            south.Add(Face.WallNorth);
+            south.Add(Face.WallWest);
 
             east.Add(Face.Air);
 
             top.Add(Face.Air);
 
-            bottom.Add(Face.GrassyTerrain);
+            bottom.Add(Face.CastleFloorInterior);
         }
 
-        public override int Weight => 1024;
+        public override int Weight => 1024 * 16 * 16 * 16;
     }
 }
