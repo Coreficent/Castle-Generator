@@ -1,9 +1,9 @@
 ﻿namespace Coreficent.Module
 {
     using Coreficent.Utility;
-    public class SquareTree : ModuleBase
+    public class PineTree : ModuleBase
     {
-        public SquareTree()
+        public PineTree()
         {
             north.Add(Face.Air);
 
@@ -17,7 +17,6 @@
 
             bottom.Add(Face.GrassyTerrain);
 
-            
         }
 
         public override int Weight => 500;
