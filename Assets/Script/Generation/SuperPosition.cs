@@ -8,6 +8,14 @@
     using UnityEngine;
     using static Coreficent.Module.ModuleBase;
 
+    public enum Propagation
+    {
+        Collapsed,
+        Uncollapsible,
+        Unchanged,
+        Reduced,
+    }
+
     public class Superposition : Script, IComparer<Superposition>
     {
         public ModuleBase air;
@@ -243,11 +251,11 @@
             Render();
         }
 
-        public bool Propagate()
+        public Propagation Propagate()
         {
             if (Collapsed)
             {
-                return false;
+                return Propagation.Collapsed;
             }
 
             int childrenCountStart = children.Count;
@@ -258,17 +266,19 @@
             {
                 UncollapseSurrounding();
                 Render();
-                return true;
+
+                return Propagation.Uncollapsible;
             }
 
             if (childrenCountStart == children.Count)
             {
-                return false;
+                return Propagation.Unchanged;
             }
             else
             {
                 Render();
-                return true;
+
+                return Propagation.Reduced;
             }
         }
 

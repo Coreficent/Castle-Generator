@@ -4,7 +4,7 @@
     {
         public WallCornerEast()
         {
-            north.Add(Face.Air);
+            //north.Add(Face.Air);
             north.Add(Face.WallSpace);
 
             west.Add(Face.WallCornerCenterEast);

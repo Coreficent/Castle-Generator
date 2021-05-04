@@ -4,6 +4,7 @@
     using Coreficent.Utility;
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using UnityEngine;
 
     public class World : IAnimatable
@@ -144,6 +145,14 @@
                 }
 
                 return result[UnityEngine.Random.Range(0, result.Count)];
+            }
+        }
+
+        public Superposition NextRandomPosition
+        {
+            get
+            {
+                return worldMap[worldMap.Keys.ToList()[UnityEngine.Random.Range(0, worldMap.Keys.Count)]];
             }
         }
 

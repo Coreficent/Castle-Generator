@@ -11,6 +11,7 @@
         private HashSet<Superposition> track = new HashSet<Superposition>();
 
         private readonly World world;
+
         public WaveFunctionCollapse(World world)
         {
             this.world = world;
@@ -27,21 +28,42 @@
             {
                 Superposition superposition = dequeue.Pop();
 
-                if (superposition.Propagate())
-                {
+                Propagation state = superposition.Propagate();
 
-                    foreach (Superposition i in FindNeighbors(superposition.X, superposition.Y, superposition.Z))
-                    {
-                        if (!track.Contains(i))
-                        {
-                            dequeue.Push(i);
-                            track.Add(i);
-                        }
-                    }
-                }
-                else
+                switch (state)
                 {
-                    Next();
+                    case Propagation.Reduced:
+                        foreach (Superposition i in FindNeighbors(superposition.X, superposition.Y, superposition.Z))
+                        {
+                            if (!track.Contains(i))
+                            {
+                                dequeue.Push(i);
+                                track.Add(i);
+                            }
+                        }
+                        break;
+
+                    case Propagation.Unchanged:
+                        Next();
+                        break;
+
+                    case Propagation.Collapsed:
+                        Next();
+                        break;
+
+                    case Propagation.Uncollapsible:
+                        foreach (Superposition i in FindNeighbors(superposition.X, superposition.Y, superposition.Z))
+                        {
+                            if (!track.Contains(i))
+                            {
+                                dequeue.Push(i);
+                                track.Add(i);
+                            }
+                        }
+
+                        dequeue.Push(world.NextRandomPosition);
+
+                        break;
                 }
             }
             else
@@ -62,7 +84,7 @@
             }
         }
 
-        List<Superposition> FindNeighbors(int x, int y, int z)
+        private List<Superposition> FindNeighbors(int x, int y, int z)
         {
             List<Superposition> result = new List<Superposition>();
 
