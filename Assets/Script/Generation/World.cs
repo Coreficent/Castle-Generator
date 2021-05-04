@@ -127,53 +127,31 @@
         {
             get
             {
-                HashSet<Superposition> uncollapsedPositions = Collect(superposition => !superposition.Collapsed);
+                int entropy = int.MaxValue;
+                int depth = int.MinValue;
+                List<Superposition> result = new List<Superposition>();
 
-                int entropy = uncollapsedPositions.ToList().Min(superposition => superposition.Entropy);
-                var minimumEntropy = uncollapsedPositions.ToList().Where(superposition => superposition.Entropy == entropy);
+                foreach (Superposition superposition in Collect(superposition => !superposition.Collapsed))
+                {
+                    if (superposition.Entropy < entropy && superposition.Z > depth)
+                    {
+                        result.Clear();
+                        entropy = superposition.Entropy;
+                        depth = superposition.Z;
+                        result.Add(superposition);
+                    }
+                    else if (superposition.Entropy == entropy && superposition.Z == depth)
+                    {
+                        result.Add(superposition);
+                    }
+                }
 
-                int depth = minimumEntropy.ToList().Max(superposition => superposition.Z);
-                var maximumDepth = minimumEntropy.ToList().Where(superposition => superposition.Z == depth).ToList();
-
-                //int entropy = int.MaxValue;
-
-                //foreach (Superposition superposition in Collect(superposition => !superposition.Collapsed))
-                //{
-                //    if (superposition.Entropy < entropy)
-                //    {
-                //        minimumEntropy.Clear();
-                //        entropy = superposition.Entropy;
-                //        minimumEntropy.Add(superposition);
-                //    }
-                //    else if (superposition.Entropy == entropy)
-                //    {
-                //        minimumEntropy.Add(superposition);
-                //    }
-                //}
-
-                //List<Superposition> maximumDepth = new List<Superposition>();
-                //int depth = int.MinValue;
-
-                //foreach (Superposition superposition in minimumEntropy)
-                //{
-                //    if (superposition.Z > depth)
-                //    {
-                //        maximumDepth.Clear();
-                //        depth = superposition.Z;
-                //        maximumDepth.Add(superposition);
-                //    }
-                //    else if (superposition.Z == depth)
-                //    {
-                //        maximumDepth.Add(superposition);
-                //    }
-                //}
-
-                if (maximumDepth.Count == 0)
+                if (result.Count == 0)
                 {
                     Test.Warn("minimum entropy not found");
                 }
 
-                return maximumDepth[UnityEngine.Random.Range(0, maximumDepth.Count)];
+                return result[UnityEngine.Random.Range(0, result.Count)];
             }
         }
 

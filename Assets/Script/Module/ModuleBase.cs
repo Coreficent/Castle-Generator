@@ -13,6 +13,7 @@
         Plant,
         GrassyTerrain,
 
+        WallTop,
         WallNorth,
         WallWest,
         WallSpace,

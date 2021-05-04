@@ -286,7 +286,7 @@
         {
             int collapseSize = 1;
 
-            while (collapseSize < Mathf.Min(Tuning.Width, Tuning.Height, Tuning.Depth) && Random.Range(0, Tuning.UncollapseDegreeRange) == 0)
+            while (collapseSize < Mathf.Min(Tuning.Width, Tuning.Height, Tuning.Depth) && Random.Range(0, 16) == 0)
             {
                 ++collapseSize;
             }
