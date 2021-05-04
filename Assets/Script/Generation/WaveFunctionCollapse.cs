@@ -64,7 +64,7 @@
                             }
                         }
 
-                        dequeue.Push(world.NextRandomUncollapsedPosition);
+                        dequeue.Push(world.NextMinimumEntropyPosition);
 
                         ++uncollapseCount;
 
