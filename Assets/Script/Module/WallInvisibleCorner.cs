@@ -1,15 +1,14 @@
 ﻿namespace Coreficent.Module
 {
-    using Coreficent.Utility;
-    public class Wall : ModuleBase
+    public class WallInvisibleCorner : ModuleBase
     {
-        public Wall()
+        public WallInvisibleCorner()
         {
-            north.Add(Face.Wall);
+            north.Add(Face.WallSpace);
 
-            west.Add(Face.WallInvisible);
+            west.Add(Face.WallSpace);
 
-            south.Add(Face.Wall);
+            south.Add(Face.Air);
 
             east.Add(Face.Air);
 

@@ -128,13 +128,20 @@
             get
             {
                 int entropy = int.MaxValue;
+                int depth = int.MinValue;
                 List<Superposition> result = new List<Superposition>();
 
                 foreach (Superposition superposition in Collect(superposition => !superposition.Collapsed))
                 {
-                    if (superposition.Entropy < entropy)
+                    if (superposition.Entropy < entropy && superposition.Z > depth)
                     {
+                        result.Clear();
                         entropy = superposition.Entropy;
+                        depth = superposition.Z;
+                        result.Add(superposition);
+                    }
+                    else if (superposition.Entropy == entropy && superposition.Z == depth)
+                    {
                         result.Add(superposition);
                     }
                 }

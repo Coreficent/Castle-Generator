@@ -15,6 +15,7 @@
 
         Wall,
         WallSpace,
+        WallInvisible,
         WallCornerCenterSouth,
         WallCornerCenterEast,
         WallCornerSouthSeast,
