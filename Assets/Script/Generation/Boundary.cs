@@ -30,7 +30,7 @@
                     {
                         if (x == 0 || x == Tuning.Width - 1 || y == 0 || y == Tuning.Height - 1 || z == 0 || z == Tuning.Depth - 1)
                         {
-                            SuperpositionX superposition = world.Find(x, y, z);
+                            Superposition superposition = world.Find(x, y, z);
                             superposition.Collapse(superposition.air);
                             superposition.Immutable = true;
                             ++z;

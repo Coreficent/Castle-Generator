@@ -21,7 +21,7 @@
     public class Main : Script
     {
         [SerializeField]
-        private SuperpositionX superposition;
+        private Superposition superposition;
 
         [SerializeField]
         private GameObject board;

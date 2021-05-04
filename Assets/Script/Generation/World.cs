@@ -9,17 +9,17 @@
 
     public class World : IAnimatable
     {
-        private readonly Dictionary<string, SuperpositionX> worldMap = new Dictionary<string, SuperpositionX>();
+        private readonly Dictionary<string, Superposition> worldMap = new Dictionary<string, Superposition>();
 
         private GameObject board;
-        private SuperpositionX superposition;
+        private Superposition superposition;
 
         private int x = 0;
         private int y = 0;
         private int z = 0;
         private int index = 0;
 
-        public World(SuperpositionX superposition, GameObject board)
+        public World(Superposition superposition, GameObject board)
         {
             this.board = UnityEngine.Object.Instantiate(board);
             this.board.name = "World";
@@ -49,7 +49,7 @@
                 {
                     if (z < Tuning.Depth)
                     {
-                        SuperpositionX position = UnityEngine.Object.Instantiate(superposition, board.transform);
+                        Superposition position = UnityEngine.Object.Instantiate(superposition, board.transform);
                         position.World = this;
                         position.transform.localPosition = new Vector3(x, y, z);
                         worldMap.Add(Hash(x, y, z), position);
@@ -84,7 +84,7 @@
             return worldMap.ContainsKey(Hash(x, y, z));
         }
 
-        public SuperpositionX Find(int x, int y, int z)
+        public Superposition Find(int x, int y, int z)
         {
             if (!worldMap.ContainsKey(Hash(x, y, z)))
             {
@@ -92,7 +92,7 @@
                 return null;
             }
 
-            SuperpositionX result = worldMap[Hash(x, y, z)];
+            Superposition result = worldMap[Hash(x, y, z)];
 
             if (!result || result == null || result.ToString() == "null")
             {
@@ -111,7 +111,7 @@
         {
             get
             {
-                foreach (KeyValuePair<string, SuperpositionX> entry in worldMap)
+                foreach (KeyValuePair<string, Superposition> entry in worldMap)
                 {
                     if (!entry.Value.Collapsed)
                     {
@@ -123,14 +123,14 @@
             }
         }
 
-        public SuperpositionX NextMinimumEntropyPosition
+        public Superposition NextMinimumEntropyPosition
         {
             get
             {
                 int entropy = int.MaxValue;
-                List<SuperpositionX> result = new List<SuperpositionX>();
+                List<Superposition> result = new List<Superposition>();
 
-                foreach (SuperpositionX superposition in Collect(superposition => !superposition.Collapsed))
+                foreach (Superposition superposition in Collect(superposition => !superposition.Collapsed))
                 {
                     if (superposition.Entropy < entropy)
                     {
@@ -148,21 +148,21 @@
             }
         }
 
-        public SuperpositionX NextRandomUncollapsedPosition
+        public Superposition NextRandomUncollapsedPosition
         {
             get
             {
-                List<SuperpositionX> superpositions = Collect(superposition => !superposition.Collapsed).ToList();
+                List<Superposition> superpositions = Collect(superposition => !superposition.Collapsed).ToList();
 
                 return superpositions[UnityEngine.Random.Range(0, superpositions.Count)];
             }
         }
 
-        public HashSet<SuperpositionX> Collect(Func<SuperpositionX, bool> filter)
+        public HashSet<Superposition> Collect(Func<Superposition, bool> filter)
         {
-            HashSet<SuperpositionX> result = new HashSet<SuperpositionX>();
+            HashSet<Superposition> result = new HashSet<Superposition>();
 
-            foreach (KeyValuePair<string, SuperpositionX> entry in worldMap)
+            foreach (KeyValuePair<string, Superposition> entry in worldMap)
             {
                 if (filter(entry.Value))
                 {
