@@ -1,9 +1,9 @@
 ﻿namespace Coreficent.Module
 {
     using Coreficent.Utility;
-    public class PineTree : ModuleBase
+    public class SiegeTrebuchet : ModuleBase
     {
-        public PineTree()
+        public SiegeTrebuchet()
         {
             north.Add(Face.Air);
 
@@ -19,6 +19,6 @@
 
         }
 
-        public override int Weight => 1024;
+        public override int Weight => 1024  * 16 * 16 * 16;
     }
 }

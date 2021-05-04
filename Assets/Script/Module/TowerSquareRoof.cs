@@ -12,11 +12,11 @@
 
             east.Add(Face.Air);
 
-            top.Add(Face.Air);
+            top.Add(Face.TowerSquareTop);
 
             bottom.Add(Face.WallTop);
         }
 
-        public override int Weight => 1024;
+        public override int Weight => 500;
     }
 }

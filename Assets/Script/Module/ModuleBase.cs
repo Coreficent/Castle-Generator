@@ -36,6 +36,10 @@
         CastleFloor,
         CastleFloorInterior,
         CastleFloorSide,
+
+        TowerSquareTop,
+
+        
     }
 
     public enum Direction

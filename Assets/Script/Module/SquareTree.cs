@@ -20,6 +20,6 @@
             
         }
 
-        public override int Weight => 500;
+        public override int Weight => 1024;
     }
 }

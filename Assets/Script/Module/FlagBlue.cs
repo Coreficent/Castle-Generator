@@ -1,9 +1,9 @@
 ﻿namespace Coreficent.Module
 {
     using Coreficent.Utility;
-    public class PineTree : ModuleBase
+    public class FlagBlue : ModuleBase
     {
-        public PineTree()
+        public FlagBlue()
         {
             north.Add(Face.Air);
 
@@ -15,7 +15,7 @@
 
             top.Add(Face.Air);
 
-            bottom.Add(Face.GrassyTerrain);
+            bottom.Add(Face.TowerSquareTop);
 
         }
 
