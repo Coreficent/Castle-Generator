@@ -1,8 +1,9 @@
-implement cel shading
-implement sobel post processing
+implement seasons
+implement post processing
 
 complete:
 
+implement cel shading
 implement context aware z face
 implement z axis
 add to board
