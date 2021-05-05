@@ -5,6 +5,7 @@
 		_Color("Diffuse Material Color", Color) = (1,1,1,1)
 		_SpecColor("Specular Material Color", Color) = (1,1,1,1)
 		_Shininess("Shininess", Float) = 10
+		_MainTex("Texture", 2D) = "white" {}
 	}
 
 	SubShader
@@ -28,11 +29,14 @@
 			uniform float4 _Color;
 			uniform float4 _SpecColor;
 			uniform float _Shininess;
+			float4 _MainTex_ST;
+			sampler2D _MainTex;
 
 			struct vertexInput
 			{
 				float4 vertex : POSITION;
 				float3 normal : NORMAL;
+				float2 uv : TEXCOORD3;
 			};
 			
 			struct vertexOutput
@@ -41,7 +45,8 @@
 				float4 posWorld : TEXCOORD0;
 				float3 normalDir : TEXCOORD1;
 				float3 vertexLighting : TEXCOORD2;
-				SHADOW_COORDS(3)
+				float2 uv : TEXCOORD3;
+				SHADOW_COORDS(4)
 			};
 
 			vertexOutput vert(vertexInput input)
@@ -73,6 +78,8 @@
 
 				TRANSFER_SHADOW(output);
 
+				output.uv = TRANSFORM_TEX(input.uv, _MainTex);
+
 				return output;
 			}
 
@@ -98,14 +105,13 @@
 					attenuation = 1.0 / distance; // linear attenuation 
 					lightDirection = normalize(vertexToLightSource);
 				}
-					float3 ambientLighting =
-					UNITY_LIGHTMODEL_AMBIENT.rgb * _Color.rgb;
 
-					float3 diffuseReflection =
-					attenuation * _LightColor0.rgb * _Color.rgb
-					* max(0.0, dot(normalDirection, lightDirection));
+				float3 ambientLighting = UNITY_LIGHTMODEL_AMBIENT.rgb * _Color.rgb;
 
-					float3 specularReflection;
+				float3 diffuseReflection = attenuation * _LightColor0.rgb * _Color.rgb * max(0.0, dot(normalDirection, lightDirection));
+
+				float3 specularReflection;
+
 				if (dot(normalDirection, lightDirection) < 0.0)
 					// light source on the wrong side?
 				{
@@ -121,7 +127,9 @@
 
 				float4 color = float4(input.vertexLighting + ambientLighting + diffuseReflection + specularReflection, 1.0);
 
-				return color * shadow;
+				float4 texturedColor = tex2D(_MainTex, input.uv) * color;
+
+				return texturedColor * shadow;
 			}
 			ENDCG
 		}
