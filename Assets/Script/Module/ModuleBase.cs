@@ -1,5 +1,6 @@
 ﻿namespace Coreficent.Module
 {
+    using Coreficent.Shading;
     using Coreficent.Utility;
     using System.Collections.Generic;
     using UnityEngine;
@@ -53,7 +54,7 @@
         Invalid,
     }
 
-    public class ModuleBase : Script
+    public class ModuleBase : Normalinator
     {
         public static Direction InverseDirection(Direction direction)
         {

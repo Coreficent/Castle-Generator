@@ -41,6 +41,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8592277147959183040}
   - component: {fileID: 56980005080723181}
+  - component: {fileID: 852143771710511229}
   m_Layer: 0
   m_Name: TowerSquareRoof
   m_TagString: Untagged
@@ -75,19 +76,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 377874da2a8860e418bf7100dad85006, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &7488652404171026741
+--- !u!114 &852143771710511229
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8732392146881747064}
+  m_GameObject: {fileID: 8592277147959183043}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 034bb9d45eb3dbf489baac2b104f9ea2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _mergeDistance: 0.01
 --- !u!1001 &8732392146881847000
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -157,12 +157,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0e903e608ab161e489d2a40a182fe2a2, type: 3}
---- !u!1 &8732392146881747064 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 100000, guid: 0e903e608ab161e489d2a40a182fe2a2,
-    type: 3}
-  m_PrefabInstance: {fileID: 8732392146881847000}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &8732392146881709144 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 0e903e608ab161e489d2a40a182fe2a2,
