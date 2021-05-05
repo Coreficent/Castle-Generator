@@ -6,6 +6,7 @@
 		_SpecColor("Specular Material Color", Color) = (1,1,1,1)
 		_Shininess("Shininess", Float) = 10
 		_MainTex("Texture", 2D) = "white" {}
+		_Step("Shading Step", Range(1, 10)) = 3
 	}
 
 	SubShader
@@ -31,6 +32,7 @@
 			uniform float _Shininess;
 			float4 _MainTex_ST;
 			sampler2D _MainTex;
+			int _Step;
 
 			struct vertexInput
 			{
@@ -129,7 +131,11 @@
 
 				float4 texturedColor = tex2D(_MainTex, input.uv) * color;
 
-				return texturedColor * shadow;
+				float4 shadedColor = texturedColor * shadow;
+
+				float4 xelshadeColor = round(shadedColor * _Step) / _Step;
+
+				return xelshadeColor;
 			}
 			ENDCG
 		}
