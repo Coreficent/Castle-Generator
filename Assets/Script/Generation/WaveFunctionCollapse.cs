@@ -55,7 +55,7 @@
                         break;
 
                     case Propagation.Uncollapsible:
-                        dequeue.Push(world.NextRandomUncollapsedPosition);
+                        dequeue.Push(world.NextMinimumEntropyPosition);
 
                         ++uncollapseCount;
 

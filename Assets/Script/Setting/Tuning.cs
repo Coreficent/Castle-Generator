@@ -11,6 +11,6 @@
         public static readonly ShadowQuality ShadowSetting = ShadowQuality.Disable;
         public static readonly bool InstantRendering = false;
         public static readonly int MaximumRenderCount = 12;
-        public static readonly int UncollapseDegreeRange = 4;
+        public static readonly int UncollapseDegreeRange = 2;
     }
 }
