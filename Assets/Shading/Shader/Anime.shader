@@ -16,8 +16,6 @@
 
     SubShader
     {
-
-
         // normal shading
         Pass
         {
@@ -61,6 +59,7 @@
 			ENDCG
 		}
 
+        // additional lighting
 		Pass
 		{
 			Tags { "LightMode" = "ForwardAdd" }

@@ -5,12 +5,12 @@
     {
         public static readonly float ActionPerSecond = 50.0f;
         public static readonly float StepInterval = 0.01f;
-        public static readonly int Width = 10;
-        public static readonly int Height = 10;
+        public static readonly int Width = 5;
+        public static readonly int Height = 5;
         public static readonly int Depth = 7;
         public static readonly ShadowQuality ShadowSetting = ShadowQuality.Disable;
         public static readonly bool InstantRendering = false;
         public static readonly int MaximumRenderCount = 12;
-        public static readonly int UncollapseDegreeRange = 2;
+        public static readonly int UncollapseDegreeRange = 4;
     }
 }
