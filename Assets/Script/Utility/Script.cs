@@ -15,7 +15,7 @@
                 {
                     object value = field.GetValue(this);
 
-                    if (value == null || value.ToString() == "null" || value is false)
+                    if (value == null || value.ToString() == "null" || (!(value is bool) && value is false))
                     {
                         Test.Warn(string.Format("{0} in {1} is {2}", field.Name, this, field.GetValue(this)));
                     }

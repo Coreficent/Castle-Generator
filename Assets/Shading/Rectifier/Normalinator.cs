@@ -9,11 +9,13 @@
     {
         private static HashSet<string> processedMeshes = new HashSet<string>();
 
-        private readonly float mergeDistance = 0.01f;
+        [SerializeField]
+        private bool precalculatedNormalSkipped = false;
+
+        private readonly List<Transform> reset = new List<Transform>();
+
+        private readonly float mergeDistance = 0.05f;
         private readonly int texCoordinate = 3;
-        private List<Transform> reset = new List<Transform>();
-
-
 
         private void UsePrecalculatedNormal(Transform childTransform, bool value)
         {
@@ -25,7 +27,13 @@
 
         protected override void Start()
         {
-            FindMesh(transform);
+            string className = GetType().Name;
+
+            if (!processedMeshes.Contains(className))
+            {
+                FindMesh(transform);
+                processedMeshes.Add(className);
+            }
 
             base.Start();
         }
@@ -41,32 +49,36 @@
 
         private void Rectify(Transform childTransform)
         {
-            if (!processedMeshes.Contains(childTransform.name))
+
+
+            MeshFilter meshFilter = childTransform.GetComponent<MeshFilter>();
+
+            if (meshFilter == null)
             {
+                return;
+            }
 
+            Mesh mesh = meshFilter.mesh;
 
+            if (mesh == null)
+            {
+                SkinnedMeshRenderer skinnedMeshRenderer = childTransform.GetComponent<SkinnedMeshRenderer>();
 
-                MeshFilter meshFilter = childTransform.GetComponent<MeshFilter>();
-
-                if (meshFilter == null)
+                if (skinnedMeshRenderer == null)
                 {
                     return;
                 }
 
-                Mesh mesh = meshFilter.mesh;
+                mesh = skinnedMeshRenderer.sharedMesh;
+            }
 
-                if (mesh == null)
-                {
-                    SkinnedMeshRenderer skinnedMeshRenderer = childTransform.GetComponent<SkinnedMeshRenderer>();
-
-                    if (skinnedMeshRenderer == null)
-                    {
-                        return;
-                    }
-
-                    mesh = skinnedMeshRenderer.sharedMesh;
-                }
-
+            if (precalculatedNormalSkipped)
+            {
+                Test.Debug("skipping");
+                UsePrecalculatedNormal(childTransform, false);
+            }
+            else
+            {
                 Vector3[] vertexBuffer = mesh.vertices;
                 int[] indexBuffer = mesh.triangles;
 
@@ -104,8 +116,6 @@
                 mesh.SetUVs(texCoordinate, normals);
                 UsePrecalculatedNormal(childTransform, true);
                 reset.Add(childTransform);
-
-                processedMeshes.Add(childTransform.name);
             }
         }
 
