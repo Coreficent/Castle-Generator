@@ -19,6 +19,7 @@
 			#pragma vertex vert
 			#pragma fragment frag
 
+			#include "AutoLight.cginc"
 			#include "UnityCG.cginc" 
 			uniform float4 _LightColor0;
 			// color of light source (from "Lighting.cginc")
@@ -40,6 +41,7 @@
 				float4 posWorld : TEXCOORD0;
 				float3 normalDir : TEXCOORD1;
 				float3 vertexLighting : TEXCOORD2;
+				SHADOW_COORDS(3)
 			};
 
 			vertexOutput vert(vertexInput input)
@@ -68,6 +70,9 @@
 					output.vertexLighting = output.vertexLighting + diffuseReflection;
 				}
 				#endif
+
+				TRANSFER_SHADOW(output);
+
 				return output;
 			}
 
@@ -112,7 +117,11 @@
 					specularReflection = attenuation * _LightColor0.rgb * _SpecColor.rgb * pow(max(0.0, dot(reflect(-lightDirection, normalDirection), viewDirection)), _Shininess);
 				}
 
-				return float4(input.vertexLighting + ambientLighting + diffuseReflection + specularReflection, 1.0);
+				float shadow = SHADOW_ATTENUATION(input);
+
+				float4 color = float4(input.vertexLighting + ambientLighting + diffuseReflection + specularReflection, 1.0);
+
+				return color * shadow;
 			}
 			ENDCG
 		}
