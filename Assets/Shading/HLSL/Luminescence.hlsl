@@ -1,63 +1,83 @@
 #ifndef ILLUMINATION_INCLUDED
 #define ILLUMINATION_INCLUDED
 
-#include "AutoLight.cginc"
-#include "UnityCG.cginc"
+#include "UnityCG.cginc" 
+uniform float4 _LightColor0;
 
-fixed4 _Color;
-float _ShadingDarkness;
-float _ShadeThreshold;
-float _ShadowThreshold;
-float4 _MainTex_ST;
-sampler2D _MainTex;
+// color of light source (from "Lighting.cginc")
 
-struct appdata
+// User-specified properties
+uniform float4 _Color;
+uniform float4 _SpecColor;
+uniform float _Shininess;
+
+struct vertexInput
 {
-    float2 uv : TEXCOORD0;
-    float3 normal : NORMAL;
-    float4 pos : POSITION;
+	float4 vertex : POSITION;
+	float3 normal : NORMAL;
 };
 
-struct v2f
+struct vertexOutput
 {
-    float2 uv : TEXCOORD0;
-    float3 worldNormal : NORMAL;
-    float4 pos : SV_POSITION;
-    SHADOW_COORDS(1)
-    UNITY_FOG_COORDS(2)
+	float4 pos : SV_POSITION;
+	float4 posWorld : TEXCOORD0;
+	float3 normalDir : TEXCOORD1;
 };
 
-v2f vert(appdata v)
+vertexOutput vert(vertexInput input)
 {
-    v2f o;
+	vertexOutput output;
 
-    o.pos = UnityObjectToClipPos(v.pos);
-    o.uv = TRANSFORM_TEX(v.uv, _MainTex);
-    o.worldNormal = UnityObjectToWorldNormal(v.normal);
-    TRANSFER_SHADOW(o);
-    UNITY_TRANSFER_FOG(o, o.pos);
+	float4x4 modelMatrix = unity_ObjectToWorld;
+	float4x4 modelMatrixInverse = unity_WorldToObject;
 
-    return o;
+	output.posWorld = mul(modelMatrix, input.vertex);
+	output.normalDir = normalize(
+	mul(float4(input.normal, 0.0), modelMatrixInverse).xyz);
+	output.pos = UnityObjectToClipPos(input.vertex);
+	return output;
 }
 
-fixed4 frag(v2f i) : SV_Target
+float4 frag(vertexOutput input) : COLOR
 {
-    // calculate coordinates
-    fixed4 col = tex2D(_MainTex, i.uv) * _Color;;
+	float3 normalDirection = normalize(input.normalDir);
 
-    float fullLighting = 1.0;
-    float lightIntensity = fullLighting;
+	float3 viewDirection = normalize(_WorldSpaceCameraPos.xyz - input.posWorld.xyz);
+	float3 lightDirection;
+	float attenuation;
 
-    float shadow = SHADOW_ATTENUATION(i);
-    // shadow <= _ShadowThreshold
-    float shadowIntensity = lerp(fullLighting, _ShadingDarkness, step(shadow, _ShadowThreshold));
+	if (0.0 == _WorldSpaceLightPos0.w) // directional light?
+	{
+		attenuation = 1.0; // no attenuation
+		lightDirection = normalize(_WorldSpaceLightPos0.xyz);
+	}
+	else // point or spot light
+	{
+		float3 vertexToLightSource = _WorldSpaceLightPos0.xyz - input.posWorld.xyz;
+		float distance = length(vertexToLightSource);
+		attenuation = 1.0 / distance; // linear attenuation 
+		lightDirection = normalize(vertexToLightSource);
+	}
 
-    float lightAmount = dot(_WorldSpaceLightPos0, normalize(i.worldNormal)) * 0.5 + 0.5;
-    // lightDirection <= _ShadeThreshold
-    float shadeIntensity = lerp(fullLighting, _ShadingDarkness, step(lightAmount, _ShadeThreshold));
+	float3 diffuseReflection =
+	attenuation * _LightColor0.rgb * _Color.rgb
+	* max(0.0, dot(normalDirection, lightDirection));
 
-    // calculate the light intensity using dot product
-    return col * min(shadowIntensity, shadeIntensity);  
+	float3 specularReflection;
+				
+	if (dot(normalDirection, lightDirection) < 0.0)
+	// light source on the wrong side?
+	{
+		specularReflection = float3(0.0, 0.0, 0.0);
+	// no specular reflection
+	}
+	else // light source on the right side
+	{
+		specularReflection = attenuation * _LightColor0.rgb * _SpecColor.rgb * pow(max(0.0, dot(reflect(-lightDirection, normalDirection), viewDirection)), _Shininess);
+	}
+
+	return float4(diffuseReflection
+	+ specularReflection, 1.0);
+	// no ambient lighting in this pass
 }
-
 #endif
