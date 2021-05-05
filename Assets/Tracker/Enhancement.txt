@@ -1,3 +1,4 @@
+move shading code to hlsl
 use array access instead of hash access
 render only tiles of the same type
 implement collection logging
