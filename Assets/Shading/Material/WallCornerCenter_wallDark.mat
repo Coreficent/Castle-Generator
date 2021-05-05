@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: wallDark
+  m_Name: WallCornerCenter_wallDark
   m_Shader: {fileID: 4800000, guid: be2ed0ef469cc3c42bdc7971a28673a6, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
@@ -69,7 +69,7 @@ Material:
     - _OutlineDarkness: 0
     - _OutlineThickness: 0.5
     - _Parallax: 0.02
-    - _PrecalculatedNormal: 1
+    - _PrecalculatedNormal: 0
     - _ShadeThreshold: 0.5
     - _ShadingDarkness: 0.5
     - _ShadowThreshold: 0.5

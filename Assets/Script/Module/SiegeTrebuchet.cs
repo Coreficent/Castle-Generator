@@ -19,6 +19,6 @@
 
         }
 
-        public override int Weight => 1024  * 16 * 16 * 16;
+        public override int Weight => 1024;
     }
 }
