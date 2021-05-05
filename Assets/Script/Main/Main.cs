@@ -5,6 +5,7 @@
     using Coreficent.Setting;
     using Coreficent.Utility;
     using UnityEngine;
+    using TMPro;
 
     internal enum State
     {
@@ -29,6 +30,9 @@
         [SerializeField]
         private GameObject progress;
 
+        [SerializeField]
+        private TMP_Text text;
+
         private State gameState = State.Initialization;
         private readonly TimeController timeController = new TimeController();
 
@@ -52,10 +56,13 @@
                         ground = new Ground(world);
                         waveFunctionCollapse = new WaveFunctionCollapse(world);
 
-                        QualitySettings.shadows = Tuning.ShadowSetting;
-
                         timeController.SetTime(Tuning.StepInterval);
                         timeController.Reset();
+
+                        text.text = "Loading...";
+
+                        QualitySettings.shadows = Tuning.ShadowSetting;
+
 
                         Transition(State.World);
 
@@ -63,12 +70,17 @@
 
                     case State.World:
                         Process(world, State.Boundary, Tuning.InstantRendering);
-                        progress.transform.localScale = new Vector3(1.0f, 1.0f - world.Progress, 1.0f);
+                        progress.transform.localScale = new Vector3(1.0f - world.Progress, 1.0f, 1.0f);
+
+                        text.text = "Loading...";
 
                         break;
 
                     case State.Boundary:
                         progress.transform.localScale = Vector3.zero;
+
+                        text.text = "";
+
                         Process(boundary, State.Ground, true);
 
                         break;
@@ -93,8 +105,7 @@
                     case State.Success:
                         if (Input.GetKey(KeyCode.R))
                         {
-                            world.Clear();
-                            Transition(State.Initialization);
+                            Reset();
                         }
 
                         break;
@@ -107,6 +118,20 @@
                 }
                 timeController.Reset();
             }
+        }
+
+        public void Restart()
+        {
+            if (gameState == State.Success)
+            {
+                Reset();
+            }
+        }
+
+        private void Reset()
+        {
+            world.Clear();
+            Transition(State.Initialization);
         }
 
         private void Process(IAnimatable animatable, State next, bool instant)

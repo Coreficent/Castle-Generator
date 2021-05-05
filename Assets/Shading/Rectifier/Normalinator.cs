@@ -7,23 +7,26 @@
 
     public class Normalinator : Script
     {
-        private static HashSet<string> processedMeshes = new HashSet<string>();
+        private static readonly HashSet<string> processedMeshes = new HashSet<string>();
 
-        [SerializeField]
-        private bool precalculatedNormalSkipped = false;
+        protected bool precalculateNormal = true;
+        protected float outlineDarkness = 0.0f;
+        protected float outlineThickness = 0.5f;
+        protected float shadingDarkness = 0.5f;
+        protected float shadowThreshold = 0.5f;
+        protected float shadeThreshold = 0.5f;
+
+        private readonly string precalculatedNormalParameter = "_PrecalculatedNormal";
+        private readonly string outlineDarknessParameter = "_OutlineDarkness";
+        private readonly string outlineThicknessParameter = "_OutlineThickness";
+        private readonly string shadingDarknessParameter = "_ShadingDarkness";
+        private readonly string shadowThresholdParameter = "_ShadowThreshold";
+        private readonly string shadeThresholdParameter = "_ShadeThreshold";
 
         private readonly List<Transform> reset = new List<Transform>();
 
         private readonly float mergeDistance = 0.05f;
         private readonly int texCoordinate = 3;
-
-        private void UsePrecalculatedNormal(Transform childTransform, bool value)
-        {
-            foreach (Material material in childTransform.GetComponent<MeshRenderer>().sharedMaterials)
-            {
-                material.SetFloat("_PrecalculatedNormal", value ? 1.0f : 0.0f);
-            }
-        }
 
         protected override void Start()
         {
@@ -38,6 +41,14 @@
             base.Start();
         }
 
+        protected void SetShaderParameter(Transform childTransform, string parameterName, float value)
+        {
+            foreach (Material material in childTransform.GetComponent<MeshRenderer>().sharedMaterials)
+            {
+                material.SetFloat(parameterName, value);
+            }
+        }
+
         private void FindMesh(Transform childTransform)
         {
             foreach (Transform i in childTransform)
@@ -49,8 +60,6 @@
 
         private void Rectify(Transform childTransform)
         {
-
-
             MeshFilter meshFilter = childTransform.GetComponent<MeshFilter>();
 
             if (meshFilter == null)
@@ -72,10 +81,10 @@
                 mesh = skinnedMeshRenderer.sharedMesh;
             }
 
-            if (precalculatedNormalSkipped)
+            if (!precalculateNormal)
             {
                 Test.Debug("skipping");
-                UsePrecalculatedNormal(childTransform, false);
+                SetShaderParameter(childTransform, precalculatedNormalParameter, 0.0f);
             }
             else
             {
@@ -114,16 +123,22 @@
                 }
 
                 mesh.SetUVs(texCoordinate, normals);
-                UsePrecalculatedNormal(childTransform, true);
+                SetShaderParameter(childTransform, precalculatedNormalParameter, 1.0f);
                 reset.Add(childTransform);
             }
+
+            SetShaderParameter(childTransform, outlineDarknessParameter, outlineDarkness);
+            SetShaderParameter(childTransform, outlineThicknessParameter, outlineThickness);
+            SetShaderParameter(childTransform, shadingDarknessParameter, shadingDarkness);
+            SetShaderParameter(childTransform, shadowThresholdParameter, shadowThreshold);
+            SetShaderParameter(childTransform, shadeThresholdParameter, shadeThreshold);
         }
 
         private void OnApplicationQuit()
         {
             foreach (var i in reset)
             {
-                UsePrecalculatedNormal(i, false);
+                SetShaderParameter(i, precalculatedNormalParameter, 0.0f);
             }
 
             processedMeshes.Clear();

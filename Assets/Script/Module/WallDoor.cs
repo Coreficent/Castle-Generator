@@ -14,7 +14,7 @@
 
             east.Add(Face.Air);
 
-            top.Add(Face.WallTop);
+            // top.Add(Face.WallTop);
             top.Add(Face.Air);
 
             bottom.Add(Face.CastleFloorInterior);
