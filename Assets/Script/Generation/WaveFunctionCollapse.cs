@@ -55,15 +55,6 @@
                         break;
 
                     case Propagation.Uncollapsible:
-                        foreach (Superposition i in FindNeighbors(superposition.X, superposition.Y, superposition.Z))
-                        {
-                            if (!track.Contains(i))
-                            {
-                                dequeue.Push(i);
-                                track.Add(i);
-                            }
-                        }
-
                         dequeue.Push(world.NextRandomUncollapsedPosition);
 
                         ++uncollapseCount;
