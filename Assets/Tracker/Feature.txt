@@ -1,3 +1,6 @@
+implement cel shading
+implement sobel post processing
+
 complete:
 
 implement context aware z face
