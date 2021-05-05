@@ -85,6 +85,7 @@
 
                     case State.Finalization:
                         waveFunctionCollapse.PrintStatistics();
+                        QualitySettings.shadows = ShadowQuality.All;
 
                         Transition(State.Success);
                         break;
