@@ -12,7 +12,7 @@
 
             east.Add(Face.CastleFloorSide);
 
-            top.Add(Face.CastleFloor);
+            top.Add(Face.CastleFloorCorner);
 
             bottom.Add(Face.Dirt);
         }

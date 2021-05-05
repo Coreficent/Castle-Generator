@@ -6,6 +6,7 @@
     using Coreficent.Utility;
     using UnityEngine;
     using TMPro;
+    using System.Collections.Generic;
 
     internal enum State
     {
@@ -21,6 +22,12 @@
 
     public class Main : Script
     {
+        public float actionsPerFrame = 1;
+        public int Granularity = 5; // how many frames to wait until you re-calculate the FPS
+        List<double> times = new List<double>();
+        int counter = 5;
+        private float steadyFrameRate = 60.0f;
+
         [SerializeField]
         private Superposition superposition;
 
@@ -134,6 +141,48 @@
             Transition(State.Initialization);
         }
 
+        public double CalcFPS()
+        {
+            double sum = 0;
+            foreach (double F in times)
+            {
+                sum += F;
+            }
+
+            double average = sum / times.Count;
+            double fps = 1 / average;
+
+
+            return fps;
+            // update a GUIText or something
+        }
+
+        private void UpdateActionPerSecond()
+        {
+            if (counter <= 0)
+            {
+                double frameRate = CalcFPS();
+                counter = Granularity;
+
+                if (frameRate > steadyFrameRate + 5.0f)
+                {
+                    ++actionsPerFrame;
+                }
+                else if (frameRate < steadyFrameRate - 5.0f)
+                {
+                    --actionsPerFrame;
+                }
+            }
+
+            if (actionsPerFrame < 1.0f)
+            {
+                actionsPerFrame = 1.0f;
+            }
+
+            times.Add(Time.deltaTime);
+            counter--;
+        }
+
         private void Process(IAnimatable animatable, State next, bool instant)
         {
             if (instant)
@@ -146,7 +195,9 @@
             }
             else
             {
-                int actionCount = Mathf.RoundToInt(Tuning.ActionPerSecond * Time.deltaTime);
+                UpdateActionPerSecond();
+
+                int actionCount = Mathf.RoundToInt(Tuning.ActionsPerSecond * Time.deltaTime);
 
                 if (actionCount < 1)
                 {

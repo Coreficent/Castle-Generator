@@ -16,7 +16,7 @@
             top.Add(Face.Air);
             top.Add(Face.TowerSouth);
 
-            bottom.Add(Face.CastleFloor);
+            bottom.Add(Face.CastleFloorEdge);
         }
         public override int Weight => 1024;
     }

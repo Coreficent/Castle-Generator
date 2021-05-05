@@ -34,7 +34,8 @@
         TowerBalconyCenterEast,
         TowerBalconyCenterSouth,
 
-        CastleFloor,
+        CastleFloorCorner,
+        CastleFloorEdge,
         CastleFloorInterior,
         CastleFloorSide,
 
