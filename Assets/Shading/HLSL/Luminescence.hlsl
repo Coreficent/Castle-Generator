@@ -3,9 +3,6 @@
 
 #include "UnityCG.cginc" 
 uniform float4 _LightColor0;
-
-// color of light source (from "Lighting.cginc")
-
 // User-specified properties
 uniform float4 _Color;
 uniform float4 _SpecColor;
@@ -24,39 +21,39 @@ struct v2f
 	float3 normalDirection : TEXCOORD1;
 };
 
-v2f vert(appdata input)
+v2f vert(appdata v)
 {
 	v2f output;
 
 	float4x4 modelMatrix = unity_ObjectToWorld;
 	float4x4 modelMatrixInverse = unity_WorldToObject;
 
-	output.posWorld = mul(modelMatrix, input.vertex);
-	output.normalDirection = normalize(mul(float4(input.normal, 0.0), modelMatrixInverse).xyz);
-	output.pos = UnityObjectToClipPos(input.vertex);
+	output.posWorld = mul(modelMatrix, v.vertex);
+	output.normalDirection = normalize(mul(float4(v.normal, 0.0), modelMatrixInverse).xyz);
+	output.pos = UnityObjectToClipPos(v.vertex);
 
 	return output;
 }
 
-float4 frag(v2f input) : COLOR
+float4 frag(v2f i) : COLOR
 {
-	float3 normalDirection = normalize(input.normalDirection);
-	float3 viewDirection = normalize(_WorldSpaceCameraPos.xyz - input.posWorld.xyz);
+	float3 normalDirection = normalize(i.normalDirection);
+	float3 viewDirection = normalize(_WorldSpaceCameraPos.xyz - i.posWorld.xyz);
 
 	float3 lightDirection;
 	float attenuation;
 
 	// determine directional light
-	if (0.0 == _WorldSpaceLightPos0.w) 
+	if (0.0 == _WorldSpaceLightPos0.w)
 	{
 		// no attenuation
 		attenuation = 1.0;
 		lightDirection = normalize(_WorldSpaceLightPos0.xyz);
 	}
-	else 
+	else
 	{
 		// point or spot light
-		float3 vertexToLightSource = _WorldSpaceLightPos0.xyz - input.posWorld.xyz;
+		float3 vertexToLightSource = _WorldSpaceLightPos0.xyz - i.posWorld.xyz;
 		float distance = length(vertexToLightSource);
 		// linear attenuation 
 		attenuation = 1.0 / distance;
@@ -73,7 +70,7 @@ float4 frag(v2f input) : COLOR
 		// no specular reflection
 		specularReflection = float3(0.0, 0.0, 0.0);
 	}
-	else 
+	else
 	{
 		// light source on the right side
 		specularReflection = attenuation * _LightColor0.rgb * _SpecColor.rgb * pow(max(0.0, dot(reflect(-lightDirection, normalDirection), viewDirection)), _Shininess);
@@ -81,6 +78,6 @@ float4 frag(v2f input) : COLOR
 
 	// no ambient lighting
 	return float4(diffuseReflection + specularReflection, 1.0);
-	
 }
+
 #endif
