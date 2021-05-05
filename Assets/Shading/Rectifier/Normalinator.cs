@@ -83,7 +83,6 @@
 
             if (!precalculateNormal)
             {
-                Test.Debug("skipping");
                 SetShaderParameter(childTransform, precalculatedNormalParameter, 0.0f);
             }
             else
