@@ -18,7 +18,7 @@
             bottom.Add(Face.Dirt);
 
             precalculateNormal = false;
-            outlineDarkness = 0.0f;
+            outlineDarkness = 0.03f;
             outlineThickness = 0.5f;
             shadingDarkness = 0.5f;
             shadowThreshold = 0.5f;
