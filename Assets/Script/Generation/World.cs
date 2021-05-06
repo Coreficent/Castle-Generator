@@ -9,22 +9,20 @@
 
     public class World : IAnimatable
     {
-        private readonly Dictionary<string, Superposition> worldMap = new Dictionary<string, Superposition>();
+        private readonly Superposition[,,] worldMap = new Superposition[Tuning.Width, Tuning.Height, Tuning.Depth];
+        private readonly Superposition superposition;
+        private readonly GameObject board;
 
-        private GameObject board;
-        private Superposition superposition;
-
+        private int index = 0;
         private int x = 0;
         private int y = 0;
         private int z = 0;
-        private int index = 0;
 
         public World(Superposition superposition, GameObject board)
         {
             this.board = UnityEngine.Object.Instantiate(board);
             this.board.name = "World";
             this.board.transform.position = new Vector3(-(Tuning.Width - 1) / 2.0f, -(Tuning.Height - 1) / 2.0f, -(Tuning.Depth - 1) / 2.0f);
-
             this.superposition = superposition;
         }
 
@@ -33,6 +31,27 @@
             get
             {
                 return 1.0f * index / (Tuning.Width * Tuning.Height * Tuning.Depth);
+            }
+        }
+
+        public bool Validated
+        {
+            get
+            {
+                for (int x = 0; x < Tuning.Width; ++x)
+                {
+                    for (int y = 0; y < Tuning.Height; ++y)
+                    {
+                        for (int z = 0; z < Tuning.Depth; ++z)
+                        {
+                            if (worldMap[x, y, z] == null)
+                            {
+                                return false;
+                            }
+                        }
+                    }
+                }
+                return true;
             }
         }
 
@@ -52,8 +71,7 @@
                         Superposition position = UnityEngine.Object.Instantiate(superposition, board.transform);
                         position.World = this;
                         position.transform.localPosition = new Vector3(x, y, z);
-                        worldMap.Add(Hash(x, y, z), position);
-
+                        worldMap[x, y, z] = position;
                         ++index;
                         ++z;
                     }
@@ -81,41 +99,42 @@
 
         public bool Has(int x, int y, int z)
         {
-            return worldMap.ContainsKey(Hash(x, y, z));
+            return x >= 0 && y >= 0 && z >= 0 && x < Tuning.Width && y < Tuning.Height && z < Tuning.Depth;
         }
 
         public Superposition Find(int x, int y, int z)
         {
-            if (!worldMap.ContainsKey(Hash(x, y, z)))
+            if (!Has(x, y, z))
             {
-                Test.Warn("position not found", Hash(x, y, z));
+                Test.Warn("position not found", x, y, z);
                 return null;
             }
 
-            Superposition result = worldMap[Hash(x, y, z)];
+            Superposition result = worldMap[x, y, z];
 
-            if (!result || result == null || result.ToString() == "null")
+            if (result == null)
             {
                 Test.Warn("null superposition found at", x, y, z);
             }
 
-            return worldMap[Hash(x, y, z)];
-        }
-
-        private string Hash(int x, int y, int z)
-        {
-            return "" + x + "::" + y + "::" + z + "";
+            return worldMap[x, y, z];
         }
 
         public bool Collapsed
         {
             get
             {
-                foreach (KeyValuePair<string, Superposition> entry in worldMap)
+                for (int x = 0; x < Tuning.Width; ++x)
                 {
-                    if (!entry.Value.Collapsed)
+                    for (int y = 0; y < Tuning.Height; ++y)
                     {
-                        return false;
+                        for (int z = 0; z < Tuning.Depth; ++z)
+                        {
+                            if (!worldMap[x, y, z].Collapsed)
+                            {
+                                return false;
+                            }
+                        }
                     }
                 }
 
@@ -135,39 +154,6 @@
                 int depth = minimumEntropy.ToList().Max(superposition => superposition.Z);
                 var maximumDepth = minimumEntropy.ToList().Where(superposition => superposition.Z == depth).ToList();
 
-                //int entropy = int.MaxValue;
-
-                //foreach (Superposition superposition in Collect(superposition => !superposition.Collapsed))
-                //{
-                //    if (superposition.Entropy < entropy)
-                //    {
-                //        minimumEntropy.Clear();
-                //        entropy = superposition.Entropy;
-                //        minimumEntropy.Add(superposition);
-                //    }
-                //    else if (superposition.Entropy == entropy)
-                //    {
-                //        minimumEntropy.Add(superposition);
-                //    }
-                //}
-
-                //List<Superposition> maximumDepth = new List<Superposition>();
-                //int depth = int.MinValue;
-
-                //foreach (Superposition superposition in minimumEntropy)
-                //{
-                //    if (superposition.Z > depth)
-                //    {
-                //        maximumDepth.Clear();
-                //        depth = superposition.Z;
-                //        maximumDepth.Add(superposition);
-                //    }
-                //    else if (superposition.Z == depth)
-                //    {
-                //        maximumDepth.Add(superposition);
-                //    }
-                //}
-
                 if (maximumDepth.Count == 0)
                 {
                     Test.Warn("minimum entropy not found");
@@ -182,7 +168,6 @@
             get
             {
                 List<Superposition> superpositions = Collect(superposition => !superposition.Collapsed).ToList();
-
                 return superpositions[UnityEngine.Random.Range(0, superpositions.Count)];
             }
         }
@@ -191,17 +176,23 @@
         {
             HashSet<Superposition> result = new HashSet<Superposition>();
 
-            foreach (KeyValuePair<string, Superposition> entry in worldMap)
+            for (int x = 0; x < Tuning.Width; ++x)
             {
-                if (filter(entry.Value))
+                for (int y = 0; y < Tuning.Height; ++y)
                 {
-                    result.Add(entry.Value);
+                    for (int z = 0; z < Tuning.Depth; ++z)
+                    {
+                        Superposition superposition = worldMap[x, y, z];
+
+                        if (filter(superposition))
+                        {
+                            result.Add(superposition);
+                        }
+                    }
                 }
             }
 
             return result;
         }
-
-
     }
 }

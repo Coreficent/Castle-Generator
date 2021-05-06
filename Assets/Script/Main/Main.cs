@@ -88,6 +88,11 @@
                         break;
 
                     case State.Boundary:
+                        if (!world.Validated)
+                        {
+                            Test.Warn("invalid world");
+                        }
+
                         progress.transform.localScale = Vector3.zero;
 
                         text.text = "";
