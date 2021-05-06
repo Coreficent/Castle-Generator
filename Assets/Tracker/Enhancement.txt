@@ -1,4 +1,3 @@
-use array access instead of hash access
 render only tiles of the same type
 implement collection logging
 add audio for stepping
@@ -6,6 +5,7 @@ optimize
 
 complete:
 
+use array access instead of hash access
 implement dynamic frame rate
 move shading code to hlsl
 reference world in superposition
