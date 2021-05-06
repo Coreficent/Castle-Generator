@@ -20,6 +20,14 @@
             this.world = world;
         }
 
+        public float Progress
+        {
+            get
+            {
+                return 1.0f * world.Collect(superposition => superposition.Collapsed).Count / (Tuning.Width * Tuning.Height * Tuning.Depth);
+            }
+        }
+
         public bool HasNext()
         {
             return !world.Collapsed;

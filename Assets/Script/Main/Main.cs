@@ -6,6 +6,7 @@
     using Coreficent.Utility;
     using UnityEngine;
     using TMPro;
+    using UnityEngine.UI;
 
     internal enum State
     {
@@ -36,6 +37,15 @@
 
         [SerializeField]
         private Style style;
+
+        [SerializeField]
+        private AudioSource soundGenerating;
+
+        [SerializeField]
+        private AudioSource soundComplete;
+
+        [SerializeField]
+        private Button restartButton;
 
         private Color previousPostProcessingColor = new Color(0.5f, 0.5f, 0.5f, 1.0f);
         private Color currentPostProcessingColor = new Color(0.5f, 0.5f, 0.5f, 1.0f);
@@ -75,6 +85,10 @@
 
                         currentPostProcessingColor = style.PostProcessingColor;
 
+                        soundGenerating.Play();
+
+                        restartButton.enabled = false;
+
                         QualitySettings.shadows = Tuning.ShadowSetting;
 
                         actionsPerFrame = Tuning.ActionsPerSecond;
@@ -90,6 +104,8 @@
                         text.text = "Loading...";
 
                         style.PostProcessingColor = Color.Lerp(previousPostProcessingColor, currentPostProcessingColor, world.Progress);
+
+                        UpdateButton(1.0f - world.Progress);
 
                         break;
 
@@ -110,11 +126,18 @@
                     case State.WaveFunctionCollapse:
                         Process(waveFunctionCollapse, State.Finalization, Tuning.InstantRendering);
 
+                        UpdateButton(Mathf.Abs(waveFunctionCollapse.Progress - 0.25f) / 0.75f);
+
                         break;
 
                     case State.Finalization:
                         waveFunctionCollapse.PrintStatistics();
                         QualitySettings.shadows = ShadowQuality.All;
+
+                        soundGenerating.Stop();
+                        soundComplete.Play();
+
+                        restartButton.enabled = true;
 
                         Transition(State.Success);
                         break;
@@ -154,6 +177,13 @@
             previousPostProcessingColor = style.PostProcessingColor;
             world.Clear();
             Transition(State.Initialization);
+        }
+
+        private void UpdateButton(float progress)
+        {
+            Color color = restartButton.image.color;
+            color.a = progress;
+            restartButton.image.color = color;
         }
 
         private void Process(IAnimatable animatable, State next, bool instant)
