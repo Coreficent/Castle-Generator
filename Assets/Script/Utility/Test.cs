@@ -32,7 +32,7 @@
 
         public static void Debug(params object[] message)
         {
-            Warn("Bug", message);
+            Warn("Debug", message);
         }
         public static void ToDo(params object[] message)
         {

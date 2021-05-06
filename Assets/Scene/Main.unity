@@ -912,8 +912,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2696e8ddf1031e438145e2ffe18b3b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  actionsPerFrame: 1
-  Granularity: 5
+  actionsPerFrame: 10
   superposition: {fileID: 4747796151707153218, guid: b37986e2ea6826449a8d8fb09495c9af,
     type: 3}
   board: {fileID: 7159341425958125294, guid: ef705b99b68a5914cae6b318932f74b0, type: 3}
