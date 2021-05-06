@@ -13,6 +13,8 @@
         private readonly Superposition superposition;
         private readonly GameObject board;
 
+        private FilterAir filterAir = new FilterAir();
+
         private int index = 0;
         private int x = 0;
         private int y = 0;
@@ -51,6 +53,7 @@
                         }
                     }
                 }
+
                 return true;
             }
         }
@@ -68,10 +71,13 @@
                 {
                     if (z < Tuning.Depth)
                     {
-                        Superposition position = UnityEngine.Object.Instantiate(superposition, board.transform);
-                        position.World = this;
-                        position.transform.localPosition = new Vector3(x, y, z);
-                        worldMap[x, y, z] = position;
+                        Superposition superpositionClone = UnityEngine.Object.Instantiate(superposition, board.transform);
+                        superpositionClone.World = this;
+                        superpositionClone.transform.localPosition = new Vector3(x, y, z);
+                        worldMap[x, y, z] = superpositionClone;
+
+                        filterAir.filtered(superpositionClone);
+
                         ++index;
                         ++z;
                     }

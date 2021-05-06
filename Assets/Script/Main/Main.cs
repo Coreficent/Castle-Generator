@@ -6,13 +6,12 @@
     using Coreficent.Utility;
     using UnityEngine;
     using TMPro;
-    using System.Collections.Generic;
 
     internal enum State
     {
         Initialization,
         World,
-        Boundary,
+        WorldFinalization,
         Ground,
         Queue,
         WaveFunctionCollapse,
@@ -40,7 +39,6 @@
         private readonly TimeController timeController = new TimeController();
 
         private World world;
-        private Boundary boundary;
         private Ground ground;
 
         private WaveFunctionCollapse waveFunctionCollapse;
@@ -62,7 +60,6 @@
                         Test.Log("initialize");
 
                         world = new World(superposition, board);
-                        boundary = new Boundary(world);
                         ground = new Ground(world);
                         waveFunctionCollapse = new WaveFunctionCollapse(world);
 
@@ -80,14 +77,14 @@
                         break;
 
                     case State.World:
-                        Process(world, State.Boundary, Tuning.InstantRendering);
+                        Process(world, State.WorldFinalization, Tuning.InstantRendering);
                         progress.transform.localScale = new Vector3(1.0f - world.Progress, 1.0f, 1.0f);
 
                         text.text = "Loading...";
 
                         break;
 
-                    case State.Boundary:
+                    case State.WorldFinalization:
                         if (!world.Validated)
                         {
                             Test.Warn("invalid world");
@@ -97,11 +94,13 @@
 
                         text.text = "";
 
-                        Process(boundary, State.Ground, true);
+                        Transition(State.Ground);
 
                         break;
 
                     case State.Ground:
+                        
+
                         Process(ground, State.WaveFunctionCollapse, Tuning.InstantRendering);
 
                         break;
