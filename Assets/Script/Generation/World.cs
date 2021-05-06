@@ -16,9 +16,9 @@
         private FilterAir filterAir = new FilterAir();
 
         private int index = 0;
-        private int x = 0;
-        private int y = 0;
         private int z = 0;
+        private int y = 0;
+        private int x = 0;
 
         public World(Superposition superposition, GameObject board)
         {
@@ -60,16 +60,16 @@
 
         public bool HasNext()
         {
-            return x < Tuning.Width;
+            return z < Tuning.Depth;
         }
 
         public void Next()
         {
-            if (x < Tuning.Width)
+            if (z < Tuning.Depth)
             {
                 if (y < Tuning.Height)
                 {
-                    if (z < Tuning.Depth)
+                    if (x < Tuning.Width)
                     {
                         Superposition superpositionClone = UnityEngine.Object.Instantiate(superposition, board.transform);
                         superpositionClone.World = this;
@@ -79,20 +79,20 @@
                         filterAir.filtered(superpositionClone);
 
                         ++index;
-                        ++z;
+                        ++x;
                     }
                     else
                     {
                         ++y;
-                        z = 0;
+                        x = 0;
                         Next();
                     }
                 }
                 else
                 {
-                    ++x;
+                    ++z;
                     y = 0;
-                    z = 0;
+                    x = 0;
                     Next();
                 }
             }
