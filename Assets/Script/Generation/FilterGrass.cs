@@ -1,4 +1,5 @@
 ﻿using Coreficent.Setting;
+using UnityEngine;
 
 namespace Coreficent.Generation
 {
@@ -18,9 +19,13 @@ namespace Coreficent.Generation
 
                     if ((x >= Tuning.Width / 2 + castleReserveX || x < Tuning.Width / 2 - castleReserveX))
                     {
-                        superposition.Collapse(superposition.grass);
-                        superposition.Immutable = true;
-                        return true;
+                        if (Random.Range(0, 100) < 50)
+                        {
+                            superposition.Collapse(superposition.grass);
+                            superposition.Immutable = true;
+
+                            return true;
+                        }
                     }
 
 

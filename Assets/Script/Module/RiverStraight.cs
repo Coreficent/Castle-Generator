@@ -25,6 +25,6 @@
             shadeThreshold = 0.5f;
         }
 
-        public override int Weight => 1024;
+        public override int Weight => 1024 * 16 * 16;
     }
 }
