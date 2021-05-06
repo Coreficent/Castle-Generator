@@ -1,4 +1,3 @@
-move shading code to hlsl
 use array access instead of hash access
 render only tiles of the same type
 implement collection logging
@@ -7,6 +6,8 @@ optimize
 
 complete:
 
+implement dynamic frame rate
+move shading code to hlsl
 reference world in superposition
 make world generation asynchronous
 create progress bar for world
