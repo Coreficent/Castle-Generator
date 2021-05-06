@@ -3,8 +3,8 @@
     using UnityEngine;
     public class Tuning
     {
-        public static readonly float ActionsPerSecond = 1.0f;
-        public static readonly float StepInterval = 0.025f;
+        public static readonly float ActionsPerSecond = 5.0f;
+        public static readonly float StepInterval = 0.0125f;
         public static readonly int Width = 12;
         public static readonly int Height = 10;
         public static readonly int Depth = 7;
