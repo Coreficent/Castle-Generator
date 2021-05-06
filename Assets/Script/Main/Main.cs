@@ -34,11 +34,13 @@
         [SerializeField]
         private TMP_Text text;
 
+        [SerializeField]
+        private Style style;
+
         private State gameState = State.Initialization;
         private readonly TimeController timeController = new TimeController();
 
         private World world;
-        private Ground ground;
 
         private WaveFunctionCollapse waveFunctionCollapse;
 
@@ -59,8 +61,9 @@
                         Test.Log("initialize");
 
                         world = new World(superposition, board);
-                        ground = new Ground(world);
                         waveFunctionCollapse = new WaveFunctionCollapse(world);
+
+                        style.Randomize();
 
                         timeController.SetTime(Tuning.StepInterval);
                         timeController.Reset();
