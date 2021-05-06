@@ -20,7 +20,7 @@
         {
             int style = Random.Range(0, 100);
 
-            if (style < 50)
+            if (style < 40)
             {
                 // winter
                 grass.SetColor(shaderColor, new Color(1.0f, 1.0f, 1.0f, 1.0f));
@@ -31,9 +31,6 @@
                 // normal
                 grass.SetColor(shaderColor, new Color(0.317f, 0.772f, 0.572f, 1.0f));
             }
-
-            Test.Debug("run");
         }
     }
 }
-

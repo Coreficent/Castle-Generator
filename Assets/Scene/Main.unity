@@ -918,6 +918,7 @@ MonoBehaviour:
   board: {fileID: 7159341425958125294, guid: ef705b99b68a5914cae6b318932f74b0, type: 3}
   progress: {fileID: 1917309488}
   text: {fileID: 867546375}
+  style: {fileID: 1782832154142445955, guid: 1f465525b83a1aa4d8f8b1c5747976d1, type: 3}
 --- !u!4 &1422523519
 Transform:
   m_ObjectHideFlags: 0
