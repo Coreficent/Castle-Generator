@@ -4,17 +4,18 @@
     {
         public RiverCorner()
         {
-            north.Add(Face.Air);
+            north.Add(Face.DirtGrass);
 
-            west.Add(Face.Air);
+            west.Add(Face.DirtGrass);
 
-            south.Add(Face.Air);
+            south.Add(Face.River);
 
-            east.Add(Face.Air);
+            east.Add(Face.River);
 
             top.Add(Face.Air);
+            top.Add(Face.RiverTop);
 
-            bottom.Add(Face.Air);
+            bottom.Add(Face.Dirt);
 
             precalculateNormal = true;
             outlineDarkness = 0.0f;

@@ -5,7 +5,7 @@
     {
         public static readonly float ActionsPerSecond = 4.0f;
         public static readonly float StepInterval = 0.005f;
-        public static readonly int Width = 24;
+        public static readonly int Width = 24 / 2;
         public static readonly int Height = 12;
         public static readonly int Depth = 7;
         public static readonly ShadowQuality ShadowSetting = ShadowQuality.Disable;

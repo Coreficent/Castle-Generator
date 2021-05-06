@@ -14,6 +14,9 @@
         Plant,
         GrassyTerrain,
 
+        River,
+        RiverTop,
+
         WallTop,
         WallNorth,
         WallWest,
