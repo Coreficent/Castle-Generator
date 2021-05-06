@@ -13,7 +13,7 @@
         private readonly Superposition superposition;
         private readonly GameObject board;
 
-        private FilterAir filterAir = new FilterAir();
+        private List<IFilter> filters = new List<IFilter>();
 
         private int index = 0;
         private int z = 0;
@@ -26,6 +26,9 @@
             this.board.name = "World";
             this.board.transform.position = new Vector3(-(Tuning.Width - 1) / 2.0f, -(Tuning.Height - 1) / 2.0f, -(Tuning.Depth - 1) / 2.0f);
             this.superposition = superposition;
+
+            filters.Add(new FilterDirt());
+            filters.Add(new FilterAir());
         }
 
         public float Progress
@@ -76,7 +79,13 @@
                         superpositionClone.transform.localPosition = new Vector3(x, y, z);
                         worldMap[x, y, z] = superpositionClone;
 
-                        filterAir.filtered(superpositionClone);
+                        foreach (var filter in filters)
+                        {
+                            if (filter.filtered(superpositionClone))
+                            {
+                                break;
+                            }
+                        }
 
                         ++index;
                         ++x;

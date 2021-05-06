@@ -12,7 +12,6 @@
         Initialization,
         World,
         WorldFinalization,
-        Ground,
         Queue,
         WaveFunctionCollapse,
         Finalization,
@@ -94,14 +93,7 @@
 
                         text.text = "";
 
-                        Transition(State.Ground);
-
-                        break;
-
-                    case State.Ground:
-                        
-
-                        Process(ground, State.WaveFunctionCollapse, Tuning.InstantRendering);
+                        Transition(State.WaveFunctionCollapse);
 
                         break;
 
