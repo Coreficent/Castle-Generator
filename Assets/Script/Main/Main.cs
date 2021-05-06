@@ -63,8 +63,6 @@
                         world = new World(superposition, board);
                         waveFunctionCollapse = new WaveFunctionCollapse(world);
 
-                        style.Randomize();
-
                         timeController.SetTime(Tuning.StepInterval);
                         timeController.Reset();
 
@@ -95,6 +93,8 @@
                         progress.transform.localScale = Vector3.zero;
 
                         text.text = "";
+
+                        style.Randomize();
 
                         Transition(State.WaveFunctionCollapse);
 
