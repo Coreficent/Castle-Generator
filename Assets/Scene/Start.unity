@@ -301,7 +301,7 @@ AudioSource:
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
-  Loop: 1
+  Loop: 0
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -525,8 +525,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 336016e93c2a0e2458bc12f048c0a4e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  restart: {fileID: 0}
-  Audio: {fileID: 0}
+  restart: {fileID: 1041165189}
+  Audio: {fileID: 341687231}
+  main: {fileID: 0}
 --- !u!4 &792343335
 Transform:
   m_ObjectHideFlags: 0
@@ -541,6 +542,52 @@ Transform:
   - {fileID: 211675840}
   m_Father: {fileID: 0}
   m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &937146972
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 937146974}
+  - component: {fileID: 937146973}
+  m_Layer: 0
+  m_Name: StartButton
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &937146973
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 937146972}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 336016e93c2a0e2458bc12f048c0a4e8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  restart: {fileID: 1041165189}
+  Audio: {fileID: 341687231}
+  main: {fileID: 0}
+--- !u!4 &937146974
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 937146972}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.4795211, y: 1.6463263, z: 4.3336983}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1041165187
 GameObject:
@@ -780,7 +827,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1378351285}
+      - m_Target: {fileID: 937146973}
         m_MethodName: RestartGame
         m_Mode: 1
         m_Arguments:
@@ -813,6 +860,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   restart: {fileID: 1041165189}
   Audio: {fileID: 341687231}
+  main: {fileID: 0}
 --- !u!1 &1504164712
 GameObject:
   m_ObjectHideFlags: 0
