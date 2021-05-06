@@ -19,7 +19,7 @@
 
             precalculateNormal = false;
             outlineDarkness = 0.5f;
-            outlineThickness = 0.03f;
+            outlineThickness = 0.05f;
             shadingDarkness = 0.5f;
             shadowThreshold = 0.5f;
             shadeThreshold = 0.5f;

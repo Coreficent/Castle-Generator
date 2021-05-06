@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: wall
+  m_Name: Dirt
   m_Shader: {fileID: 4800000, guid: be2ed0ef469cc3c42bdc7971a28673a6, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
@@ -67,9 +67,9 @@ Material:
     - _Mode: 0
     - _OcclusionStrength: 1
     - _OutlineDarkness: 0
-    - _OutlineThickness: 0.5
+    - _OutlineThickness: 0.05
     - _Parallax: 0.02
-    - _PrecalculatedNormal: 1
+    - _PrecalculatedNormal: 0
     - _ShadeThreshold: 0.5
     - _ShadingDarkness: 0.5
     - _ShadowThreshold: 0.5
@@ -80,6 +80,6 @@ Material:
     - _UVSec: 0
     - _ZWrite: 1
     m_Colors:
-    - _Color: {r: 0.9019608, g: 0.8627451, b: 0.7333333, a: 1}
+    - _Color: {r: 0.5188679, g: 0.25700793, b: 0.12482198, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _SpecColor: {r: 1, g: 1, b: 1, a: 1}

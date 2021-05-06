@@ -37,6 +37,9 @@
         [SerializeField]
         private Style style;
 
+        private Color previousPostProcessingColor = new Color(0.5f, 0.5f, 0.5f, 1.0f);
+        private Color currentPostProcessingColor = new Color(0.5f, 0.5f, 0.5f, 1.0f);
+
         private State gameState = State.Initialization;
         private readonly TimeController timeController = new TimeController();
 
@@ -68,6 +71,10 @@
 
                         text.text = "Loading...";
 
+                        style.Randomize();
+
+                        currentPostProcessingColor = style.PostProcessingColor;
+
                         QualitySettings.shadows = Tuning.ShadowSetting;
 
                         actionsPerFrame = Tuning.ActionsPerSecond;
@@ -82,6 +89,8 @@
 
                         text.text = "Loading...";
 
+                        style.PostProcessingColor = Color.Lerp(previousPostProcessingColor, currentPostProcessingColor, world.Progress);
+
                         break;
 
                     case State.WorldFinalization:
@@ -93,8 +102,6 @@
                         progress.transform.localScale = Vector3.zero;
 
                         text.text = "";
-
-                        style.Randomize();
 
                         Transition(State.WaveFunctionCollapse);
 
@@ -144,6 +151,7 @@
 
         private void Reset()
         {
+            previousPostProcessingColor = style.PostProcessingColor;
             world.Clear();
             Transition(State.Initialization);
         }

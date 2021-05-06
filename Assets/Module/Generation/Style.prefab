@@ -43,4 +43,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a74eac9652bdfc649a18d8585cf0ce59, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  postProcessing: {fileID: 2100000, guid: a19daa911e915a449a0b7ae2bd552ad4, type: 2}
   grass: {fileID: 2100000, guid: 1fb42e4e0c99c3d4eb1b4a1efed55634, type: 2}
+  leaf: {fileID: 2100000, guid: dc923bdbd77f2b346b47f54442617a1e, type: 2}
+  roof: {fileID: 2100000, guid: 0bf7ef647d62e724d91a9dd3b1315248, type: 2}
