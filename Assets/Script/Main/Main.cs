@@ -47,6 +47,9 @@
         [SerializeField]
         private Button restartButton;
 
+        [SerializeField]
+        private Camera mainCamera;
+
         private Color previousPostProcessingColor = new Color(0.5f, 0.5f, 0.5f, 1.0f);
         private Color currentPostProcessingColor = new Color(0.5f, 0.5f, 0.5f, 1.0f);
 
@@ -54,6 +57,8 @@
         private readonly TimeController timeController = new TimeController();
 
         private World world;
+
+        
 
         private WaveFunctionCollapse waveFunctionCollapse;
 
@@ -86,6 +91,8 @@
                         currentPostProcessingColor = style.PostProcessingColor;
 
                         soundGenerating.Play();
+
+                        // mainCamera.transform.LookAt(Vector3.zero, transform.up);
 
                         restartButton.enabled = false;
 

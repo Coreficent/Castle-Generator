@@ -45,6 +45,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   air: {fileID: 5323657015893663833, guid: a17bb6c5388e93843833c1ea97c5db70, type: 3}
   dirt: {fileID: 8271546953553442383, guid: f242cd838ed7d5d4f99589c5156ddf4b, type: 3}
+  grass: {fileID: 4831933140143854154, guid: b778e16601433b548bea6843bca7b885, type: 3}
   positions:
   - {fileID: 5323657015893663833, guid: a17bb6c5388e93843833c1ea97c5db70, type: 3}
   - {fileID: 8271546953553442383, guid: f242cd838ed7d5d4f99589c5156ddf4b, type: 3}

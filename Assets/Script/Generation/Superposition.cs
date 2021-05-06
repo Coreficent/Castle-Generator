@@ -20,6 +20,7 @@
     {
         public ModuleBase air;
         public ModuleBase dirt;
+        public ModuleBase grass;
 
         [SerializeField]
         private List<ModuleBase> positions = new List<ModuleBase>();

@@ -27,6 +27,7 @@
             this.board.transform.position = new Vector3(-(Tuning.Width - 1) / 2.0f, -(Tuning.Height - 1) / 2.0f, -(Tuning.Depth - 1) / 2.0f);
             this.superposition = superposition;
 
+            filters.Add(new FilterGrass());
             filters.Add(new FilterDirt());
             filters.Add(new FilterAir());
         }
